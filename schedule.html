@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - График</title>
+    <link rel="stylesheet" href="css/schedule.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Главная
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+            <a href="tasks.html" class="menu-item">
+                <span class="menu-icon">📋</span>
+                Задачи
+            </a>
+            <a href="schedule.html" class="menu-item active">
+                <span class="menu-icon">📊</span>
+                График
+            </a>
+            <a href="documents.html" class="menu-item">
+                <span class="menu-icon">📄</span>
+                Документы
+            </a>
+            <a href="finances.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                Финансы
+            </a>
+            <a href="analytics.html" class="menu-item">
+                <span class="menu-icon">📈</span>
+                Аналитика
+            </a>
+            <a href="integrations.html" class="menu-item">
+                <span class="menu-icon">🔗</span>
+                Интеграции
+            </a>
+            <a href="archive.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                Архив
+            </a>
+
+            <div class="projects-section">
+                <div class="section-title">ПРОЕКТЫ</div>
+                <div class="project-item">
+                    <div class="project-dot green"></div>
+                    "ЖК Прогресс"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot orange"></div>
+                    "Астана Plaza"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+            </div>
+
+            <div class="ai-assistant">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">AI-ассистент</div>
+                <div class="ai-description">
+                    Нет новых рекомендаций пока вы можете задать любые вопросы по работе подрядчиков системе данным
+                </div>
+                <button class="ai-button">Написать чату</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" id="global-search" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name">Айгун Ахметова</div>
+                        <div class="user-role">PM / Админ</div>
+                    </div>
+                    <div class="user-avatar">А</div>
+                </div>
+            </div>
+
+            <!-- Schedule Page Content -->
+            <div class="content-header">
+                <div class="content-title">
+                    <div class="title-left">
+                        <div class="title-text">Календарь проектов</div>
+                        <div class="title-icons">
+                            <div class="title-icon">📅</div>
+                            <div class="title-icon">⏰</div>
+                        </div>
+                    </div>
+                    <button class="invite-button">
+                        <span>📅</span>
+                        Новое событие
+                    </button>
+                </div>
+            </div>
+            
+            <div class="content-body">
+                <div class="calendar-view" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7; margin-bottom: 20px;">
+                    <div class="calendar-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="margin: 0; color: #333;">Июль 2024</h3>
+                        <div class="calendar-nav" style="display: flex; gap: 10px;">
+                            <button style="padding: 8px 12px; border: 1px solid #e5e5e7; background: white; border-radius: 6px; cursor: pointer;">←</button>
+                            <button style="padding: 8px 12px; border: 1px solid #e5e5e7; background: white; border-radius: 6px; cursor: pointer;">→</button>
+                        </div>
+                    </div>
+                    <div class="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: #f0f0f0; border-radius: 8px; overflow: hidden;">
+                        <div class="calendar-day-header" style="background: #f8f9ff; padding: 12px; text-align: center; font-weight: 600; color: #666;">Пн</div>
+                        <div class="calendar-day-header" style="background: #f8f9ff; padding: 12px; text-align: center; font-weight: 600; color: #666;">Вт</div>
+                        <div class="calendar-day-header" style="background: #f8f9ff; padding: 12px; text-align: center; font-weight: 600; color: #666;">Ср</div>
+                        <div class="calendar-day-header" style="background: #f8f9ff; padding: 12px; text-align: center; font-weight: 600; color: #666;">Чт</div>
+                        <div class="calendar-day-header" style="background: #f8f9ff; padding: 12px; text-align: center; font-weight: 600; color: #666;">Пт</div>
+                        <div class="calendar-day-header" style="background: #f8f9ff; padding: 12px; text-align: center; font-weight: 600; color: #666;">Сб</div>
+                        <div class="calendar-day-header" style="background: #f8f9ff; padding: 12px; text-align: center; font-weight: 600; color: #666;">Вс</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">1</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">2</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">3</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">4</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">5</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">6</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">7</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">8</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">9</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">10</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">11</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">12</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">13</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">14</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">15</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">16</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">17</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">18</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">19</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">
+                            20
+                            <div style="background: #10b981; color: white; font-size: 10px; padding: 2px 4px; border-radius: 3px; margin-top: 4px;">Завершено</div>
+                        </div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">21</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">
+                            22
+                            <div style="background: #4f46e5; color: white; font-size: 10px; padding: 2px 4px; border-radius: 3px; margin-top: 4px;">Совещание</div>
+                        </div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">23</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">24</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">
+                            25
+                            <div style="background: #f59e0b; color: white; font-size: 10px; padding: 2px 4px; border-radius: 3px; margin-top: 4px;">Дедлайн</div>
+                        </div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">26</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">27</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">
+                            28
+                            <div style="background: #ef4444; color: white; font-size: 10px; padding: 2px 4px; border-radius: 3px; margin-top: 4px;">Срочно</div>
+                        </div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">29</div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">
+                            30
+                            <div style="background: #8b5cf6; color: white; font-size: 10px; padding: 2px 4px; border-radius: 3px; margin-top: 4px;">Проверка</div>
+                        </div>
+                        <div class="calendar-day" style="background: white; padding: 8px; min-height: 80px; position: relative;">31</div>
+                    </div>
+                </div>
+                
+                <div class="upcoming-events" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                    <h3 style="margin: 0 0 20px 0; color: #333;">Ближайшие события</h3>
+                    <div class="event-list">
+                        <div class="event-item" style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                            <div class="event-date" style="min-width: 60px; text-align: center; margin-right: 15px;">
+                                <div style="font-size: 18px; font-weight: bold; color: #4f46e5;">22</div>
+                                <div style="font-size: 12px; color: #666;">ИЮЛ</div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 500; color: #333; margin-bottom: 4px;">Совещание по проекту "Астана Plaza"</div>
+                                <div style="color: #666; font-size: 14px;">10:00 - 11:30 • Конференц-зал A</div>
+                            </div>
+                            <div class="event-status" style="background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Планируется</div>
+                        </div>
+                        <div class="event-item" style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                            <div class="event-date" style="min-width: 60px; text-align: center; margin-right: 15px;">
+                                <div style="font-size: 18px; font-weight: bold; color: #f59e0b;">25</div>
+                                <div style="font-size: 12px; color: #666;">ИЮЛ</div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 500; color: #333; margin-bottom: 4px;">Дедлайн: Подготовка технического задания</div>
+                                <div style="color: #666; font-size: 14px;">Ответственный: Алексей Ким</div>
+                            </div>
+                            <div class="event-status" style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Важно</div>
+                        </div>
+                        <div class="event-item" style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                            <div class="event-date" style="min-width: 60px; text-align: center; margin-right: 15px;">
+                                <div style="font-size: 18px; font-weight: bold; color: #ef4444;">28</div>
+                                <div style="font-size: 12px; color: #666;">ИЮЛ</div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 500; color: #333; margin-bottom: 4px;">Срочно: Согласование планировки</div>
+                                <div style="color: #666; font-size: 14px;">Ответственный: Мария Смирнова</div>
+                            </div>
+                            <div class="event-status" style="background: #fee2e2; color: #dc2626; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Критично</div>
+                        </div>
+                        <div class="event-item" style="display: flex; align-items: center; padding: 15px 0;">
+                            <div class="event-date" style="min-width: 60px; text-align: center; margin-right: 15px;">
+                                <div style="font-size: 18px; font-weight: bold; color: #8b5cf6;">30</div>
+                                <div style="font-size: 12px; color: #666;">ИЮЛ</div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 500; color: #333; margin-bottom: 4px;">Проверка: Расчет сметы материалов</div>
+                                <div style="color: #666; font-size: 14px;">Ответственный: Дмитрий Петров</div>
+                            </div>
+                            <div class="event-status" style="background: #f3e8ff; color: #7c3aed; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Проверка</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

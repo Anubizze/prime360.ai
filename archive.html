@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - Архив</title>
+    <link rel="stylesheet" href="css/archive.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Главная
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+            <a href="tasks.html" class="menu-item">
+                <span class="menu-icon">📋</span>
+                Задачи
+            </a>
+            <a href="schedule.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                График
+            </a>
+            <a href="documents.html" class="menu-item">
+                <span class="menu-icon">📄</span>
+                Документы
+            </a>
+            <a href="finances.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                Финансы
+            </a>
+            <a href="analytics.html" class="menu-item">
+                <span class="menu-icon">📈</span>
+                Аналитика
+            </a>
+            <a href="integrations.html" class="menu-item">
+                <span class="menu-icon">🔗</span>
+                Интеграции
+            </a>
+            <a href="archive.html" class="menu-item active">
+                <span class="menu-icon">📦</span>
+                Архив
+            </a>
+
+            <div class="projects-section">
+                <div class="section-title">ПРОЕКТЫ</div>
+                <div class="project-item">
+                    <div class="project-dot green"></div>
+                    "ЖК Прогресс"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot orange"></div>
+                    "Астана Plaza"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+            </div>
+
+            <div class="ai-assistant">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">AI-ассистент</div>
+                <div class="ai-description">
+                    Нет новых рекомендаций пока вы можете задать любые вопросы по работе подрядчиков системе данным
+                </div>
+                <button class="ai-button">Написать чату</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" id="global-search" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name">Айгун Ахметова</div>
+                        <div class="user-role">PM / Админ</div>
+                    </div>
+                    <div class="user-avatar">А</div>
+                </div>
+            </div>
+
+            <!-- Archive Page Content -->
+            <div class="content-header">
+                <div class="content-title">
+                    <div class="title-left">
+                        <div class="title-text">Архив проектов</div>
+                        <div class="title-icons">
+                            <div class="title-icon">📦</div>
+                            <div class="title-icon">🔍</div>
+                        </div>
+                    </div>
+                    <button class="invite-button">
+                        <span>📤</span>
+                        Экспорт архива
+                    </button>
+                </div>
+            </div>
+            
+            <div class="content-body">
+                <div class="archive-filters" style="display: flex; gap: 15px; margin-bottom: 20px; align-items: center;">
+                    <select style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
+                        <option value="">Все периоды</option>
+                        <option value="2024">2024 год</option>
+                        <option value="2023">2023 год</option>
+                        <option value="2022">2022 год</option>
+                    </select>
+                    <select style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
+                        <option value="">Все статусы</option>
+                        <option value="completed">Завершенные</option>
+                        <option value="cancelled">Отмененные</option>
+                        <option value="suspended">Приостановленные</option>
+                    </select>
+                    <input type="text" placeholder="Поиск в архиве..." style="flex: 1; padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px;">
+                </div>
+                
+                <div class="archive-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">✅</span>
+                            <div>
+                                <div style="font-weight: 600; color: #333;">Завершенные</div>
+                                <div style="color: #666; font-size: 14px;">Всего проектов</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #16a34a;">24</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">❌</span>
+                            <div>
+                                <div style="font-weight: 600; color: #333;">Отмененные</div>
+                                <div style="color: #666; font-size: 14px;">Проекты</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #ef4444;">3</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">⏸️</span>
+                            <div>
+                                <div style="font-weight: 600; color: #333;">Приостановленные</div>
+                                <div style="color: #666; font-size: 14px;">Проекты</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #f59e0b;">2</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">📊</span>
+                            <div>
+                                <div style="font-weight: 600; color: #333;">Общий объем</div>
+                                <div style="color: #666; font-size: 14px;">Сумма проектов</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #4f46e5;">₸ 15.2M</div>
+                    </div>
+                </div>
+                
+                <div class="archive-projects" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">
+                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="margin: 0 0 5px 0; color: #333;">ЖК "Северный"</h3>
+                                <div style="color: #666; font-size: 14px;">Завершен 15 марта 2024</div>
+                            </div>
+                            <div style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Завершен</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 2,800,000</div>
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 8 месяцев</div>
+                            <div style="color: #666; font-size: 14px;">Команда: 12 человек</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
+                        </div>
+                    </div>
+                    
+                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="margin: 0 0 5px 0; color: #333;">Офисный центр "Бизнес"</h3>
+                                <div style="color: #666; font-size: 14px;">Отменен 8 февраля 2024</div>
+                            </div>
+                            <div style="background: #fee2e2; color: #dc2626; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Отменен</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 1,500,000</div>
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 3 месяца</div>
+                            <div style="color: #666; font-size: 14px;">Команда: 8 человек</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
+                        </div>
+                    </div>
+                    
+                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="margin: 0 0 5px 0; color: #333;">Торговый центр "Мега"</h3>
+                                <div style="color: #666; font-size: 14px;">Завершен 22 декабря 2023</div>
+                            </div>
+                            <div style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Завершен</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 4,200,000</div>
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 12 месяцев</div>
+                            <div style="color: #666; font-size: 14px;">Команда: 18 человек</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
+                        </div>
+                    </div>
+                    
+                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="margin: 0 0 5px 0; color: #333;">Реконструкция школы №15</h3>
+                                <div style="color: #666; font-size: 14px;">Приостановлен 10 января 2024</div>
+                            </div>
+                            <div style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Приостановлен</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 800,000</div>
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 4 месяца</div>
+                            <div style="color: #666; font-size: 14px;">Команда: 6 человек</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

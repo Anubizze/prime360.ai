@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - Главная</title>
+    <link rel="stylesheet" href="css/index.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- User Profile Script -->
+    <script src="js/user-profile.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item active">
+                <span class="menu-icon">🏠</span>
+                Главная
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+            <a href="tasks.html" class="menu-item">
+                <span class="menu-icon">📋</span>
+                Задачи
+            </a>
+            <a href="schedule.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                График
+            </a>
+            <a href="documents.html" class="menu-item">
+                <span class="menu-icon">📄</span>
+                Документы
+            </a>
+            <a href="finances.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                Финансы
+            </a>
+            <a href="analytics.html" class="menu-item">
+                <span class="menu-icon">📈</span>
+                Аналитика
+            </a>
+            <a href="integrations.html" class="menu-item">
+                <span class="menu-icon">🔗</span>
+                Интеграции
+            </a>
+            <a href="archive.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                Архив
+            </a>
+
+            <div class="projects-section">
+                <div class="section-title">ПРОЕКТЫ</div>
+                <div class="project-item">
+                    <div class="project-dot green"></div>
+                    "ЖК Прогресс"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot orange"></div>
+                    "Астана Plaza"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+            </div>
+
+            <div class="ai-assistant">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">AI-ассистент</div>
+                <div class="ai-description">
+                    Нет новых рекомендаций пока вы можете задать любые вопросы по работе подрядчиков системе данным
+                </div>
+                <button class="ai-button">Написать чату</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" id="global-search" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Айгун Ахметова</div>
+                        <div class="user-role" id="userRole">Админ</div>
+                    </div>
+                    <div class="user-avatar" id="userAvatar">А</div>
+                    <button onclick="logout()" class="logout-button">Выйти</button>
+                </div>
+            </div>
+
+            <!-- Main Page Content -->
+            <div class="content-header">
+                <div class="content-title">
+                    <div class="title-left">
+                        <div class="title-text">Главная</div>
+                        <div class="title-icons">
+                            <div class="title-icon">⚙️</div>
+                            <div class="title-icon">🔔</div>
+                        </div>
+                    </div>
+                    <button class="invite-button">
+                        <span>+</span>
+                        Пригласить
+                        <span class="invite-count">3</span>
+                    </button>
+                </div>
+                <div class="filters">
+                    <button class="filter-button">
+                        <span>📅</span>
+                        Сегодня
+                    </button>
+                    <button class="filter-button">
+                        <span>📊</span>
+                        Все проекты
+                    </button>
+                    <button class="filter-button">
+                        <span>🔍</span>
+                        Фильтры
+                    </button>
+                </div>
+            </div>
+
+            <div class="content-body">
+                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div class="stat-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">📋</span>
+                            <h3 style="margin: 0; color: #333;">Активные проекты</h3>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #4f46e5; margin-bottom: 5px;">4</div>
+                        <div style="color: #666; font-size: 14px;">+2 за последний месяц</div>
+                    </div>
+                    
+                    <div class="stat-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">💬</span>
+                            <h3 style="margin: 0; color: #333;">Совещания</h3>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #10b981; margin-bottom: 5px;">12</div>
+                        <div style="color: #666; font-size: 14px;">3 сегодня</div>
+                    </div>
+                    
+                    <div class="stat-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">📋</span>
+                            <h3 style="margin: 0; color: #333;">Задачи</h3>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #f59e0b; margin-bottom: 5px;">28</div>
+                        <div style="color: #666; font-size: 14px;">5 просрочено</div>
+                    </div>
+                    
+                    <div class="stat-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 24px; margin-right: 10px;">💰</span>
+                            <h3 style="margin: 0; color: #333;">Бюджет</h3>
+                        </div>
+                        <div style="font-size: 32px; font-weight: bold; color: #ef4444; margin-bottom: 5px;">₽2.4M</div>
+                        <div style="color: #666; font-size: 14px;">85% использовано</div>
+                    </div>
+                </div>
+
+                <div style="background: white; border-radius: 12px; border: 1px solid #e5e5e7; padding: 30px; margin-bottom: 30px;">
+                    <h3 style="margin: 0 0 20px 0; color: #333;">Последние активности</h3>
+                    <div style="space-y: 16px;">
+                        <div style="display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                            <div style="width: 40px; height: 40px; background: #f3f4f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="font-size: 18px;">📝</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Новая задача создана</div>
+                                <div style="color: #666; font-size: 14px;">"Проверить качество бетона на объекте" - 2 часа назад</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                            <div style="width: 40px; height: 40px; background: #f3f4f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="font-size: 18px;">💬</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Совещание завершено</div>
+                                <div style="color: #666; font-size: 14px;">"Еженедельный план работ" - 4 часа назад</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; padding: 12px 0;">
+                            <div style="width: 40px; height: 40px; background: #f3f4f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="font-size: 18px;">📄</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Документ обновлен</div>
+                                <div style="color: #666; font-size: 14px;">"Техническое задание v2.1" - вчера</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: white; border-radius: 12px; border: 1px solid #e5e5e7; padding: 30px;">
+                    <h3 style="margin: 0 0 20px 0; color: #333;">График прогресса проектов</h3>
+                    <div style="height: 300px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 8px;">
+                        <canvas id="progressChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js initialization
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+                datasets: [{
+                    label: 'ЖК Прогресс',
+                    data: [20, 35, 45, 60, 75, 85],
+                    borderColor: '#4f46e5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Астана Plaza',
+                    data: [10, 25, 40, 55, 70, 80],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

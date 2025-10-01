@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - Документы</title>
+    <link rel="stylesheet" href="css/documents.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Главная
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+            <a href="tasks.html" class="menu-item">
+                <span class="menu-icon">📋</span>
+                Задачи
+            </a>
+            <a href="schedule.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                График
+            </a>
+            <a href="documents.html" class="menu-item active">
+                <span class="menu-icon">📄</span>
+                Документы
+            </a>
+            <a href="finances.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                Финансы
+            </a>
+            <a href="analytics.html" class="menu-item">
+                <span class="menu-icon">📈</span>
+                Аналитика
+            </a>
+            <a href="integrations.html" class="menu-item">
+                <span class="menu-icon">🔗</span>
+                Интеграции
+            </a>
+            <a href="archive.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                Архив
+            </a>
+
+            <div class="projects-section">
+                <div class="section-title">ПРОЕКТЫ</div>
+                <div class="project-item">
+                    <div class="project-dot green"></div>
+                    "ЖК Прогресс"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot orange"></div>
+                    "Астана Plaza"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+            </div>
+
+            <div class="ai-assistant">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">AI-ассистент</div>
+                <div class="ai-description">
+                    Нет новых рекомендаций пока вы можете задать любые вопросы по работе подрядчиков системе данным
+                </div>
+                <button class="ai-button">Написать чату</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" id="global-search" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name">Айгун Ахметова</div>
+                        <div class="user-role">PM / Админ</div>
+                    </div>
+                    <div class="user-avatar">А</div>
+                </div>
+            </div>
+
+            <!-- Documents Page Content -->
+            <div class="content-header">
+                <div class="content-title">
+                    <div class="title-left">
+                        <div class="title-text">Управление документами</div>
+                        <div class="title-icons">
+                            <div class="title-icon">📁</div>
+                            <div class="title-icon">🔍</div>
+                        </div>
+                    </div>
+                    <button class="invite-button" id="upload-btn">
+                        <span>📄</span>
+                        Загрузить
+                    </button>
+                    <input type="file" id="file-input" style="display: none;" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.dwg,.jpg,.png">
+                </div>
+            </div>
+            
+            <div class="content-body">
+                <div class="documents-filter" style="display: flex; gap: 15px; margin-bottom: 20px; align-items: center;">
+                    <select id="project-filter" style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
+                        <option value="">Все проекты</option>
+                        <option value="ЖК Прогресс">ЖК Прогресс</option>
+                        <option value="Астана Plaza">Астана Plaza</option>
+                        <option value="Клиент">Клиент</option>
+                    </select>
+                    <select id="type-filter" style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
+                        <option value="">Все типы</option>
+                        <option value="Договор">Договоры</option>
+                        <option value="Чертеж">Чертежи</option>
+                        <option value="Смета">Сметы</option>
+                        <option value="Отчет">Отчеты</option>
+                    </select>
+                    <input type="text" id="search-input" placeholder="Поиск документов..." style="flex: 1; padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px;">
+                </div>
+                
+                <div class="documents-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div class="document-icon" style="width: 40px; height: 40px; background: #fee2e2; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="font-size: 20px;">📄</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Договор подряда №001</div>
+                                <div class="document-meta" style="color: #666; font-size: 14px;">PDF • 2.4 MB</div>
+                            </div>
+                            <div class="document-menu" style="cursor: pointer;">⋯</div>
+                        </div>
+                        <div class="document-info" style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: ЖК Прогресс</div>
+                            <div style="color: #666; font-size: 14px;">Обновлен: 18 июля 2024</div>
+                        </div>
+                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
+                            <span class="tag" style="background: #f0f2ff; color: #4f46e5; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Договор</span>
+                            <span class="tag" style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Важно</span>
+                        </div>
+                        <div class="document-actions" style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
+                        </div>
+                    </div>
+                    
+                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div class="document-icon" style="width: 40px; height: 40px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="font-size: 20px;">📊</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Смета расходов Q2</div>
+                                <div class="document-meta" style="color: #666; font-size: 14px;">XLSX • 1.8 MB</div>
+                            </div>
+                            <div class="document-menu" style="cursor: pointer;">⋯</div>
+                        </div>
+                        <div class="document-info" style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: Астана Plaza</div>
+                            <div style="color: #666; font-size: 14px;">Обновлен: 20 июля 2024</div>
+                        </div>
+                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
+                            <span class="tag" style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Смета</span>
+                            <span class="tag" style="background: #f0f9ff; color: #0284c7; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Актуально</span>
+                        </div>
+                        <div class="document-actions" style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
+                        </div>
+                    </div>
+                    
+                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div class="document-icon" style="width: 40px; height: 40px; background: #f3e8ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="font-size: 20px;">📝</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Чертеж планировки</div>
+                                <div class="document-meta" style="color: #666; font-size: 14px;">DWG • 5.2 MB</div>
+                            </div>
+                            <div class="document-menu" style="cursor: pointer;">⋯</div>
+                        </div>
+                        <div class="document-info" style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: ЖК Прогресс</div>
+                            <div style="color: #666; font-size: 14px;">Обновлен: 15 июля 2024</div>
+                        </div>
+                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
+                            <span class="tag" style="background: #f3e8ff; color: #7c3aed; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Чертеж</span>
+                            <span class="tag" style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 12px; font-size: 12px;">На согласовании</span>
+                        </div>
+                        <div class="document-actions" style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
+                        </div>
+                    </div>
+                    
+                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
+                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div class="document-icon" style="width: 40px; height: 40px; background: #ecfdf5; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="font-size: 20px;">📈</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Отчет о прогрессе</div>
+                                <div class="document-meta" style="color: #666; font-size: 14px;">PDF • 3.1 MB</div>
+                            </div>
+                            <div class="document-menu" style="cursor: pointer;">⋯</div>
+                        </div>
+                        <div class="document-info" style="margin-bottom: 15px;">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: Клиент</div>
+                            <div style="color: #666; font-size: 14px;">Обновлен: 22 июля 2024</div>
+                        </div>
+                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
+                            <span class="tag" style="background: #ecfdf5; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Отчет</span>
+                            <span class="tag" style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Готов</span>
+                        </div>
+                        <div class="document-actions" style="display: flex; gap: 10px;">
+                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #4f46e5; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

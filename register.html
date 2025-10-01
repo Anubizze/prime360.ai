@@ -115,7 +115,7 @@
                                 minlength="6"
                             >
                             <button type="button" class="toggle-password" id="togglePassword">
-                                <span id="eyeIcon">👁️</span>
+                                <img src="img/svg/eye.svg" alt="Показать пароль" id="eyeIcon" class="eye-icon">
                             </button>
                         </div>
                         <small class="form-hint">Минимум 6 символов</small>
@@ -132,7 +132,7 @@
                                 required
                             >
                             <button type="button" class="toggle-password" id="toggleConfirmPassword">
-                                <span id="eyeIcon2">👁️</span>
+                                <img src="img/svg/eye.svg" alt="Показать пароль" id="eyeIcon2" class="eye-icon">
                             </button>
                         </div>
                     </div>
@@ -179,7 +179,7 @@
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
+            eyeIcon.src = type === 'password' ? 'img/svg/eye.svg' : 'img/svg/eye-slash.svg';
         });
         
         const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
@@ -189,7 +189,7 @@
         toggleConfirmPassword.addEventListener('click', function() {
             const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             confirmPasswordInput.setAttribute('type', type);
-            eyeIcon2.textContent = type === 'password' ? '👁️' : '🙈';
+            eyeIcon2.src = type === 'password' ? 'img/svg/eye.svg' : 'img/svg/eye-slash.svg';
         });
         
         // Обработка формы регистрации
@@ -312,10 +312,50 @@
             window.scrollTo(0, 0);
         });
         
-        // Прокрутка при изменении размера окна (только если нужно)
-        window.addEventListener('resize', function() {
-            // Не принуждаем к прокрутке при изменении размера
-            // Пользователь может сам прокручивать
+        // Адаптивность для мобильных устройств
+        function adjustForMobile() {
+            const isMobile = window.innerWidth <= 768;
+            const isSmallMobile = window.innerWidth <= 480;
+            
+            // Увеличиваем размеры полей ввода для мобильных
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (isSmallMobile) {
+                    input.style.fontSize = '16px'; // Предотвращает зум на iOS
+                    input.style.padding = '12px';
+                } else if (isMobile) {
+                    input.style.fontSize = '16px';
+                    input.style.padding = '14px 16px';
+                }
+            });
+            
+            // Адаптируем кнопки
+            const buttons = document.querySelectorAll('.login-button');
+            buttons.forEach(button => {
+                if (isSmallMobile) {
+                    button.style.padding = '12px 18px';
+                    button.style.fontSize = '15px';
+                } else if (isMobile) {
+                    button.style.padding = '14px 20px';
+                    button.style.fontSize = '16px';
+                }
+            });
+        }
+        
+        // Вызываем адаптацию при загрузке и изменении размера
+        adjustForMobile();
+        window.addEventListener('resize', adjustForMobile);
+        
+        // Предотвращаем зум при фокусе на полях ввода на iOS
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (window.innerWidth <= 768) {
+                        this.style.fontSize = '16px';
+                    }
+                });
+            });
         });
     </script>
 </body>

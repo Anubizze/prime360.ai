@@ -7,6 +7,10 @@
     <meta name="theme-color" content="#70B8B8">
     <title>PRIME360.AI - Вход в систему</title>
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/password-reset.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="js/email-service.js"></script>
+    <script src="js/universal-email-service.js"></script>
 </head>
 <body>
     <div class="login-container">
@@ -20,21 +24,27 @@
             </div>
             <div class="features">
                 <div class="feature-item">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">
+                        <img src="img/svg/source-control.svg" alt="Контроль проектов">
+                    </div>
                     <div class="feature-text">
                         <h3>Контроль проектов</h3>
                         <p>Полный контроль над всеми этапами строительства</p>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">🤖</div>
+                    <div class="feature-icon">
+                        <img src="img/svg/hubot.svg" alt="AI-ассистент">
+                    </div>
                     <div class="feature-text">
                         <h3>AI-ассистент</h3>
                         <p>Умный помощник для принятия решений</p>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">📈</div>
+                    <div class="feature-icon">
+                        <img src="img/svg/insightschart.svg" alt="Аналитика">
+                    </div>
                     <div class="feature-text">
                         <h3>Аналитика</h3>
                         <p>Детальная аналитика и отчетность в реальном времени</p>
@@ -71,7 +81,7 @@
                                 required
                             >
                             <button type="button" class="toggle-password" id="togglePassword">
-                                <span id="eyeIcon">👁️</span>
+                                <img src="img/svg/eye.svg" alt="Показать пароль" id="eyeIcon" class="eye-icon">
                             </button>
                         </div>
                     </div>
@@ -81,24 +91,47 @@
                             <input type="checkbox" name="remember" id="remember">
                             <span>Запомнить меня</span>
                         </label>
-                        <a href="#" class="forgot-password">Забыли пароль?</a>
+                        <a href="#" class="forgot-password" id="forgotPasswordLink">Забыли пароль?</a>
                     </div>
                     
                     <button type="submit" class="login-button">
                         <span>Войти в систему</span>
                         <span class="arrow">→</span>
                     </button>
-                    
-                    <div class="demo-credentials">
-                        <p class="demo-title">🔑 Демо доступ:</p>
-                        <p class="demo-info">Логин: <strong>admin</strong></p>
-                        <p class="demo-info">Пароль: <strong>admin123</strong></p>
-                    </div>
                 </form>
                 
                 <div class="login-footer">
                     <p>Нет аккаунта? <a href="register.html" class="signup-link">Зарегистрироваться</a></p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно восстановления пароля -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Восстановление пароля</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Введите ваш email для восстановления пароля:</p>
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <label for="resetEmail">Email</label>
+                        <input 
+                            type="email" 
+                            id="resetEmail" 
+                            name="resetEmail" 
+                            placeholder="Введите ваш email"
+                            required
+                        >
+                    </div>
+                    <button type="submit" class="login-button">
+                        <span>Отправить ссылку</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -112,7 +145,7 @@
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
+            eyeIcon.src = type === 'password' ? 'img/svg/eye.svg' : 'img/svg/eye-slash.svg';
         });
         
         // Обработка формы входа
@@ -179,23 +212,96 @@
             }
         });
         
+        // Модальное окно восстановления пароля
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+        const closeModal = document.getElementById('closeModal');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+        
+        // Открытие модального окна
+        forgotPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            forgotPasswordModal.style.display = 'flex';
+        });
+        
+        // Закрытие модального окна
+        closeModal.addEventListener('click', function() {
+            forgotPasswordModal.style.display = 'none';
+        });
+        
+        // Закрытие модального окна при клике вне его
+        forgotPasswordModal.addEventListener('click', function(e) {
+            if (e.target === forgotPasswordModal) {
+                forgotPasswordModal.style.display = 'none';
+            }
+        });
+        
+        // Обработка формы восстановления пароля
+        forgotPasswordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('resetEmail').value.trim();
+            
+            // Получаем зарегистрированных пользователей
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Проверяем демо аккаунт
+            if (email === 'admin@prime360.ai') {
+                // Генерируем токен для демо аккаунта
+                const resetToken = window.passwordResetManager.generateResetToken(email);
+                const resetLink = window.passwordResetManager.createResetLink(resetToken);
+                
+                // Временное решение - показываем ссылку вместо отправки
+                showMessage(`✅ Ссылка для восстановления пароля:\n${resetLink}\n\n(Временно: скопируйте ссылку, так как SMTP сервер нестабилен)`, 'success');
+                
+                forgotPasswordModal.style.display = 'none';
+                return;
+            }
+            
+            // Ищем пользователя по email
+            const user = users.find(u => u.email === email);
+            
+            if (user) {
+                // Генерируем токен для пользователя
+                const resetToken = window.passwordResetManager.generateResetToken(email);
+                const resetLink = window.passwordResetManager.createResetLink(resetToken);
+                
+                // Временное решение - показываем ссылку вместо отправки
+                showMessage(`✅ Ссылка для восстановления пароля:\n${resetLink}\n\n(Временно: скопируйте ссылку, так как SMTP сервер нестабилен)`, 'success');
+                
+                forgotPasswordModal.style.display = 'none';
+            } else {
+                showMessage('Пользователь с таким email не найден', 'error');
+            }
+        });
+        
+        
         // Функция для показа сообщений
         function showMessage(message, type) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
             messageDiv.textContent = message;
+            
+            // Адаптивные стили для мобильных устройств
+            const isMobile = window.innerWidth <= 768;
+            const isSmallMobile = window.innerWidth <= 480;
+            
             messageDiv.style.cssText = `
                 position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 25px;
+                top: ${isMobile ? '10px' : '20px'};
+                ${isMobile ? 'left: 10px; right: 10px;' : 'right: 20px;'}
+                padding: ${isSmallMobile ? '12px 15px' : isMobile ? '15px 20px' : '15px 25px'};
                 background: ${type === 'success' ? '#10b981' : '#ef4444'};
                 color: white;
-                border-radius: 8px;
+                border-radius: ${isSmallMobile ? '6px' : '8px'};
                 font-weight: 500;
+                font-size: ${isSmallMobile ? '13px' : isMobile ? '14px' : '16px'};
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                 z-index: 10000;
                 animation: slideIn 0.3s ease;
+                word-wrap: break-word;
+                line-height: 1.4;
+                max-width: ${isMobile ? 'calc(100vw - 20px)' : '400px'};
             `;
             
             document.body.appendChild(messageDiv);
@@ -203,9 +309,11 @@
             setTimeout(() => {
                 messageDiv.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => {
-                    document.body.removeChild(messageDiv);
+                    if (document.body.contains(messageDiv)) {
+                        document.body.removeChild(messageDiv);
+                    }
                 }, 300);
-            }, 3000);
+            }, 5000); // Увеличиваем время показа для мобильных
         }
         
         // Проверяем, авторизован ли пользователь
@@ -214,6 +322,52 @@
             if (isLoggedIn === 'true') {
                 window.location.href = 'index.html';
             }
+        });
+        
+        // Адаптивность для мобильных устройств
+        function adjustForMobile() {
+            const isMobile = window.innerWidth <= 768;
+            const isSmallMobile = window.innerWidth <= 480;
+            
+            // Увеличиваем размеры полей ввода для мобильных
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (isSmallMobile) {
+                    input.style.fontSize = '16px'; // Предотвращает зум на iOS
+                    input.style.padding = '12px';
+                } else if (isMobile) {
+                    input.style.fontSize = '16px';
+                    input.style.padding = '14px 16px';
+                }
+            });
+            
+            // Адаптируем кнопки
+            const buttons = document.querySelectorAll('.login-button');
+            buttons.forEach(button => {
+                if (isSmallMobile) {
+                    button.style.padding = '12px 18px';
+                    button.style.fontSize = '15px';
+                } else if (isMobile) {
+                    button.style.padding = '14px 20px';
+                    button.style.fontSize = '16px';
+                }
+            });
+        }
+        
+        // Вызываем адаптацию при загрузке и изменении размера
+        adjustForMobile();
+        window.addEventListener('resize', adjustForMobile);
+        
+        // Предотвращаем зум при фокусе на полях ввода на iOS
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (window.innerWidth <= 768) {
+                        this.style.fontSize = '16px';
+                    }
+                });
+            });
         });
     </script>
 </body>

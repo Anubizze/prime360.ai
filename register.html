@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - Регистрация</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <div class="logo-section">
+                <div class="logo-icon-large">P</div>
+                <h1 class="logo-text-large">PRIME360.AI</h1>
+                <p class="tagline">Создайте аккаунт и начните управлять проектами эффективно</p>
+            </div>
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-text">
+                        <h3>Быстрый старт</h3>
+                        <p>Начните работу сразу после регистрации</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-text">
+                        <h3>Безопасность</h3>
+                        <p>Ваши данные под надежной защитой</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <h3>Мощные инструменты</h3>
+                        <p>Все необходимое для управления проектами</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-right">
+            <div class="login-box">
+                <h2 class="login-title">Регистрация</h2>
+                <p class="login-subtitle">Создайте новый аккаунт для начала работы</p>
+                
+                <form id="registerForm" class="login-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Имя *</label>
+                            <input 
+                                type="text" 
+                                id="firstName" 
+                                name="firstName" 
+                                placeholder="Введите имя"
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName">Фамилия *</label>
+                            <input 
+                                type="text" 
+                                id="lastName" 
+                                name="lastName" 
+                                placeholder="Введите фамилию"
+                                required
+                            >
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="example@company.com"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username">Логин *</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            placeholder="Придумайте логин"
+                            required
+                            minlength="3"
+                        >
+                        <small class="form-hint">Минимум 3 символа</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Пароль *</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                placeholder="Придумайте пароль"
+                                required
+                                minlength="6"
+                            >
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <span id="eyeIcon">👁️</span>
+                            </button>
+                        </div>
+                        <small class="form-hint">Минимум 6 символов</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Подтвердите пароль *</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                placeholder="Повторите пароль"
+                                required
+                            >
+                            <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                                <span id="eyeIcon2">👁️</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="role">Роль *</label>
+                        <select id="role" name="role" required>
+                            <option value="">Выберите роль</option>
+                            <option value="PM / Админ">PM / Админ</option>
+                            <option value="PM">Менеджер проекта</option>
+                            <option value="Архитектор">Архитектор</option>
+                            <option value="Инженер">Инженер</option>
+                            <option value="Подрядчик">Подрядчик</option>
+                            <option value="Заказчик">Заказчик</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" id="terms" required>
+                            <span>Согласен с <a href="#" class="forgot-password">условиями использования</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="login-button">
+                        <span>Создать аккаунт</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </form>
+                
+                <div class="login-footer">
+                    <p>Уже есть аккаунт? <a href="login.html" class="signup-link">Войти</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Переключение видимости пароля
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+        
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const eyeIcon2 = document.getElementById('eyeIcon2');
+        
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            eyeIcon2.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+        
+        // Обработка формы регистрации
+        const registerForm = document.getElementById('registerForm');
+        
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const role = document.getElementById('role').value;
+            const terms = document.getElementById('terms').checked;
+            
+            // Валидация
+            if (!terms) {
+                showMessage('Необходимо согласиться с условиями использования', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage('Пароли не совпадают', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showMessage('Пароль должен содержать минимум 6 символов', 'error');
+                return;
+            }
+            
+            if (username.length < 3) {
+                showMessage('Логин должен содержать минимум 3 символа', 'error');
+                return;
+            }
+            
+            // Получаем существующих пользователей
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Проверяем, существует ли уже такой пользователь
+            const userExists = users.some(u => u.username === username || u.email === email);
+            
+            if (userExists) {
+                showMessage('Пользователь с таким логином или email уже существует', 'error');
+                return;
+            }
+            
+            // Создаем нового пользователя
+            const newUser = {
+                id: Date.now(),
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                username: username,
+                password: password, // В реальном приложении нужно хешировать!
+                role: role,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Добавляем пользователя
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Показываем успешное сообщение
+            showMessage('Регистрация прошла успешно! Перенаправление...', 'success');
+            
+            // Автоматически входим в систему
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            // Перенаправляем на главную страницу
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+        
+        // Функция для показа сообщений
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                border-radius: 8px;
+                font-weight: 500;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                max-width: 400px;
+            `;
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(messageDiv);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Проверяем, авторизован ли пользователь
+        window.addEventListener('load', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
+

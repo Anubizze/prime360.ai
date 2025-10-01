@@ -1,0 +1,44 @@
+# Временные файлы операционной системы
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Временные файлы редакторов
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Логи
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Зависимости (если будут добавлены позже)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Сборка (если будет добавлена позже)
+dist/
+build/
+.cache/
+
+# Переменные окружения (если будут использоваться)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Временные файлы тестирования
+coverage/
+.nyc_output/
+
+# Backup файлы
+*.bak
+*.backup
+*.old
+

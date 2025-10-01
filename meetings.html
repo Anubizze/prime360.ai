@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - Совещания</title>
+    <link rel="stylesheet" href="css/meetings.css">
+    <script src="js/user-profile.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Главная
+            </a>
+            <a href="meetings.html" class="menu-item active">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+            <a href="tasks.html" class="menu-item">
+                <span class="menu-icon">📋</span>
+                Задачи
+            </a>
+            <a href="schedule.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                График
+            </a>
+            <a href="documents.html" class="menu-item">
+                <span class="menu-icon">📄</span>
+                Документы
+            </a>
+            <a href="finances.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                Финансы
+            </a>
+            <a href="analytics.html" class="menu-item">
+                <span class="menu-icon">📈</span>
+                Аналитика
+            </a>
+            <a href="integrations.html" class="menu-item">
+                <span class="menu-icon">🔗</span>
+                Интеграции
+            </a>
+            <a href="archive.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                Архив
+            </a>
+
+            <div class="projects-section">
+                <div class="section-title">ПРОЕКТЫ</div>
+                <div class="project-item">
+                    <div class="project-dot green"></div>
+                    "ЖК Прогресс"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot orange"></div>
+                    "Астана Plaza"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Клиент"
+                </div>
+            </div>
+
+            <div class="ai-assistant">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">AI-ассистент</div>
+                <div class="ai-description">
+                    Нет новых рекомендаций пока вы можете задать любые вопросы по работе подрядчиков системе данным
+                </div>
+                <button class="ai-button">Написать чату</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" id="global-search" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Айгун Ахметова</div>
+                        <div class="user-role" id="userRole">Админ</div>
+                    </div>
+                    <div class="user-avatar" id="userAvatar">А</div>
+                    <button onclick="logout()" class="logout-button">Выйти</button>
+                </div>
+            </div>
+
+            <!-- Meetings Page Content -->
+            <div class="content-header">
+                <div class="content-title">
+                    <div class="title-left">
+                        <div class="title-text">Совещания</div>
+                        <div class="title-icons">
+                            <div class="title-icon">📎</div>
+                            <div class="title-icon">📋</div>
+                        </div>
+                    </div>
+                    <button class="invite-button">
+                        <span>👥</span>
+                        Пригласить
+                        <span class="invite-count">+2</span>
+                    </button>
+                </div>
+                <div class="filters">
+                    <button class="filter-button">
+                        <span>🔽</span>
+                        Фильтр
+                    </button>
+                    <button class="filter-button">
+                        <span>📅</span>
+                        Сегодня
+                    </button>
+                    <button class="filter-button">
+                        <span>👤</span>
+                        Поделиться
+                    </button>
+                    <button class="filter-button">
+                        <span>⚙️</span>
+                    </button>
+                    <button class="filter-button">
+                        <span>➕</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="content-body">
+                <div class="status-tabs">
+                    <div class="status-tab active">
+                        <div class="status-dot planning"></div>
+                        Планируется
+                        <div class="status-count">4</div>
+                    </div>
+                    <div class="status-tab">
+                        <div class="status-dot progress"></div>
+                        В работе
+                        <div class="status-count">3</div>
+                    </div>
+                    <div class="status-tab">
+                        <div class="status-dot completed"></div>
+                        Завершено
+                        <div class="status-count">5</div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="meeting-card">
+                        <div class="card-header">
+                            <div class="card-status status-planning">Планируется</div>
+                            <div class="card-menu">⋯</div>
+                        </div>
+                        <div class="card-title">Создание устава проекта</div>
+                        <div class="card-description">За счет расширения доли проекта</div>
+                        <div class="card-avatars">
+                            <div class="avatar avatar-1">А</div>
+                            <div class="avatar avatar-2">Б</div>
+                            <div class="avatar avatar-3">В</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-actions">
+                                <div class="card-action">
+                                    <span>💬</span>
+                                    комментарии
+                                </div>
+                                <div class="card-action">
+                                    <span>📎</span>
+                                    файлы
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="card-header">
+                            <div class="card-status status-progress">В работе</div>
+                            <div class="card-menu">⋯</div>
+                        </div>
+                        <div class="card-title">Создание задач по итогам совещания</div>
+                        <div class="card-description">За счет освоения 6 задач</div>
+                        <div class="card-avatars">
+                            <div class="avatar avatar-1">А</div>
+                            <div class="avatar avatar-2">Б</div>
+                            <div class="avatar avatar-3">В</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-actions">
+                                <div class="card-action">
+                                    <span>💬</span>
+                                    комментарии
+                                </div>
+                                <div class="card-action">
+                                    <span>📎</span>
+                                    файлы
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="card-header">
+                            <div class="card-status status-completed">Завершено</div>
+                            <div class="card-menu">⋯</div>
+                        </div>
+                        <div class="card-title">Загрузка договоров подрядчиков</div>
+                        <div class="card-description">За 8-мь дней с планового дня</div>
+                        <div class="card-avatars">
+                            <div class="avatar avatar-1">А</div>
+                            <div class="avatar avatar-2">Б</div>
+                            <div class="avatar avatar-3">В</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-actions">
+                                <div class="card-action">
+                                    <span>💬</span>
+                                    комментарии
+                                </div>
+                                <div class="card-action">
+                                    <span>📎</span>
+                                    файлы
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="card-header">
+                            <div class="card-status status-planning">На проверке</div>
+                            <div class="card-menu">⋯</div>
+                        </div>
+                        <div class="card-title">Создание устава проекта</div>
+                        <div class="card-description">За счет расширения доли проекта</div>
+                        <div class="card-avatars">
+                            <div class="avatar avatar-1">А</div>
+                            <div class="avatar avatar-2">Б</div>
+                            <div class="avatar avatar-3">В</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-actions">
+                                <div class="card-action">
+                                    <span>💬</span>
+                                    комментарии
+                                </div>
+                                <div class="card-action">
+                                    <span>📎</span>
+                                    файлы
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="card-header">
+                            <div class="card-status status-progress">В работе</div>
+                            <div class="card-menu">⋯</div>
+                        </div>
+                        <div class="card-title">Создание задач по итогам совещания</div>
+                        <div class="card-description">За счет освоения 6 задач</div>
+                        <div class="card-avatars">
+                            <div class="avatar avatar-1">А</div>
+                            <div class="avatar avatar-2">Б</div>
+                            <div class="avatar avatar-3">В</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-actions">
+                                <div class="card-action">
+                                    <span>💬</span>
+                                    комментарии
+                                </div>
+                                <div class="card-action">
+                                    <span>📎</span>
+                                    файлы
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="card-header">
+                            <div class="card-status status-completed">Завершено</div>
+                            <div class="card-menu">⋯</div>
+                        </div>
+                        <div class="card-title">Загрузка договоров подрядчиков</div>
+                        <div class="card-description">За 8-мь дней с планового дня</div>
+                        <div class="card-avatars">
+                            <div class="avatar avatar-1">А</div>
+                            <div class="avatar avatar-2">Б</div>
+                            <div class="avatar avatar-3">В</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-actions">
+                                <div class="card-action">
+                                    <span>💬</span>
+                                    комментарии
+                                </div>
+                                <div class="card-action">
+                                    <span>📎</span>
+                                    файлы
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="card-header">
+                            <div class="card-status status-planning">Срочно выполнить</div>
+                            <div class="card-menu">⋯</div>
+                        </div>
+                        <div class="card-title">Создание устава проекта</div>
+                        <div class="card-description">За счет расширения доли проекта</div>
+                        <div class="card-avatars">
+                            <div class="avatar avatar-1">А</div>
+                            <div class="avatar avatar-2">Б</div>
+                            <div class="avatar avatar-3">В</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-actions">
+                                <div class="card-action">
+                                    <span>💬</span>
+                                    комментарии
+                                </div>
+                                <div class="card-action">
+                                    <span>📎</span>
+                                    файлы
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

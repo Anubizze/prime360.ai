@@ -8,6 +8,30 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: #f5f5f7;
     overflow: hidden;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+}
+
+/* Для регистрации всегда разрешаем прокрутку */
+body:has(#registerForm) {
+    overflow: auto;
+}
+
+/* Принудительное позиционирование в начале для регистрации */
+body:has(#registerForm) {
+    scroll-behavior: smooth;
+}
+
+body:has(#registerForm) .login-container {
+    align-items: flex-start;
+    height: auto;
+    min-height: 100vh;
 }
 
 .login-container {
@@ -18,7 +42,7 @@ body {
 /* Левая панель */
 .login-left {
     flex: 1;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #70B8B8 0%, #5A9A9A 100%);
     padding: 60px;
     display: flex;
     flex-direction: column;
@@ -51,10 +75,9 @@ body {
 }
 
 .logo-icon-large {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    width: 100px;
+    height: 100px;
+    background: white;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -64,6 +87,15 @@ body {
     font-size: 36px;
     margin-bottom: 24px;
     border: 2px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.logo-icon-large .prime-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
 }
 
 .logo-text-large {
@@ -105,6 +137,30 @@ body {
 .feature-icon {
     font-size: 32px;
     margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.feature-icon img {
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.feature-item:hover .feature-icon img {
+    transform: rotate(15deg) scale(1.1);
 }
 
 .feature-text h3 {
@@ -124,14 +180,32 @@ body {
     flex: 1;
     background: white;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 40px;
+    overflow-y: auto;
+    min-height: 100vh;
+    padding-top: 20px;
+}
+
+/* Для регистрации - контент в самом верху с прокруткой */
+body:has(#registerForm) .login-right {
+    align-items: flex-start;
+    padding-top: 20px;
+    overflow-y: visible;
+    min-height: auto;
 }
 
 .login-box {
     width: 100%;
     max-width: 450px;
+    padding: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .login-box {
+        padding: 10px 0;
+    }
 }
 
 .login-title {
@@ -149,6 +223,12 @@ body {
 
 .login-form {
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .login-form {
+        padding-bottom: 20px;
+    }
 }
 
 .form-group {
@@ -177,7 +257,7 @@ body {
 .form-group input[type="text"]:focus,
 .form-group input[type="password"]:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #70B8B8;
     background: white;
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
@@ -224,25 +304,25 @@ body {
     height: 18px;
     margin-right: 8px;
     cursor: pointer;
-    accent-color: #667eea;
+    accent-color: #70B8B8;
 }
 
 .forgot-password {
     font-size: 14px;
-    color: #667eea;
+    color: #70B8B8;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
 }
 
 .forgot-password:hover {
-    color: #764ba2;
+    color: #5A9A9A;
 }
 
 .login-button {
     width: 100%;
     padding: 16px 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #70B8B8 0%, #5A9A9A 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -309,6 +389,14 @@ body {
     text-align: center;
     font-size: 14px;
     color: #666;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .login-footer {
+        margin-top: 20px;
+        padding-bottom: 20px;
+    }
 }
 
 .form-row {
@@ -337,20 +425,20 @@ body {
 
 .form-group select:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #70B8B8;
     background: white;
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 .signup-link {
-    color: #667eea;
+    color: #70B8B8;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
 }
 
 .signup-link:hover {
-    color: #764ba2;
+    color: #5A9A9A;
 }
 
 /* Анимации */
@@ -377,6 +465,23 @@ body {
 }
 
 /* Адаптивный дизайн */
+
+/* Планшеты и ноутбуки */
+@media (max-width: 1200px) {
+    .login-left {
+        padding: 40px;
+    }
+    
+    .logo-text-large {
+        font-size: 42px;
+    }
+    
+    .tagline {
+        font-size: 16px;
+    }
+}
+
+/* Средние планшеты */
 @media (max-width: 1024px) {
     .login-left {
         display: none;
@@ -384,10 +489,16 @@ body {
     
     .login-right {
         flex: 1;
+        padding: 30px;
+    }
+    
+    .login-box {
+        max-width: 600px;
     }
 }
 
-@media (max-width: 480px) {
+/* Планшеты портретная ориентация */
+@media (max-width: 768px) {
     .login-right {
         padding: 20px;
     }
@@ -396,8 +507,408 @@ body {
         font-size: 28px;
     }
     
+    .login-subtitle {
+        font-size: 14px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group select {
+        font-size: 16px; /* Предотвращает зум на iOS */
+    }
+    
+    .login-button {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+    
+    .demo-credentials {
+        padding: 15px;
+        font-size: 13px;
+    }
+}
+
+/* Мобильные устройства */
+@media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .login-container {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .login-right {
+        padding: 10px 15px 20px 15px;
+        display: flex;
+        align-items: flex-start;
+        overflow-y: visible;
+        padding-top: 10px;
+    }
+    
+    /* Для регистрации на мобильных */
+    body:has(#registerForm) .login-container {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    body:has(#registerForm) .login-right {
+        overflow-y: visible;
+        min-height: auto;
+    }
+    
+    .feature-icon {
+        min-width: 32px;
+        min-height: 32px;
+        margin-right: 12px;
+    }
+    
+    .feature-icon img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .feature-text h3 {
+        font-size: 16px;
+    }
+    
+    .feature-text p {
+        font-size: 13px;
+    }
+}
+    
     .login-box {
         max-width: 100%;
+        width: 100%;
+    }
+    
+    .login-title {
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+    
+    .login-subtitle {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group select {
+        padding: 11px 12px;
+        font-size: 16px; /* Важно для iOS */
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .form-hint {
+        font-size: 11px;
+        margin-top: 3px;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .checkbox-label {
+        font-size: 13px;
+    }
+    
+    .forgot-password {
+        font-size: 13px;
+    }
+    
+    .login-button {
+        padding: 12px 20px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .demo-credentials {
+        padding: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .demo-title {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+    
+    .demo-info {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+    
+    .login-footer {
+        margin-top: 15px;
+        margin-bottom: 20px;
+        font-size: 13px;
+        padding-bottom: 10px;
+    }
+    
+    .signup-link {
+        display: inline-block;
+        padding: 2px 0;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px) {
+    .login-right {
+        padding: 8px 12px 20px 12px;
+        padding-top: 8px;
+    }
+    
+    .login-title {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    
+    .login-subtitle {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 12px;
+    }
+    
+    .form-group label {
+        font-size: 12px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 10px 11px;
+        font-size: 16px;
+    }
+    
+    .login-button {
+        padding: 11px 16px;
+        font-size: 13px;
+    }
+    
+    .demo-credentials {
+        padding: 8px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .login-footer {
+        margin-top: 12px;
+        font-size: 12px;
+    }
+}
+
+/* Ландшафтная ориентация мобильных */
+@media (max-width: 812px) and (orientation: landscape) {
+    .login-right {
+        padding: 15px;
+        overflow-y: auto;
+    }
+    
+    .login-box {
+        padding: 10px 0;
+    }
+    
+    .login-title {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+    
+    .login-subtitle {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+/* Улучшения для touch устройств */
+@media (hover: none) and (pointer: coarse) {
+    .form-group input,
+    .form-group select,
+    .login-button,
+    .filter-button {
+        min-height: 44px; /* Минимальный размер для тапа */
+    }
+    
+    .toggle-password {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Специальная оптимизация для формы регистрации */
+@media (max-width: 768px) {
+    /* Уменьшаем все отступы на мобильных для регистрации */
+    body:has(#registerForm) .login-right {
+        padding: 15px 15px 25px 15px;
+        padding-top: 15px;
+        align-items: flex-start;
+        overflow-y: visible;
+    }
+    
+    body:has(#registerForm) .login-box {
+        padding-top: 0;
+    }
+    
+    body:has(#registerForm) .login-title {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    
+    body:has(#registerForm) .login-subtitle {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    
+    body:has(#registerForm) .form-group {
+        margin-bottom: 14px;
+    }
+    
+    body:has(#registerForm) .login-footer {
+        margin-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Компактная версия для маленьких экранов */
+    body:has(#registerForm) .login-right {
+        padding: 10px 12px 20px 12px;
+        padding-top: 10px;
+        align-items: flex-start;
+        overflow-y: visible;
+    }
+    
+    body:has(#registerForm) .login-box {
+        padding-top: 0;
+    }
+    
+    body:has(#registerForm) .login-title {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    
+    body:has(#registerForm) .login-subtitle {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    
+    body:has(#registerForm) .form-group {
+        margin-bottom: 12px;
+    }
+    
+    body:has(#registerForm) .form-group label {
+        margin-bottom: 4px;
+    }
+    
+    body:has(#registerForm) .demo-credentials {
+        display: none; /* Скрываем демо на регистрации для экономии места */
+    }
+    
+    body:has(#registerForm) .login-footer {
+        margin-top: 12px;
+        padding-bottom: 15px;
+    }
+}
+
+/* Высокие экраны - центрируем контент */
+@media (min-height: 900px) {
+    .login-right {
+        align-items: center;
+    }
+}
+
+/* Низкие экраны - разрешаем прокрутку */
+@media (max-height: 700px) {
+    .login-right {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+}
+
+@media (max-height: 600px) and (max-width: 768px) {
+    .login-right {
+        padding-top: 10px;
+    }
+    
+    .login-title {
+        font-size: 20px;
+    }
+    
+    .login-subtitle {
+        margin-bottom: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 12px;
+    }
+}
+
+/* Дополнительные стили для иконок на разных экранах */
+@media (max-width: 768px) {
+    .feature-icon {
+        min-width: 36px;
+        min-height: 36px;
+        margin-right: 15px;
+    }
+    
+    .feature-icon img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .logo-icon-large {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 16px;
+    }
+    
+    .logo-text-large {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-icon-large {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 12px;
+    }
+    
+    .logo-text-large {
+        font-size: 28px;
+        margin-bottom: 8px;
     }
 }
 

@@ -2,7 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Регистрация в PRIME360.AI - система управления строительными проектами">
+    <meta name="theme-color" content="#70B8B8">
     <title>PRIME360.AI - Регистрация</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
@@ -10,27 +12,35 @@
     <div class="login-container">
         <div class="login-left">
             <div class="logo-section">
-                <div class="logo-icon-large">P</div>
+                <div class="logo-icon-large">
+                    <img src="img/icon prime360.png" alt="PRIME360.AI Logo" class="prime-logo">
+                </div>
                 <h1 class="logo-text-large">PRIME360.AI</h1>
                 <p class="tagline">Создайте аккаунт и начните управлять проектами эффективно</p>
             </div>
             <div class="features">
                 <div class="feature-item">
-                    <div class="feature-icon">🚀</div>
+                    <div class="feature-icon">
+                        <img src="img/svg/rocket.svg" alt="Ракета">
+                    </div>
                     <div class="feature-text">
                         <h3>Быстрый старт</h3>
                         <p>Начните работу сразу после регистрации</p>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">🔒</div>
+                    <div class="feature-icon">
+                        <img src="img/svg/lock.svg" alt="Замок">
+                    </div>
                     <div class="feature-text">
                         <h3>Безопасность</h3>
                         <p>Ваши данные под надежной защитой</p>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">
+                        <img src="img/svg/flash.svg" alt="Молния">
+                    </div>
                     <div class="feature-text">
                         <h3>Мощные инструменты</h3>
                         <p>Все необходимое для управления проектами</p>
@@ -294,6 +304,18 @@
             if (isLoggedIn === 'true') {
                 window.location.href = 'index.html';
             }
+        });
+        
+        // Принудительная прокрутка к началу страницы при загрузке
+        window.addEventListener('load', function() {
+            // Прокручиваем к самому верху страницы
+            window.scrollTo(0, 0);
+        });
+        
+        // Прокрутка при изменении размера окна (только если нужно)
+        window.addEventListener('resize', function() {
+            // Не принуждаем к прокрутке при изменении размера
+            // Пользователь может сам прокручивать
         });
     </script>
 </body>

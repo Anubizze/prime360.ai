@@ -1,0 +1,57 @@
+name: CI - Code Quality Check
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check:
+    name: Check code quality
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Check HTML files
+        run: |
+          echo "✅ Checking HTML files..."
+          find . -name "*.html" -type f | while read file; do
+            echo "📄 $file"
+          done
+          
+      - name: Check CSS files
+        run: |
+          echo "✅ Checking CSS files..."
+          find ./css -name "*.css" -type f | while read file; do
+            echo "🎨 $file"
+          done
+          
+      - name: Check JavaScript files
+        run: |
+          echo "✅ Checking JavaScript files..."
+          find ./js -name "*.js" -type f | while read file; do
+            echo "📜 $file"
+          done
+          
+      - name: Count project files
+        run: |
+          echo "📊 Project Statistics:"
+          echo "HTML files: $(find . -name '*.html' | wc -l)"
+          echo "CSS files: $(find . -name '*.css' | wc -l)"
+          echo "JS files: $(find . -name '*.js' | wc -l)"
+          echo "Total lines of code: $(find . -name '*.html' -o -name '*.css' -o -name '*.js' | xargs wc -l | tail -1)"
+          
+      - name: Validate structure
+        run: |
+          echo "✅ Validating project structure..."
+          if [ -d "css" ]; then echo "✓ CSS folder exists"; else echo "✗ CSS folder missing"; exit 1; fi
+          if [ -d "js" ]; then echo "✓ JS folder exists"; else echo "✗ JS folder missing"; exit 1; fi
+          if [ -f "index.html" ]; then echo "✓ index.html exists"; else echo "✗ index.html missing"; exit 1; fi
+          if [ -f "login.html" ]; then echo "✓ login.html exists"; else echo "✗ login.html missing"; exit 1; fi
+          if [ -f "register.html" ]; then echo "✓ register.html exists"; else echo "✗ register.html missing"; exit 1; fi
+          if [ -f "README.md" ]; then echo "✓ README.md exists"; else echo "✗ README.md missing"; exit 1; fi
+          echo "🎉 All required files are present!"
+

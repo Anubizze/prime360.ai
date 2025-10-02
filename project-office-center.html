@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - Офисный центр</title>
+    <link rel="icon" type="image/png" href="img/icon prime360.png">
+    <link rel="apple-touch-icon" href="img/icon prime360.png">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/search-system.css">
+    <!-- Mobile Responsive -->
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
+    <!-- User Profile Script -->
+    <script src="js/user-profile.js"></script>
+    <script src="js/search-system.js"></script>
+    <style>
+        .project-detail-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .project-info {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e5e7;
+            height: fit-content;
+        }
+        
+        .blocks-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+        }
+        
+        .blocks-main {
+            flex: 1;
+        }
+        
+        .project-blocks {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 600px;
+        }
+        
+        .project-blocks-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .project-blocks-details.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-blocks-details .project-block {
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            transition: all 0.4s ease;
+        }
+        
+        .project-blocks-details.show .project-block {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .project-blocks-details.show .project-block:nth-child(1) { transition-delay: 0.1s; }
+        .project-blocks-details.show .project-block:nth-child(2) { transition-delay: 0.2s; }
+        .project-blocks-details.show .project-block:nth-child(3) { transition-delay: 0.3s; }
+        
+        .details-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .details-button {
+            background: linear-gradient(135deg, #70B8B8 0%, #5a9a9a 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(112, 184, 184, 0.3);
+        }
+        
+        .details-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(112, 184, 184, 0.4);
+            background: linear-gradient(135deg, #5a9a9a 0%, #4a8a8a 100%);
+        }
+        
+        .details-button:active {
+            transform: translateY(0);
+        }
+        
+        .project-block {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e5e7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .project-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #70B8B8;
+        }
+        
+        .project-block h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .project-block p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .block-arrow {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #70B8B8;
+            font-size: 18px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e5e7;
+        }
+        
+        .data-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-approved {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-in-progress {
+            background: #dbeafe;
+            color: #0284c7;
+        }
+        
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #70B8B8;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* PDF Modal Styles */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .pdf-modal-content {
+            position: relative;
+            margin: 2% auto;
+            width: 90%;
+            height: 90%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .pdf-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .pdf-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .pdf-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+            padding: 5px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .pdf-modal-close:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .pdf-modal-body {
+            height: calc(100% - 80px);
+            padding: 0;
+        }
+
+        .pdf-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .charter-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .charter-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Design Modal Styles */
+        .design-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .design-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .design-button {
+            background: linear-gradient(135deg, #70B8B8 0%, #5a9a9a 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(112, 184, 184, 0.3);
+        }
+
+        .design-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(112, 184, 184, 0.4);
+            background: linear-gradient(135deg, #5a9a9a 0%, #4a8a8a 100%);
+        }
+
+        .design-button:active {
+            transform: translateY(0);
+        }
+
+        .design-button-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .design-button-text {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Design PDF Modal Styles */
+        .design-pdf-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .design-pdf-modal-content {
+            position: relative;
+            margin: 2% auto;
+            width: 90%;
+            height: 90%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .design-pdf-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .design-pdf-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .design-pdf-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+            padding: 5px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .design-pdf-modal-close:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .design-pdf-modal-body {
+            height: calc(100% - 80px);
+            padding: 0;
+        }
+
+        .design-pdf-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Presentation Modal Styles */
+        .presentation-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .presentation-content {
+            position: relative;
+            margin: 2% auto;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .presentation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .presentation-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .presentation-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            padding: 5px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .presentation-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .presentation-body {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .slide-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 15px;
+        }
+
+        .slide-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #3b82f6;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .progress-section {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .progress-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar-container {
+            background: #e2e8f0;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .timeline {
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .timeline-date {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .timeline-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status-in-progress {
+            background: #dbeafe;
+            color: #0284c7;
+        }
+
+        .status-planned {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .financial-summary {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #0ea5e9;
+        }
+
+        .financial-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0c4a6e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .financial-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .financial-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0c4a6e;
+            margin-bottom: 5px;
+        }
+
+        .financial-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .team-section {
+            background: #fefce8;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #eab308;
+        }
+
+        .team-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #a16207;
+            margin-bottom: 15px;
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .team-member {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            background: #eab308;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+
+        .member-role {
+            font-size: 12px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="img/icon prime360.png" alt="PRIME360.AI" width="32" height="32">
+                </div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Главная
+            </a>
+            <a href="projects.html" class="menu-item active">
+                <span class="menu-icon">📁</span>
+                Проекты
+            </a>
+            <a href="archive.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                Архив
+            </a>
+            <a href="#" class="menu-item" onclick="toggleAIChat(); return false;">
+                <span class="menu-icon">🤖</span>
+                AI-ассистент
+            </a>
+            <a href="documents.html" class="menu-item">
+                <span class="menu-icon">📚</span>
+                Библиотека
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+
+            <div class="projects-section">
+                <div class="section-title">ПРОЕКТЫ</div>
+                <div class="project-item">
+                    <div class="project-dot green"></div>
+                    "ЖК Прогресс"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot orange"></div>
+                    "Астана Plaza"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Солнечная Электростанция"
+                </div>
+                <div class="project-item">
+                    <div class="project-dot blue"></div>
+                    "Офисный центр"
+                </div>
+            </div>
+
+            <div class="ai-assistant">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-title">AI-ассистент</div>
+                <div class="ai-description">
+                    Нет новых рекомендаций пока вы можете задать любые вопросы по работе подрядчиков системе данным
+                </div>
+                <button class="ai-button">Написать чату</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" id="global-search" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Айгун Ахметова</div>
+                        <div class="user-role" id="userRole">Админ</div>
+                    </div>
+                    <div class="user-avatar" id="userAvatar">А</div>
+                    <button onclick="logout()" class="logout-button">Выйти</button>
+                </div>
+            </div>
+
+            <!-- Project Detail Content -->
+            <div class="content-header">
+                <div class="content-title">
+                    <div class="title-left">
+                        <div class="title-text">Проект - Офисный центр</div>
+                    </div>
+                    <button class="invite-button" onclick="openPresentationModal()">
+                        <span>📊</span>
+                        Отчет
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-detail-container">
+                <!-- Project Info Sidebar -->
+                <div class="project-info">
+                    <h3 style="margin: 0 0 20px 0; color: #333;">Информация о проекте</h3>
+                    
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">25%</div>
+                            <div class="stat-label">Готовность</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">₸ 1.5M</div>
+                            <div class="stat-label">Бюджет</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">36</div>
+                            <div class="stat-label">Месяцев</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">10</div>
+                            <div class="stat-label">Участников</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin: 0 0 10px 0; color: #333;">Статус проекта</h4>
+                        <span class="status-badge status-pending">Планирование</span>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin: 0 0 10px 0; color: #333;">Руководитель</h4>
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 32px; height: 32px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; margin-right: 10px;">ДП</div>
+                            <span>Дмитрий Петров</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="margin: 0 0 10px 0; color: #333;">Сроки</h4>
+                        <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Начало: 01.01.2024</div>
+                        <div style="color: #666; font-size: 14px;">Окончание: 10.06.2025</div>
+                    </div>
+                </div>
+
+                <!-- Project Blocks -->
+                <div class="blocks-container">
+                    <div class="blocks-main">
+                        <div class="project-blocks">
+                            <!-- Устав -->
+                            <div class="project-block charter-card" onclick="openPdfModal()">
+                                <h3>Устав</h3>
+                                <p>Основные документы проекта</p>
+                                <div class="block-arrow">→</div>
+                            </div>
+
+                            <!-- График проекта -->
+                            <div class="project-block charter-card" onclick="openSchedulePdfModal()">
+                                <h3>График проекта (план/факт)</h3>
+                                <p>Временные рамки и этапы</p>
+                                <div class="block-arrow">→</div>
+                            </div>
+
+                            <!-- Бюджет проекта -->
+                            <div class="project-block charter-card" onclick="openBudgetPdfModal()">
+                                <h3>Бюджет проекта</h3>
+                                <p>Финансовое планирование</p>
+                                <div class="block-arrow">→</div>
+                            </div>
+                        </div>
+
+                        <!-- Детальные блоки (скрыты по умолчанию) -->
+                        <div id="detailsBlocks" class="project-blocks-details" style="display: none;">
+                            <!-- Основное и вспомогательное оборудование -->
+                            <div class="project-block charter-card" onclick="openEquipmentPdfModal()">
+                                <h3>Основное и вспомогательное оборудование</h3>
+                                <p>Техническое оснащение</p>
+                                <div class="block-arrow">→</div>
+                            </div>
+
+                            <!-- Строительно-монтажные работы -->
+                            <div class="project-block" onclick="openModal('constructionModal')">
+                                <h3>Строительно-монтажные работы</h3>
+                                <p>Выполнение строительных работ</p>
+                                <div class="block-arrow">→</div>
+                            </div>
+
+                            <!-- Проектно-изыскательские работы -->
+                            <div class="project-block" onclick="openDesignModal()">
+                                <h3>Проектно-изыскательские работы</h3>
+                                <p>Проектирование и изыскания</p>
+                                <div class="block-arrow">→</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Кнопка Подробнее -->
+                    <div class="details-section">
+                        <button class="details-button" onclick="openDetailsModal()">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    
+    <!-- Устав -->
+    <div id="charterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Устав проекта Офисный центр</h2>
+                <span class="close" onclick="closeModal('charterModal')">&times;</span>
+            </div>
+            <div class="modal-section">
+                <h4>Утвержденные документы</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Документ</th>
+                            <th>Статус</th>
+                            <th>Дата утверждения</th>
+                            <th>Ответственный</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Концепция офисного центра</td>
+                            <td><span class="status-badge status-approved">Утвержден</span></td>
+                            <td>15.12.2023</td>
+                            <td>Дмитрий Петров</td>
+                        </tr>
+                        <tr>
+                            <td>Техническое задание на проектирование</td>
+                            <td><span class="status-badge status-approved">Утвержден</span></td>
+                            <td>01.01.2024</td>
+                            <td>Алексей Ким</td>
+                        </tr>
+                        <tr>
+                            <td>Бизнес-план проекта</td>
+                            <td><span class="status-badge status-pending">На согласовании</span></td>
+                            <td>-</td>
+                            <td>Мария Смирнова</td>
+                        </tr>
+                        <tr>
+                            <td>Разрешение на строительство</td>
+                            <td><span class="status-badge status-pending">На согласовании</span></td>
+                            <td>-</td>
+                            <td>Елена Волкова</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- График проекта -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">График проекта Офисный центр (план/факт)</h2>
+                <span class="close" onclick="closeModal('scheduleModal')">&times;</span>
+            </div>
+            <div class="modal-section">
+                <h4>Основные этапы</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Этап</th>
+                            <th>План</th>
+                            <th>Факт</th>
+                            <th>Отклонение</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Проектирование</td>
+                            <td>01.01 - 30.06.2024</td>
+                            <td>01.01 - 15.07.2024</td>
+                            <td>+15 дней</td>
+                            <td><span class="status-badge status-approved">Завершен</span></td>
+                        </tr>
+                        <tr>
+                            <td>Получение разрешений</td>
+                            <td>01.07 - 31.08.2024</td>
+                            <td>16.07.2024 - в процессе</td>
+                            <td>+30 дней</td>
+                            <td><span class="status-badge status-in-progress">В работе</span></td>
+                        </tr>
+                        <tr>
+                            <td>Подготовка площадки</td>
+                            <td>01.09 - 30.11.2024</td>
+                            <td>01.09.2024 - планируется</td>
+                            <td>0 дней</td>
+                            <td><span class="status-badge status-pending">Планируется</span></td>
+                        </tr>
+                        <tr>
+                            <td>Строительство</td>
+                            <td>01.12.2024 - 30.09.2025</td>
+                            <td>01.12.2024 - планируется</td>
+                            <td>0 дней</td>
+                            <td><span class="status-badge status-pending">Планируется</span></td>
+                        </tr>
+                        <tr>
+                            <td>Отделочные работы</td>
+                            <td>01.10.2025 - 10.06.2026</td>
+                            <td>01.10.2025 - планируется</td>
+                            <td>0 дней</td>
+                            <td><span class="status-badge status-pending">Планируется</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Бюджет проекта -->
+    <div id="budgetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Бюджет проекта Офисный центр</h2>
+                <span class="close" onclick="closeModal('budgetModal')">&times;</span>
+            </div>
+            <div class="modal-section">
+                <h4>Финансовый отчет</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Статья расходов</th>
+                            <th>Запланировано</th>
+                            <th>Потрачено</th>
+                            <th>Остаток</th>
+                            <th>% выполнения</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Проектирование</td>
+                            <td>₸ 200,000</td>
+                            <td>₸ 200,000</td>
+                            <td>₸ 0</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td>Строительные работы</td>
+                            <td>₸ 800,000</td>
+                            <td>₸ 50,000</td>
+                            <td>₸ 750,000</td>
+                            <td>6%</td>
+                        </tr>
+                        <tr>
+                            <td>Инженерные системы</td>
+                            <td>₸ 300,000</td>
+                            <td>₸ 20,000</td>
+                            <td>₸ 280,000</td>
+                            <td>7%</td>
+                        </tr>
+                        <tr>
+                            <td>Отделочные работы</td>
+                            <td>₸ 200,000</td>
+                            <td>₸ 0</td>
+                            <td>₸ 200,000</td>
+                            <td>0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Оборудование -->
+    <div id="equipmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Основное и вспомогательное оборудование Офисный центр</h2>
+                <span class="close" onclick="closeModal('equipmentModal')">&times;</span>
+            </div>
+            <div class="modal-section">
+                <h4>Форма контроля за проведением маркетинга</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Наименование</th>
+                            <th>Количество</th>
+                            <th>Поставщик</th>
+                            <th>Статус поставки</th>
+                            <th>Дата поставки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Лифтовое оборудование</td>
+                            <td>4 шт</td>
+                            <td>ElevatorPro</td>
+                            <td><span class="status-badge status-pending">Заказано</span></td>
+                            <td>01.03.2025</td>
+                        </tr>
+                        <tr>
+                            <td>Система кондиционирования</td>
+                            <td>1 комплект</td>
+                            <td>ClimateControl</td>
+                            <td><span class="status-badge status-pending">Заказано</span></td>
+                            <td>15.03.2025</td>
+                        </tr>
+                        <tr>
+                            <td>Осветительное оборудование</td>
+                            <td>200 шт</td>
+                            <td>LightPro</td>
+                            <td><span class="status-badge status-pending">Заказано</span></td>
+                            <td>01.04.2025</td>
+                        </tr>
+                        <tr>
+                            <td>Система безопасности</td>
+                            <td>1 комплект</td>
+                            <td>SecurityTech</td>
+                            <td><span class="status-badge status-pending">Заказано</span></td>
+                            <td>15.04.2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Строительно-монтажные работы -->
+    <div id="constructionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Строительно-монтажные работы Офисный центр</h2>
+                <span class="close" onclick="closeModal('constructionModal')">&times;</span>
+            </div>
+            <div class="modal-section">
+                <h4>График с отклонениями</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Вид работ</th>
+                            <th>Плановый срок</th>
+                            <th>Фактический срок</th>
+                            <th>Отклонение</th>
+                            <th>Причина задержки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Земляные работы</td>
+                            <td>01.09 - 30.11.2024</td>
+                            <td>01.09.2024 - планируется</td>
+                            <td>0 дней</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Устройство фундаментов</td>
+                            <td>01.12.2024 - 28.02.2025</td>
+                            <td>01.12.2024 - планируется</td>
+                            <td>0 дней</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Возведение каркаса</td>
+                            <td>01.03 - 30.06.2025</td>
+                            <td>01.03.2025 - планируется</td>
+                            <td>0 дней</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Отделочные работы</td>
+                            <td>01.10.2025 - 10.06.2026</td>
+                            <td>01.10.2025 - планируется</td>
+                            <td>0 дней</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-section">
+                <h4>Таблица финансовый отчет</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Период</th>
+                            <th>Запланировано</th>
+                            <th>Выполнено</th>
+                            <th>Перерасход</th>
+                            <th>Экономия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Q1 2024</td>
+                            <td>₸ 100,000</td>
+                            <td>₸ 100,000</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Q2 2024</td>
+                            <td>₸ 100,000</td>
+                            <td>₸ 100,000</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Q3 2024</td>
+                            <td>₸ 50,000</td>
+                            <td>₸ 50,000</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Q4 2024</td>
+                            <td>₸ 200,000</td>
+                            <td>₸ 20,000</td>
+                            <td>-</td>
+                            <td>₸ 180,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Проектно-изыскательские работы -->
+    <div id="designModal" class="modal">
+        <div class="design-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Проектно-изыскательские работы Офисный центр</h2>
+                <span class="close" onclick="closeDesignModal()">&times;</span>
+            </div>
+            <div class="modal-section">
+                <h4>Выберите раздел для просмотра</h4>
+                <div class="design-buttons">
+                    <button class="design-button" onclick="openDesignSection('Исходные данные для проектирования')">
+                        <span class="design-button-icon">📋</span>
+                        <div class="design-button-text">Исходные данные для проектирования</div>
+                    </button>
+                    <button class="design-button" onclick="openDesignSection('Проектная документация')">
+                        <span class="design-button-icon">📐</span>
+                        <div class="design-button-text">Проектная документация</div>
+                    </button>
+                    <button class="design-button" onclick="openDesignSection('Исходно-разрешительная документация для экспертизы')">
+                        <span class="design-button-icon">📜</span>
+                        <div class="design-button-text">Исходно-разрешительная документация для экспертизы</div>
+                    </button>
+                    <button class="design-button" onclick="openDesignSection('Экология')">
+                        <span class="design-button-icon">🌱</span>
+                        <div class="design-button-text">Экология</div>
+                    </button>
+                    <button class="design-button" onclick="openDesignSection('Договоры')">
+                        <span class="design-button-icon">📄</span>
+                        <div class="design-button-text">Договоры</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Design Modal Functions
+        function openDesignModal() {
+            document.getElementById('designModal').style.display = 'block';
+        }
+
+        function closeDesignModal() {
+            document.getElementById('designModal').style.display = 'none';
+        }
+
+        // Design Section Functions
+        function openDesignSection(section) {
+            if (section === 'Проектная документация') {
+                openDesignPdfModal();
+            } else if (section === 'Исходно-разрешительная документация для экспертизы') {
+                openDesignPermitPdfModal();
+            } else {
+                alert(`Открытие раздела: ${section}\n\nЗдесь будет добавлен PDF файл в будущем.`);
+            }
+        }
+
+        // Design PDF Modal Functions
+        function openDesignPdfModal() {
+            document.getElementById('designPdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDesignPdfModal() {
+            document.getElementById('designPdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Design Permit PDF Modal Functions
+        function openDesignPermitPdfModal() {
+            document.getElementById('designPermitPdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDesignPermitPdfModal() {
+            document.getElementById('designPermitPdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+            if (event.target.classList.contains('pdf-modal')) {
+                closePdfModal();
+            }
+            if (event.target.classList.contains('schedule-pdf-modal')) {
+                closeSchedulePdfModal();
+            }
+            if (event.target.classList.contains('budget-pdf-modal')) {
+                closeBudgetPdfModal();
+            }
+            if (event.target.classList.contains('equipment-pdf-modal')) {
+                closeEquipmentPdfModal();
+            }
+            if (event.target.classList.contains('design-pdf-modal')) {
+                closeDesignPdfModal();
+            }
+            if (event.target.classList.contains('design-permit-pdf-modal')) {
+                closeDesignPermitPdfModal();
+            }
+        }
+
+        // PDF Modal Functions
+        function openPdfModal() {
+            document.getElementById('pdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePdfModal() {
+            document.getElementById('pdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Schedule PDF Modal Functions
+        function openSchedulePdfModal() {
+            document.getElementById('schedulePdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSchedulePdfModal() {
+            document.getElementById('schedulePdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Budget PDF Modal Functions
+        function openBudgetPdfModal() {
+            document.getElementById('budgetPdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBudgetPdfModal() {
+            document.getElementById('budgetPdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Equipment PDF Modal Functions
+        function openEquipmentPdfModal() {
+            document.getElementById('equipmentPdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEquipmentPdfModal() {
+            document.getElementById('equipmentPdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Details Modal Functions
+        function openDetailsModal() {
+            const detailsBlocks = document.getElementById('detailsBlocks');
+            const button = document.querySelector('.details-button');
+            
+            if (detailsBlocks.classList.contains('show')) {
+                // Скрываем с анимацией
+                detailsBlocks.classList.remove('show');
+                button.textContent = 'Подробнее';
+                button.style.background = 'linear-gradient(135deg, #70B8B8 0%, #5a9a9a 100%)';
+                
+                // Скрываем после завершения анимации
+                setTimeout(() => {
+                    detailsBlocks.style.display = 'none';
+                }, 500);
+            } else {
+                // Показываем с анимацией
+                detailsBlocks.style.display = 'grid';
+                button.textContent = 'Скрыть';
+                button.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                
+                // Запускаем анимацию после небольшой задержки
+                setTimeout(() => {
+                    detailsBlocks.classList.add('show');
+                }, 10);
+            }
+        }
+
+        // Presentation Modal Functions
+        function openPresentationModal() {
+            document.getElementById('presentationModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePresentationModal() {
+            document.getElementById('presentationModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // AI Chat Functions
+        let isChatOpen = false;
+        let isMinimized = false;
+
+        function toggleAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            const floatButton = document.querySelector('.ai-float-button');
+            
+            if (isChatOpen) {
+                closeAIChat();
+            } else {
+                chatWindow.classList.add('show');
+                floatButton.style.display = 'none';
+                isChatOpen = true;
+                isMinimized = false;
+            }
+        }
+
+        function closeAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            const floatButton = document.querySelector('.ai-float-button');
+            
+            chatWindow.classList.remove('show');
+            chatWindow.classList.remove('minimized');
+            setTimeout(() => {
+                floatButton.style.display = 'flex';
+            }, 300);
+            isChatOpen = false;
+            isMinimized = false;
+        }
+
+        function minimizeAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            chatWindow.classList.toggle('minimized');
+            isMinimized = !isMinimized;
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('aiChatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Добавляем сообщение пользователя
+            addMessageToChat(message, 'user');
+            input.value = '';
+
+            // Имитируем ответ AI
+            setTimeout(() => {
+                const aiResponse = getAIResponse(message);
+                addMessageToChat(aiResponse, 'ai');
+            }, 1000);
+        }
+
+        function sendSuggestion(suggestion) {
+            const input = document.getElementById('aiChatInput');
+            input.value = suggestion;
+            sendAIMessage();
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        function addMessageToChat(message, sender) {
+            const chatBody = document.getElementById('aiChatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message-container ${sender}`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="ai-message user-message">
+                        <div class="ai-message-text">${message}</div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="ai-avatar">🤖</div>
+                    <div class="ai-message">
+                        <div class="ai-message-text">${message}</div>
+                    </div>
+                `;
+            }
+            
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getAIResponse(message) {
+            const responses = {
+                'статус проекта офисный центр': 'Статус проекта "Офисный центр":\n• Прогресс: 15% завершен\n• Статус: Планирование\n• Срок: 10.06.2025\n• Бюджет: ₸1.2M\n• Команда: 6 человек',
+                'задачи проекта': 'Активные задачи проекта:\n• Разработка концепции здания\n• Получение разрешений\n• Поиск подрядчиков\n• Планирование этапов строительства',
+                'финансы проекта': 'Финансовое состояние:\n• Общий бюджет: ₸1.2M\n• Потрачено: ₸0.1M (8%)\n• Остаток: ₸1.1M (92%)\n• Планируемые расходы: ₸1.0M',
+                'привет': 'Привет! Я AI-ассистент PRIME360. Чем могу помочь с проектом "Офисный центр"?',
+                'помощь': 'Я могу помочь с:\n• Статусом проекта\n• Управлением задачами\n• Финансовой отчетностью\n• Планированием работ'
+            };
+            
+            const lowerMessage = message.toLowerCase();
+            for (const [key, response] of Object.entries(responses)) {
+                if (lowerMessage.includes(key)) {
+                    return response;
+                }
+            }
+            
+            return 'Извините, я не понял ваш вопрос. Попробуйте спросить о статусе проекта, задачах или финансах.';
+        }
+    </script>
+
+    <!-- PDF Modal -->
+    <div id="pdfModal" class="pdf-modal">
+        <div class="pdf-modal-content">
+            <div class="pdf-modal-header">
+                <h2 class="pdf-modal-title">Устав проекта Офисный центр</h2>
+                <button class="pdf-modal-close" onclick="closePdfModal()">&times;</button>
+            </div>
+            <div class="pdf-modal-body">
+                <iframe class="pdf-iframe" src="docs/Устав проекта_v5 (1).pdf" type="application/pdf"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule PDF Modal -->
+    <div id="schedulePdfModal" class="pdf-modal schedule-pdf-modal">
+        <div class="pdf-modal-content">
+            <div class="pdf-modal-header">
+                <h2 class="pdf-modal-title">График проекта Офисный центр (план/факт)</h2>
+                <button class="pdf-modal-close" onclick="closeSchedulePdfModal()">&times;</button>
+            </div>
+            <div class="pdf-modal-body">
+                <iframe class="pdf-iframe" src="docs/grafik-s-otkloneniyami.pdf" type="application/pdf"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Budget PDF Modal -->
+    <div id="budgetPdfModal" class="pdf-modal budget-pdf-modal">
+        <div class="pdf-modal-content">
+            <div class="pdf-modal-header">
+                <h2 class="pdf-modal-title">Бюджет проекта Офисный центр</h2>
+                <button class="pdf-modal-close" onclick="closeBudgetPdfModal()">&times;</button>
+            </div>
+            <div class="pdf-modal-body">
+                <iframe class="pdf-iframe" src="docs/tablice-fin.otchet.pdf" type="application/pdf"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Equipment PDF Modal -->
+    <div id="equipmentPdfModal" class="pdf-modal equipment-pdf-modal">
+        <div class="pdf-modal-content">
+            <div class="pdf-modal-header">
+                <h2 class="pdf-modal-title">Основное и вспомогательное оборудование Офисный центр</h2>
+                <button class="pdf-modal-close" onclick="closeEquipmentPdfModal()">&times;</button>
+            </div>
+            <div class="pdf-modal-body">
+                <iframe class="pdf-iframe" src="docs/form-control-za-provedeniyem-marketinga.pdf" type="application/pdf"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Design PDF Modal -->
+    <div id="designPdfModal" class="design-pdf-modal">
+        <div class="design-pdf-modal-content">
+            <div class="design-pdf-modal-header">
+                <h2 class="design-pdf-modal-title">Проектная документация Офисный центр</h2>
+                <button class="design-pdf-modal-close" onclick="closeDesignPdfModal()">&times;</button>
+            </div>
+            <div class="design-pdf-modal-body">
+                <iframe class="design-pdf-iframe" src="docs/nablydateli-proektirovaniya-GPAS.pdf" type="application/pdf"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Design Permit PDF Modal -->
+    <div id="designPermitPdfModal" class="design-pdf-modal design-permit-pdf-modal">
+        <div class="design-pdf-modal-content">
+            <div class="design-pdf-modal-header">
+                <h2 class="design-pdf-modal-title">Исходно-разрешительная документация для экспертизы Офисный центр</h2>
+                <button class="design-pdf-modal-close" onclick="closeDesignPermitPdfModal()">&times;</button>
+            </div>
+            <div class="design-pdf-modal-body">
+                <iframe class="design-pdf-iframe" src="docs/peresen-IRD-dlya-KVA-GPAS_23.06.25.pdf" type="application/pdf"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Presentation Modal -->
+    <div id="presentationModal" class="presentation-modal">
+        <div class="presentation-content">
+            <div class="presentation-header">
+                <h2 class="presentation-title">Презентация проекта Офисный центр</h2>
+                <button class="presentation-close" onclick="closePresentationModal()">&times;</button>
+            </div>
+            <div class="presentation-body">
+                
+                <!-- Slide 1: Обзор проекта -->
+                <div class="slide">
+                    <h2 class="slide-title">Обзор проекта Офисный центр</h2>
+                    <div class="slide-content">
+                        <p>Многоэтажный офисный комплекс - это современное здание класса А, 
+                        включающее в себя офисные помещения, конференц-залы, ресторан, фитнес-центр и подземную парковку.</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">25%</div>
+                                <div class="stat-label">Готовность</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">₸ 1.5M</div>
+                                <div class="stat-label">Бюджет</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">18</div>
+                                <div class="stat-label">Месяцев</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">10</div>
+                                <div class="stat-label">Участников</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Прогресс выполнения -->
+                <div class="slide">
+                    <h2 class="slide-title">Прогресс выполнения проекта</h2>
+                    <div class="slide-content">
+                        <div class="progress-section">
+                            <div class="progress-title">Общий прогресс проекта</div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" style="width: 25%;"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>Выполнено: 25%</span>
+                                <span>Осталось: 75%</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-icon">1</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Проектирование и согласования</div>
+                                    <div class="timeline-date">Январь - Март 2024</div>
+                                </div>
+                                <span class="timeline-status status-completed">Завершено</span>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">2</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Подготовка площадки</div>
+                                    <div class="timeline-date">Апрель - Май 2024</div>
+                                </div>
+                                <span class="timeline-status status-completed">Завершено</span>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">3</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Устройство фундамента</div>
+                                    <div class="timeline-date">Июнь - Август 2024</div>
+                                </div>
+                                <span class="timeline-status status-in-progress">В работе</span>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">4</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Возведение каркаса</div>
+                                    <div class="timeline-date">Сентябрь 2024 - Март 2025</div>
+                                </div>
+                                <span class="timeline-status status-planned">Планируется</span>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">5</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Отделочные работы</div>
+                                    <div class="timeline-date">Апрель - Май 2025</div>
+                                </div>
+                                <span class="timeline-status status-planned">Планируется</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Финансовый отчет -->
+                <div class="slide">
+                    <h2 class="slide-title">Финансовый отчет</h2>
+                    <div class="slide-content">
+                        <div class="financial-summary">
+                            <div class="financial-title">Сводка по бюджету проекта</div>
+                            <div class="financial-grid">
+                                <div class="financial-item">
+                                    <div class="financial-value">₸ 1,500,000</div>
+                                    <div class="financial-label">Общий бюджет</div>
+                                </div>
+                                <div class="financial-item">
+                                    <div class="financial-value">₸ 375,000</div>
+                                    <div class="financial-label">Потрачено</div>
+                                </div>
+                                <div class="financial-item">
+                                    <div class="financial-value">₸ 1,125,000</div>
+                                    <div class="financial-label">Остаток</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress-section">
+                            <div class="progress-title">Распределение бюджета по статьям</div>
+                            <div style="margin: 20px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span>Строительные работы</span>
+                                    <span>₸ 900,000 (60%)</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 60%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 20px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span>Инженерные системы</span>
+                                    <span>₸ 300,000 (20%)</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 20%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 20px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span>Отделочные материалы</span>
+                                    <span>₸ 150,000 (10%)</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 10%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 20px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span>Оборудование</span>
+                                    <span>₸ 150,000 (10%)</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 10%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Команда проекта -->
+                <div class="slide">
+                    <h2 class="slide-title">Команда проекта</h2>
+                    <div class="slide-content">
+                        <div class="team-section">
+                            <div class="team-title">Руководящий состав</div>
+                            <div class="team-members">
+                                <div class="team-member">
+                                    <div class="member-avatar">АК</div>
+                                    <div class="member-info">
+                                        <div class="member-name">Алексей Ким</div>
+                                        <div class="member-role">Руководитель проекта</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="team-member">
+                                    <div class="member-avatar">ДП</div>
+                                    <div class="member-info">
+                                        <div class="member-name">Дмитрий Петров</div>
+                                        <div class="member-role">Главный инженер</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="team-member">
+                                    <div class="member-avatar">ЕВ</div>
+                                    <div class="member-info">
+                                        <div class="member-name">Елена Волкова</div>
+                                        <div class="member-role">Архитектор</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="team-member">
+                                    <div class="member-avatar">МС</div>
+                                    <div class="member-info">
+                                        <div class="member-name">Мария Смирнова</div>
+                                        <div class="member-role">Финансовый менеджер</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Ключевые достижения -->
+                <div class="slide">
+                    <h2 class="slide-title">Ключевые достижения и результаты</h2>
+                    <div class="slide-content">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Просрочек</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">95%</div>
+                                <div class="stat-label">Качество</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">8%</div>
+                                <div class="stat-label">Экономия</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">4.9★</div>
+                                <div class="stat-label">Оценка</div>
+                            </div>
+                        </div>
+
+                        <div style="background: #f0f9ff; padding: 25px; border-radius: 12px; margin: 20px 0; border-left: 4px solid #0ea5e9;">
+                            <h3 style="color: #0c4a6e; margin-bottom: 15px;">Основные достижения:</h3>
+                            <ul style="color: #475569; line-height: 1.8;">
+                                <li>Соблюдение всех сроков выполнения работ</li>
+                                <li>Экономия бюджета на 8% благодаря оптимизации</li>
+                                <li>Отсутствие производственного травматизма</li>
+                                <li>Высокие оценки качества от заказчика</li>
+                                <li>Внедрение современных строительных технологий</li>
+                                <li>Создание 100 рабочих мест</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Планы на будущее -->
+                <div class="slide">
+                    <h2 class="slide-title">Планы на завершение проекта</h2>
+                    <div class="slide-content">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-icon">📅</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Завершение фундамента</div>
+                                    <div class="timeline-date">Август 2024</div>
+                                </div>
+                                <span class="timeline-status status-in-progress">В работе</span>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">🏗️</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Возведение каркаса</div>
+                                    <div class="timeline-date">Сентябрь 2024 - Март 2025</div>
+                                </div>
+                                <span class="timeline-status status-planned">Планируется</span>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">🔧</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Отделочные работы</div>
+                                    <div class="timeline-date">Апрель - Май 2025</div>
+                                </div>
+                                <span class="timeline-status status-planned">Планируется</span>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">✅</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Сдача объекта</div>
+                                    <div class="timeline-date">10 июня 2025</div>
+                                </div>
+                                <span class="timeline-status status-planned">Планируется</span>
+                            </div>
+                        </div>
+
+                        <div style="background: #f0fdf4; padding: 25px; border-radius: 12px; margin: 20px 0; border: 2px solid #22c55e;">
+                            <h3 style="color: #166534; margin-bottom: 15px;">Ожидаемые результаты:</h3>
+                            <ul style="color: #365314; line-height: 1.8;">
+                                <li>Сдача объекта в срок - 10 июня 2025</li>
+                                <li>Полное соответствие техническому заданию</li>
+                                <li>Получение всех необходимых разрешений</li>
+                                <li>Успешная сдача в эксплуатацию</li>
+                                <li>Довольные арендаторы и заказчик</li>
+                                <li>Создание 500 рабочих мест</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Button -->
+    <button class="ai-float-button" onclick="toggleAIChat()" title="AI Ассистент">
+        <span class="ai-float-icon">🤖</span>
+        <span class="ai-pulse"></span>
+    </button>
+
+    <!-- AI Chat Window -->
+    <div id="aiChatWindow" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <div class="ai-chat-title">
+                <span class="ai-chat-icon">🤖</span>
+                <div>
+                    <div class="ai-chat-name">AI Ассистент PRIME360</div>
+                    <div class="ai-chat-status">
+                        <span class="status-dot online"></span>
+                        В сети
+                    </div>
+                </div>
+            </div>
+            <div class="ai-chat-actions">
+                <button class="ai-action-btn" onclick="minimizeAIChat()" title="Свернуть">−</button>
+                <button class="ai-action-btn" onclick="closeAIChat()" title="Закрыть">×</button>
+            </div>
+        </div>
+        
+        <div class="ai-chat-body" id="aiChatBody">
+            <div class="ai-welcome-message">
+                <div class="ai-avatar">🤖</div>
+                <div class="ai-message">
+                    <div class="ai-message-text">
+                        Привет! Я AI-ассистент PRIME360. Чем могу помочь с проектом "Офисный центр"?
+                        <div class="ai-suggestions">
+                            <button class="suggestion-btn" onclick="sendSuggestion('Статус проекта Офисный центр')">
+                                📊 Статус проекта
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Задачи проекта')">
+                                📋 Задачи проекта
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Финансы проекта')">
+                                💰 Финансы проекта
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-chat-footer">
+            <div class="ai-input-container">
+                <button class="ai-attach-btn" title="Прикрепить файл">📎</button>
+                <input type="text" 
+                       id="aiChatInput" 
+                       class="ai-input" 
+                       placeholder="Введите сообщение..." 
+                       onkeypress="handleAIEnter(event)">
+                <button class="ai-send-btn" onclick="sendAIMessage()" title="Отправить">
+                    <span class="send-icon">📤</span>
+                </button>
+            </div>
+            <div class="ai-footer-info">
+                <span class="ai-footer-text">AI может делать ошибки. Проверяйте важную информацию.</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

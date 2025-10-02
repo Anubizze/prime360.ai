@@ -3,52 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRIME360.AI - Документы</title>
+    <title>PRIME360.AI - Библиотека</title>
+    <link rel="icon" type="image/png" href="img/icon prime360.png">
+    <link rel="apple-touch-icon" href="img/icon prime360.png">
     <link rel="stylesheet" href="css/documents.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/search-system.css">
+    <script src="js/library-manager.js"></script>
+    <script src="js/search-system.js"></script>
+    <!-- Mobile Responsive -->
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
             <div class="logo">
-                <div class="logo-icon">P</div>
+                <div class="logo-icon">
+                    <img src="img/icon prime360.png" alt="PRIME360.AI" width="32" height="32">
+                </div>
                 <div class="logo-text">PRIME360.AI</div>
             </div>
             
             <a href="index.html" class="menu-item">
                 <span class="menu-icon">🏠</span>
-                Главная
+                Главное
             </a>
-            <a href="meetings.html" class="menu-item">
-                <span class="menu-icon">💬</span>
-                Совещания
-            </a>
-            <a href="tasks.html" class="menu-item">
-                <span class="menu-icon">📋</span>
-                Задачи
-            </a>
-            <a href="schedule.html" class="menu-item">
+            <a href="projects.html" class="menu-item">
                 <span class="menu-icon">📊</span>
-                График
-            </a>
-            <a href="documents.html" class="menu-item active">
-                <span class="menu-icon">📄</span>
-                Документы
-            </a>
-            <a href="finances.html" class="menu-item">
-                <span class="menu-icon">💰</span>
-                Финансы
-            </a>
-            <a href="analytics.html" class="menu-item">
-                <span class="menu-icon">📈</span>
-                Аналитика
-            </a>
-            <a href="integrations.html" class="menu-item">
-                <span class="menu-icon">🔗</span>
-                Интеграции
+                Проекты
             </a>
             <a href="archive.html" class="menu-item">
                 <span class="menu-icon">📦</span>
                 Архив
+            </a>
+            <a href="#" class="menu-item" onclick="toggleAIChat(); return false;">
+                <span class="menu-icon">🤖</span>
+                AI-ассистент
+            </a>
+            <a href="documents.html" class="menu-item active">
+                <span class="menu-icon">📚</span>
+                Библиотека
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
             </a>
 
             <div class="projects-section">
@@ -63,21 +62,12 @@
                 </div>
                 <div class="project-item">
                     <div class="project-dot blue"></div>
-                    "Клиент"
+                    "Клиент А"
                 </div>
                 <div class="project-item">
                     <div class="project-dot blue"></div>
-                    "Клиент"
+                    "Клиент Б"
                 </div>
-            </div>
-
-            <div class="ai-assistant">
-                <div class="ai-icon">🤖</div>
-                <div class="ai-title">AI-ассистент</div>
-                <div class="ai-description">
-                    Нет новых рекомендаций пока вы можете задать любые вопросы по работе подрядчиков системе данным
-                </div>
-                <button class="ai-button">Написать чату</button>
             </div>
         </div>
 
@@ -97,146 +87,346 @@
                 </div>
             </div>
 
-            <!-- Documents Page Content -->
+            <!-- Library Page Content -->
             <div class="content-header">
                 <div class="content-title">
                     <div class="title-left">
-                        <div class="title-text">Управление документами</div>
-                        <div class="title-icons">
-                            <div class="title-icon">📁</div>
-                            <div class="title-icon">🔍</div>
-                        </div>
+                        <div class="title-text">Библиотека документов</div>
                     </div>
-                    <button class="invite-button" id="upload-btn">
-                        <span>📄</span>
-                        Загрузить
-                    </button>
-                    <input type="file" id="file-input" style="display: none;" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.dwg,.jpg,.png">
                 </div>
             </div>
             
             <div class="content-body">
-                <div class="documents-filter" style="display: flex; gap: 15px; margin-bottom: 20px; align-items: center;">
-                    <select id="project-filter" style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
-                        <option value="">Все проекты</option>
-                        <option value="ЖК Прогресс">ЖК Прогресс</option>
-                        <option value="Астана Plaza">Астана Plaza</option>
-                        <option value="Клиент">Клиент</option>
-                    </select>
-                    <select id="type-filter" style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
-                        <option value="">Все типы</option>
-                        <option value="Договор">Договоры</option>
-                        <option value="Чертеж">Чертежи</option>
-                        <option value="Смета">Сметы</option>
-                        <option value="Отчет">Отчеты</option>
-                    </select>
-                    <input type="text" id="search-input" placeholder="Поиск документов..." style="flex: 1; padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px;">
-                </div>
-                
-                <div class="documents-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
-                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
-                            <div class="document-icon" style="width: 40px; height: 40px; background: #fee2e2; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
-                                <span style="font-size: 20px;">📄</span>
-                            </div>
-                            <div style="flex: 1;">
-                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Договор подряда №001</div>
-                                <div class="document-meta" style="color: #666; font-size: 14px;">PDF • 2.4 MB</div>
-                            </div>
-                            <div class="document-menu" style="cursor: pointer;">⋯</div>
+                <div class="library-grid">
+                    <!-- Card 1: Нормативные документы РК -->
+                    <div class="library-card" id="card-normative" onclick="openModalWithData('modal-normative', 'normative')">
+                        <div class="library-card-icon">
+                            <span>📋</span>
                         </div>
-                        <div class="document-info" style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: ЖК Прогресс</div>
-                            <div style="color: #666; font-size: 14px;">Обновлен: 18 июля 2024</div>
+                        <div class="library-card-content">
+                            <h3>Нормативные документы РК</h3>
+                            <p>Законы, постановления и нормативно-правовые акты Республики Казахстан</p>
                         </div>
-                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
-                            <span class="tag" style="background: #f0f2ff; color: #70B8B8; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Договор</span>
-                            <span class="tag" style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Важно</span>
-                        </div>
-                        <div class="document-actions" style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
+                        <div class="library-card-footer">
+                            <span class="card-badge">Загрузка...</span>
+                            <span class="card-arrow">→</span>
                         </div>
                     </div>
-                    
-                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
-                            <div class="document-icon" style="width: 40px; height: 40px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
-                                <span style="font-size: 20px;">📊</span>
-                            </div>
-                            <div style="flex: 1;">
-                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Смета расходов Q2</div>
-                                <div class="document-meta" style="color: #666; font-size: 14px;">XLSX • 1.8 MB</div>
-                            </div>
-                            <div class="document-menu" style="cursor: pointer;">⋯</div>
+
+                    <!-- Card 2: Стандарты, регламенты, инструкции -->
+                    <div class="library-card" id="card-standards" onclick="openModalWithData('modal-standards', 'standards')">
+                        <div class="library-card-icon purple">
+                            <span>📄</span>
                         </div>
-                        <div class="document-info" style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: Астана Plaza</div>
-                            <div style="color: #666; font-size: 14px;">Обновлен: 20 июля 2024</div>
+                        <div class="library-card-content">
+                            <h3>Стандарты, регламенты, инструкции</h3>
+                            <p>Корпоративные стандарты, процедуры и рабочие инструкции</p>
                         </div>
-                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
-                            <span class="tag" style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Смета</span>
-                            <span class="tag" style="background: #f0f9ff; color: #0284c7; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Актуально</span>
-                        </div>
-                        <div class="document-actions" style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
+                        <div class="library-card-footer">
+                            <span class="card-badge">Загрузка...</span>
+                            <span class="card-arrow">→</span>
                         </div>
                     </div>
-                    
-                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
-                            <div class="document-icon" style="width: 40px; height: 40px; background: #f3e8ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
-                                <span style="font-size: 20px;">📝</span>
-                            </div>
-                            <div style="flex: 1;">
-                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Чертеж планировки</div>
-                                <div class="document-meta" style="color: #666; font-size: 14px;">DWG • 5.2 MB</div>
-                            </div>
-                            <div class="document-menu" style="cursor: pointer;">⋯</div>
+
+                    <!-- Card 3: Управление проектами -->
+                    <div class="library-card" id="card-items" onclick="openModalWithData('modal-items', 'items')">
+                        <div class="library-card-icon orange">
+                            <span>📦</span>
                         </div>
-                        <div class="document-info" style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: ЖК Прогресс</div>
-                            <div style="color: #666; font-size: 14px;">Обновлен: 15 июля 2024</div>
+                        <div class="library-card-content">
+                            <h3>Управление проектами</h3>
+                            <p>Каталоги, спецификации и документация по управлению проектами</p>
                         </div>
-                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
-                            <span class="tag" style="background: #f3e8ff; color: #7c3aed; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Чертеж</span>
-                            <span class="tag" style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 12px; font-size: 12px;">На согласовании</span>
-                        </div>
-                        <div class="document-actions" style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
-                        </div>
-                    </div>
-                    
-                    <div class="document-card" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div class="document-header" style="display: flex; align-items: center; margin-bottom: 15px;">
-                            <div class="document-icon" style="width: 40px; height: 40px; background: #ecfdf5; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
-                                <span style="font-size: 20px;">📈</span>
-                            </div>
-                            <div style="flex: 1;">
-                                <div class="document-title" style="font-weight: 600; color: #333; margin-bottom: 4px;">Отчет о прогрессе</div>
-                                <div class="document-meta" style="color: #666; font-size: 14px;">PDF • 3.1 MB</div>
-                            </div>
-                            <div class="document-menu" style="cursor: pointer;">⋯</div>
-                        </div>
-                        <div class="document-info" style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Проект: Клиент</div>
-                            <div style="color: #666; font-size: 14px;">Обновлен: 22 июля 2024</div>
-                        </div>
-                        <div class="document-tags" style="display: flex; gap: 8px; margin-bottom: 15px;">
-                            <span class="tag" style="background: #ecfdf5; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Отчет</span>
-                            <span class="tag" style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Готов</span>
-                        </div>
-                        <div class="document-actions" style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Скачать</button>
+                        <div class="library-card-footer">
+                            <span class="card-badge">Загрузка...</span>
+                            <span class="card-arrow">→</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal 1: Нормативные документы РК -->
+    <div id="modal-normative" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <span class="modal-icon">📋</span>
+                    Нормативные документы РК
+                </h2>
+                <button class="close-modal" onclick="closeModal('modal-normative')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-search">
+                    <input type="text" placeholder="Поиск документов..." class="modal-search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="documents-list">
+                    <div class="loading">Загрузка документов...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modal-normative')">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Стандарты, регламенты, инструкции -->
+    <div id="modal-standards" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <span class="modal-icon">📄</span>
+                    Стандарты, регламенты, инструкции
+                </h2>
+                <button class="close-modal" onclick="closeModal('modal-standards')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-search">
+                    <input type="text" placeholder="Поиск документов..." class="modal-search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="documents-list">
+                    <div class="loading">Загрузка документов...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modal-standards')">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Управление проектами -->
+    <div id="modal-items" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <span class="modal-icon">📦</span>
+                    Управление проектами
+                </h2>
+                <button class="close-modal" onclick="closeModal('modal-items')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-search">
+                    <input type="text" placeholder="Поиск документов..." class="modal-search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="documents-list">
+                    <div class="loading">Загрузка документов...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('modal-items')">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function closeModal(modalId) {
+            document.querySelector(`#${modalId} .modal-content`).classList.remove('show');
+            setTimeout(() => {
+                document.getElementById(modalId).style.display = 'none';
+            }, 300);
+        }
+
+        // Close modal on outside click
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modalId = event.target.id;
+                closeModal(modalId);
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'flex') {
+                        closeModal(modal.id);
+                    }
+                });
+            }
+        });
+
+        // AI Chat Functions
+        let isChatOpen = false;
+        let isMinimized = false;
+
+        function toggleAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            const floatButton = document.querySelector('.ai-float-button');
+            
+            if (isChatOpen) {
+                closeAIChat();
+            } else {
+                chatWindow.classList.add('show');
+                floatButton.style.display = 'none';
+                isChatOpen = true;
+                isMinimized = false;
+            }
+        }
+
+        function closeAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            const floatButton = document.querySelector('.ai-float-button');
+            
+            chatWindow.classList.remove('show');
+            chatWindow.classList.remove('minimized');
+            setTimeout(() => {
+                floatButton.style.display = 'flex';
+            }, 300);
+            isChatOpen = false;
+            isMinimized = false;
+        }
+
+        function minimizeAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            chatWindow.classList.toggle('minimized');
+            isMinimized = !isMinimized;
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('aiChatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Добавляем сообщение пользователя
+            addMessageToChat(message, 'user');
+            input.value = '';
+
+            // Имитируем ответ AI
+            setTimeout(() => {
+                const aiResponse = getAIResponse(message);
+                addMessageToChat(aiResponse, 'ai');
+            }, 1000);
+        }
+
+        function sendSuggestion(suggestion) {
+            const input = document.getElementById('aiChatInput');
+            input.value = suggestion;
+            sendAIMessage();
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        function addMessageToChat(message, sender) {
+            const chatBody = document.getElementById('aiChatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message-container ${sender}`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="ai-message user-message">
+                        <div class="ai-message-text">${message}</div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="ai-avatar">🤖</div>
+                    <div class="ai-message">
+                        <div class="ai-message-text">${message}</div>
+                    </div>
+                `;
+            }
+            
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getAIResponse(message) {
+            const responses = {
+                'показать документы проекта': 'Документы проекта:\n• Устав проекта_v5.pdf\n• График с отклонениями.pdf\n• Таблицы фин.отчет.pdf\n• Пересень ИРД для КВА.pdf',
+                'найти документ': 'Для поиска документа:\n1. Используйте поиск в верхней части\n2. Фильтруйте по типу документа\n3. Сортируйте по дате или названию',
+                'загрузить документ': 'Для загрузки документа:\n1. Нажмите кнопку "Загрузить"\n2. Выберите файл с компьютера\n3. Добавьте описание\n4. Нажмите "Сохранить"',
+                'привет': 'Привет! Я AI-ассистент PRIME360. Чем могу помочь с документами?',
+                'помощь': 'Я могу помочь с:\n• Поиском документов\n• Загрузкой файлов\n• Организацией библиотеки\n• Работой с PDF файлами'
+            };
+            
+            const lowerMessage = message.toLowerCase();
+            for (const [key, response] of Object.entries(responses)) {
+                if (lowerMessage.includes(key)) {
+                    return response;
+                }
+            }
+            
+            return 'Извините, я не понял ваш вопрос. Попробуйте спросить о документах или поиске файлов.';
+        }
+    </script>
+
+    <!-- Floating AI Assistant Button -->
+    <button class="ai-float-button" onclick="toggleAIChat()" title="AI Ассистент">
+        <span class="ai-float-icon">🤖</span>
+        <span class="ai-pulse"></span>
+    </button>
+
+    <!-- AI Chat Window -->
+    <div id="aiChatWindow" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <div class="ai-chat-title">
+                <span class="ai-chat-icon">🤖</span>
+                <div>
+                    <div class="ai-chat-name">AI Ассистент PRIME360</div>
+                    <div class="ai-chat-status">
+                        <span class="status-dot online"></span>
+                        В сети
+                    </div>
+                </div>
+            </div>
+            <div class="ai-chat-actions">
+                <button class="ai-action-btn" onclick="minimizeAIChat()" title="Свернуть">−</button>
+                <button class="ai-action-btn" onclick="closeAIChat()" title="Закрыть">×</button>
+            </div>
+        </div>
+        
+        <div class="ai-chat-body" id="aiChatBody">
+            <div class="ai-welcome-message">
+                <div class="ai-avatar">🤖</div>
+                <div class="ai-message">
+                    <div class="ai-message-text">
+                        Привет! Я AI-ассистент PRIME360. Чем могу помочь с документами?
+                        <div class="ai-suggestions">
+                            <button class="suggestion-btn" onclick="sendSuggestion('Показать документы проекта')">
+                                📄 Показать документы проекта
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Найти документ')">
+                                🔍 Найти документ
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Загрузить документ')">
+                                📤 Загрузить документ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-chat-footer">
+            <div class="ai-input-container">
+                <button class="ai-attach-btn" title="Прикрепить файл">📎</button>
+                <input type="text" 
+                       id="aiChatInput" 
+                       class="ai-input" 
+                       placeholder="Введите сообщение..." 
+                       onkeypress="handleAIEnter(event)">
+                <button class="ai-send-btn" onclick="sendAIMessage()" title="Отправить">
+                    <span class="send-icon">📤</span>
+                </button>
+            </div>
+            <div class="ai-footer-info">
+                <span class="ai-footer-text">AI может делать ошибки. Проверяйте важную информацию.</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-

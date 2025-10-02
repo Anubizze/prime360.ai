@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRIME360.AI - Архив</title>
+    <link rel="icon" type="image/png" href="img/icon prime360.png">
+    <link rel="apple-touch-icon" href="img/icon prime360.png">
     <link rel="stylesheet" href="css/archive.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/search-system.css">
+    <script src="js/search-system.js"></script>
+    <!-- Mobile Responsive -->
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
             <div class="logo">
-                <div class="logo-icon">P</div>
+                <div class="logo-icon">
+                    <img src="img/icon prime360.png" alt="PRIME360.AI" width="32" height="32">
+                </div>
                 <div class="logo-text">PRIME360.AI</div>
             </div>
             
@@ -18,37 +28,25 @@
                 <span class="menu-icon">🏠</span>
                 Главная
             </a>
-            <a href="meetings.html" class="menu-item">
-                <span class="menu-icon">💬</span>
-                Совещания
-            </a>
-            <a href="tasks.html" class="menu-item">
-                <span class="menu-icon">📋</span>
-                Задачи
-            </a>
-            <a href="schedule.html" class="menu-item">
-                <span class="menu-icon">📊</span>
-                График
-            </a>
-            <a href="documents.html" class="menu-item">
-                <span class="menu-icon">📄</span>
-                Документы
-            </a>
-            <a href="finances.html" class="menu-item">
-                <span class="menu-icon">💰</span>
-                Финансы
-            </a>
-            <a href="analytics.html" class="menu-item">
-                <span class="menu-icon">📈</span>
-                Аналитика
-            </a>
-            <a href="integrations.html" class="menu-item">
-                <span class="menu-icon">🔗</span>
-                Интеграции
+            <a href="projects.html" class="menu-item">
+                <span class="menu-icon">📁</span>
+                Проекты
             </a>
             <a href="archive.html" class="menu-item active">
                 <span class="menu-icon">📦</span>
                 Архив
+            </a>
+            <a href="#" class="menu-item" onclick="toggleAIChat(); return false;">
+                <span class="menu-icon">🤖</span>
+                AI-ассистент
+            </a>
+            <a href="documents.html" class="menu-item">
+                <span class="menu-icon">📚</span>
+                Библиотека
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
             </a>
 
             <div class="projects-section">
@@ -102,10 +100,6 @@
                 <div class="content-title">
                     <div class="title-left">
                         <div class="title-text">Архив проектов</div>
-                        <div class="title-icons">
-                            <div class="title-icon">📦</div>
-                            <div class="title-icon">🔍</div>
-                        </div>
                     </div>
                     <button class="invite-button">
                         <span>📤</span>
@@ -115,145 +109,322 @@
             </div>
             
             <div class="content-body">
-                <div class="archive-filters" style="display: flex; gap: 15px; margin-bottom: 20px; align-items: center;">
-                    <select style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
-                        <option value="">Все периоды</option>
-                        <option value="2024">2024 год</option>
-                        <option value="2023">2023 год</option>
-                        <option value="2022">2022 год</option>
-                    </select>
-                    <select style="padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px; background: white;">
-                        <option value="">Все статусы</option>
-                        <option value="completed">Завершенные</option>
-                        <option value="cancelled">Отмененные</option>
-                        <option value="suspended">Приостановленные</option>
-                    </select>
-                    <input type="text" placeholder="Поиск в архиве..." style="flex: 1; padding: 8px 12px; border: 1px solid #e5e5e7; border-radius: 6px;">
-                </div>
                 
-                <div class="archive-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
-                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <span style="font-size: 24px; margin-right: 10px;">✅</span>
-                            <div>
-                                <div style="font-weight: 600; color: #333;">Завершенные</div>
-                                <div style="color: #666; font-size: 14px;">Всего проектов</div>
-                            </div>
-                        </div>
-                        <div style="font-size: 32px; font-weight: bold; color: #16a34a;">24</div>
-                    </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <span style="font-size: 24px; margin-right: 10px;">❌</span>
-                            <div>
-                                <div style="font-weight: 600; color: #333;">Отмененные</div>
-                                <div style="color: #666; font-size: 14px;">Проекты</div>
-                            </div>
-                        </div>
-                        <div style="font-size: 32px; font-weight: bold; color: #ef4444;">3</div>
-                    </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <span style="font-size: 24px; margin-right: 10px;">⏸️</span>
-                            <div>
-                                <div style="font-weight: 600; color: #333;">Приостановленные</div>
-                                <div style="color: #666; font-size: 14px;">Проекты</div>
-                            </div>
-                        </div>
-                        <div style="font-size: 32px; font-weight: bold; color: #f59e0b;">2</div>
-                    </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <span style="font-size: 24px; margin-right: 10px;">📊</span>
-                            <div>
-                                <div style="font-weight: 600; color: #333;">Общий объем</div>
-                                <div style="color: #666; font-size: 14px;">Сумма проектов</div>
-                            </div>
-                        </div>
-                        <div style="font-size: 32px; font-weight: bold; color: #70B8B8;">₸ 15.2M</div>
-                    </div>
-                </div>
                 
                 <div class="archive-projects" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">
-                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                            <div>
-                                <h3 style="margin: 0 0 5px 0; color: #333;">ЖК "Северный"</h3>
-                                <div style="color: #666; font-size: 14px;">Завершен 15 марта 2024</div>
-                            </div>
-                            <div style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Завершен</div>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 2,800,000</div>
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 8 месяцев</div>
-                            <div style="color: #666; font-size: 14px;">Команда: 12 человек</div>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
-                        </div>
+                    <!-- Проекты будут загружены динамически -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция загрузки проектов из localStorage
+        function loadProjectsFromStorage() {
+            try {
+                const savedProjects = localStorage.getItem('savedProjects');
+                return savedProjects ? JSON.parse(savedProjects) : [];
+            } catch (error) {
+                console.error('Ошибка при загрузке проектов:', error);
+                return [];
+            }
+        }
+
+        // Функция создания карточки архивированного проекта
+        function createArchivedProjectCard(projectData) {
+            const card = document.createElement('div');
+            card.className = 'archived-project';
+            card.style.cssText = 'background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;';
+            
+            // Определяем статус и цвет
+            let statusText = 'Завершен';
+            let statusColor = '#16a34a';
+            let statusBg = '#dcfce7';
+            
+            if (projectData.status === 'cancelled') {
+                statusText = 'Отменен';
+                statusColor = '#dc2626';
+                statusBg = '#fee2e2';
+            } else if (projectData.status === 'suspended') {
+                statusText = 'Приостановлен';
+                statusColor = '#d97706';
+                statusBg = '#fef3c7';
+            } else if (projectData.status === 'archived') {
+                statusText = 'В архиве';
+                statusColor = '#70B8B8';
+                statusBg = '#e0f2fe';
+            }
+            
+            // Форматируем дату завершения или архивирования
+            const completionDate = projectData.archivedAt ? 
+                new Date(projectData.archivedAt).toLocaleDateString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }) : 
+                projectData.completedAt ? 
+                    new Date(projectData.completedAt).toLocaleDateString('ru-RU', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    }) : 
+                    'Дата не указана';
+            
+            card.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div>
+                        <h3 style="margin: 0 0 5px 0; color: #333;">${projectData.name}</h3>
+                        <div style="color: #666; font-size: 14px;">${statusText} ${completionDate}</div>
                     </div>
+                    <div style="background: ${statusBg}; color: ${statusColor}; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">${statusText}</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ ${projectData.budget}M</div>
+                    <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: ${projectData.duration} месяцев</div>
+                    <div style="color: #666; font-size: 14px;">Прогресс: ${projectData.progress}%</div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="viewProject('${projectData.id}')" style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
+                    <button onclick="restoreProject('${projectData.id}')" style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+
+        // Функция отображения завершенных проектов
+        function displayArchivedProjects() {
+            const projects = loadProjectsFromStorage();
+            const archivedProjects = projects.filter(p => 
+                p.status === 'completed' || p.status === 'cancelled' || p.status === 'suspended' || p.status === 'archived'
+            );
+            
+            const archiveContainer = document.querySelector('.archive-projects');
+            if (archiveContainer) {
+                // Очищаем существующие карточки
+                archiveContainer.innerHTML = '';
+                
+                // Добавляем карточки проектов
+                archivedProjects.forEach(project => {
+                    const projectCard = createArchivedProjectCard(project);
+                    archiveContainer.appendChild(projectCard);
+                });
+                
+                // Если нет проектов, показываем сообщение
+                if (archivedProjects.length === 0) {
+                    archiveContainer.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">📦</div>
+                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Архив пуст</div>
+                            <div>Завершенные проекты будут отображаться здесь</div>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Функция просмотра проекта
+        function viewProject(projectId) {
+            // Перенаправляем на страницу проекта
+            window.location.href = `project-detail.html?id=${projectId}`;
+        }
+
+        // Функция восстановления проекта
+        function restoreProject(projectId) {
+            if (confirm('Вы уверены, что хотите восстановить этот проект?')) {
+                const projects = loadProjectsFromStorage();
+                const projectIndex = projects.findIndex(p => p.id == projectId);
+                
+                if (projectIndex !== -1) {
+                    // Меняем статус на "В работе"
+                    projects[projectIndex].status = 'active';
+                    localStorage.setItem('savedProjects', JSON.stringify(projects));
                     
-                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                            <div>
-                                <h3 style="margin: 0 0 5px 0; color: #333;">Офисный центр "Бизнес"</h3>
-                                <div style="color: #666; font-size: 14px;">Отменен 8 февраля 2024</div>
-                            </div>
-                            <div style="background: #fee2e2; color: #dc2626; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Отменен</div>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 1,500,000</div>
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 3 месяца</div>
-                            <div style="color: #666; font-size: 14px;">Команда: 8 человек</div>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
-                        </div>
+                    // Обновляем отображение
+                    displayArchivedProjects();
+                    
+                    alert('Проект успешно восстановлен!');
+                }
+            }
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            displayArchivedProjects();
+        });
+
+        // AI Chat Functions
+        let isChatOpen = false;
+        let isMinimized = false;
+
+        function toggleAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            const floatButton = document.querySelector('.ai-float-button');
+            
+            if (isChatOpen) {
+                closeAIChat();
+            } else {
+                chatWindow.classList.add('show');
+                floatButton.style.display = 'none';
+                isChatOpen = true;
+                isMinimized = false;
+            }
+        }
+
+        function closeAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            const floatButton = document.querySelector('.ai-float-button');
+            
+            chatWindow.classList.remove('show');
+            chatWindow.classList.remove('minimized');
+            setTimeout(() => {
+                floatButton.style.display = 'flex';
+            }, 300);
+            isChatOpen = false;
+            isMinimized = false;
+        }
+
+        function minimizeAIChat() {
+            const chatWindow = document.getElementById('aiChatWindow');
+            chatWindow.classList.toggle('minimized');
+            isMinimized = !isMinimized;
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('aiChatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Добавляем сообщение пользователя
+            addMessageToChat(message, 'user');
+            input.value = '';
+
+            // Имитируем ответ AI
+            setTimeout(() => {
+                const aiResponse = getAIResponse(message);
+                addMessageToChat(aiResponse, 'ai');
+            }, 1000);
+        }
+
+        function sendSuggestion(suggestion) {
+            const input = document.getElementById('aiChatInput');
+            input.value = suggestion;
+            sendAIMessage();
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        function addMessageToChat(message, sender) {
+            const chatBody = document.getElementById('aiChatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message-container ${sender}`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="ai-message user-message">
+                        <div class="ai-message-text">${message}</div>
                     </div>
-                    
-                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                            <div>
-                                <h3 style="margin: 0 0 5px 0; color: #333;">Торговый центр "Мега"</h3>
-                                <div style="color: #666; font-size: 14px;">Завершен 22 декабря 2023</div>
-                            </div>
-                            <div style="background: #dcfce7; color: #16a34a; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Завершен</div>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 4,200,000</div>
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 12 месяцев</div>
-                            <div style="color: #666; font-size: 14px;">Команда: 18 человек</div>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
-                        </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="ai-avatar">🤖</div>
+                    <div class="ai-message">
+                        <div class="ai-message-text">${message}</div>
                     </div>
-                    
-                    <div class="archived-project" style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e7;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                            <div>
-                                <h3 style="margin: 0 0 5px 0; color: #333;">Реконструкция школы №15</h3>
-                                <div style="color: #666; font-size: 14px;">Приостановлен 10 января 2024</div>
-                            </div>
-                            <div style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">Приостановлен</div>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Бюджет: ₸ 800,000</div>
-                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Длительность: 4 месяца</div>
-                            <div style="color: #666; font-size: 14px;">Команда: 6 человек</div>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button style="flex: 1; padding: 8px; background: #f8f9ff; color: #70B8B8; border: 1px solid #e0e7ff; border-radius: 6px; cursor: pointer;">Просмотр</button>
-                            <button style="flex: 1; padding: 8px; background: white; color: #666; border: 1px solid #e5e5e7; border-radius: 6px; cursor: pointer;">Восстановить</button>
+                `;
+            }
+            
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getAIResponse(message) {
+            const responses = {
+                'показать архивные проекты': 'В архиве находятся:\n• Солнечная электростанция (Завершен)\n• ЖК Прогресс (Завершен)\n• Офисный центр (Приостановлен)',
+                'статистика архива': 'Статистика архива:\n• Всего проектов: 3\n• Завершенных: 2\n• Приостановленных: 1\n• Общая стоимость: ₸5.2M',
+                'восстановить проект': 'Для восстановления проекта:\n1. Найдите нужный проект в списке\n2. Нажмите кнопку "Восстановить"\n3. Проект вернется в активные',
+                'привет': 'Привет! Я AI-ассистент PRIME360. Чем могу помочь с архивом?',
+                'помощь': 'Я могу помочь с:\n• Просмотром архивных проектов\n• Статистикой архива\n• Восстановлением проектов\n• Анализом завершенных работ'
+            };
+            
+            const lowerMessage = message.toLowerCase();
+            for (const [key, response] of Object.entries(responses)) {
+                if (lowerMessage.includes(key)) {
+                    return response;
+                }
+            }
+            
+            return 'Извините, я не понял ваш вопрос. Попробуйте спросить об архивных проектах или статистике.';
+        }
+    </script>
+
+    <!-- Floating AI Assistant Button -->
+    <button class="ai-float-button" onclick="toggleAIChat()" title="AI Ассистент">
+        <span class="ai-float-icon">🤖</span>
+        <span class="ai-pulse"></span>
+    </button>
+
+    <!-- AI Chat Window -->
+    <div id="aiChatWindow" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <div class="ai-chat-title">
+                <span class="ai-chat-icon">🤖</span>
+                <div>
+                    <div class="ai-chat-name">AI Ассистент PRIME360</div>
+                    <div class="ai-chat-status">
+                        <span class="status-dot online"></span>
+                        В сети
+                    </div>
+                </div>
+            </div>
+            <div class="ai-chat-actions">
+                <button class="ai-action-btn" onclick="minimizeAIChat()" title="Свернуть">−</button>
+                <button class="ai-action-btn" onclick="closeAIChat()" title="Закрыть">×</button>
+            </div>
+        </div>
+        
+        <div class="ai-chat-body" id="aiChatBody">
+            <div class="ai-welcome-message">
+                <div class="ai-avatar">🤖</div>
+                <div class="ai-message">
+                    <div class="ai-message-text">
+                        Привет! Я AI-ассистент PRIME360. Чем могу помочь?
+                        <div class="ai-suggestions">
+                            <button class="suggestion-btn" onclick="sendSuggestion('Показать архивные проекты')">
+                                📦 Показать архивные проекты
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Статистика архива')">
+                                📊 Статистика архива
+                            </button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Восстановить проект')">
+                                🔄 Восстановить проект
+                            </button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="ai-chat-footer">
+            <div class="ai-input-container">
+                <button class="ai-attach-btn" title="Прикрепить файл">📎</button>
+                <input type="text" 
+                       id="aiChatInput" 
+                       class="ai-input" 
+                       placeholder="Введите сообщение..." 
+                       onkeypress="handleAIEnter(event)">
+                <button class="ai-send-btn" onclick="sendAIMessage()" title="Отправить">
+                    <span class="send-icon">📤</span>
+                </button>
+            </div>
+            <div class="ai-footer-info">
+                <span class="ai-footer-text">AI может делать ошибки. Проверяйте важную информацию.</span>
             </div>
         </div>
     </div>

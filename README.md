@@ -209,8 +209,8 @@ if (username === 'admin' && password === 'admin123') {
 - 👋 **Приветствие новых участников**
 - 📊 **Еженедельная статистика** проекта
 
-[![Deploy](https://github.com/Anubizze/prime/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/Anubizze/prime/actions)
-[![CI](https://github.com/Anubizze/prime/workflows/CI%20-%20Code%20Quality%20Check/badge.svg)](https://github.com/Anubizze/prime/actions)
+[![Deploy](https://github.com/Anubizze/prime360.ai/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/Anubizze/prime360.ai/actions)
+[![CI](https://github.com/Anubizze/prime360.ai/workflows/CI%20-%20Code%20Quality%20Check/badge.svg)](https://github.com/Anubizze/prime360.ai/actions)
 
 **Все работает автоматически!** Просто делайте push - остальное сделает GitHub Actions.
 

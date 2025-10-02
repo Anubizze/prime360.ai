@@ -19,14 +19,14 @@
 1. Забирает код из репозитория
 2. Настраивает GitHub Pages
 3. Загружает все файлы
-4. Деплоит на `https://anubizze.github.io/prime/`
+4. Деплоит на `https://anubizze.github.io/prime360.ai/`
 
 ### Когда запускается:
 - ✅ При push в ветку `main`
 - ✅ Вручную через Actions → Deploy to GitHub Pages → Run workflow
 
 ### Как активировать:
-1. Откройте: https://github.com/Anubizze/prime/settings/pages
+1. Откройте: https://github.com/Anubizze/prime360.ai/settings/pages
 2. Source: **GitHub Actions**
 3. Workflow будет работать автоматически!
 
@@ -111,7 +111,7 @@ Total lines of code: 7349
 ## 📋 Как просмотреть Actions
 
 ### Способ 1: Через GitHub
-1. Откройте: https://github.com/Anubizze/prime/actions
+1. Откройте: https://github.com/Anubizze/prime360.ai/actions
 2. Увидите список всех workflows
 3. Нажмите на любой для просмотра деталей
 
@@ -119,13 +119,13 @@ Total lines of code: 7349
 Добавьте в README.md:
 
 ```markdown
-![Deploy](https://github.com/Anubizze/prime/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)
-![CI](https://github.com/Anubizze/prime/workflows/CI%20-%20Code%20Quality%20Check/badge.svg)
+![Deploy](https://github.com/Anubizze/prime360.ai/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)
+![CI](https://github.com/Anubizze/prime360.ai/workflows/CI%20-%20Code%20Quality%20Check/badge.svg)
 ```
 
 Результат:
-![Deploy](https://github.com/Anubizze/prime/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)
-![CI](https://github.com/Anubizze/prime/workflows/CI%20-%20Code%20Quality%20Check/badge.svg)
+![Deploy](https://github.com/Anubizze/prime360.ai/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)
+![CI](https://github.com/Anubizze/prime360.ai/workflows/CI%20-%20Code%20Quality%20Check/badge.svg)
 
 ---
 
@@ -162,7 +162,7 @@ Total lines of code: 7349
 git log --oneline
 
 # На GitHub
-https://github.com/Anubizze/prime/actions
+https://github.com/Anubizze/prime360.ai/actions
 ```
 
 ### Notifications:
@@ -277,7 +277,7 @@ A: Actions → Выберите workflow → Выберите run → Просм
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - [Actions Marketplace](https://github.com/marketplace?type=actions)
-- [Ваши Actions](https://github.com/Anubizze/prime/actions)
+- [Ваши Actions](https://github.com/Anubizze/prime360.ai/actions)
 
 ---
 

@@ -9,7 +9,7 @@ class SearchSystem {
                 { id: 'meetings', name: 'Совещания', type: 'navigation', url: 'meetings.html', description: 'Планирование встреч' },
                 { id: 'finances', name: 'Финансы', type: 'navigation', url: 'finances.html', description: 'Финансовое планирование' },
                 { id: 'schedule', name: 'Расписание', type: 'navigation', url: 'schedule.html', description: 'Календарь событий' },
-                { id: 'tasks', name: 'Задачи', type: 'navigation', url: 'tasks.html', description: 'Управление задачами' },
+                { id: 'tasks', name: 'Задачи', type: 'navigation', url: 'projects.html', description: 'Управление задачами' },
                 { id: 'analytics', name: 'Аналитика', type: 'navigation', url: 'analytics.html', description: 'Отчеты и аналитика' },
                 { id: 'integrations', name: 'Интеграции', type: 'navigation', url: 'integrations.html', description: 'Внешние сервисы' },
                 { id: 'ai-assistant', name: 'AI-ассистент', type: 'navigation', url: '#', description: 'Искусственный интеллект' }

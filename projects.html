@@ -1201,6 +1201,179 @@
             alert(`Подтвердите действие\n\nОткрытие раздела: Устав проекта "${projectName}"\n\nЗдесь будет добавлен PDF файл в будущем.`);
         }
 
+        // Функция открытия модального окна бюджета проекта
+        function openBudgetModal(projectName) {
+            // Удаляем существующее модальное окно, если есть
+            const existingModal = document.getElementById('budgetModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            const modalHTML = `
+                <div id="budgetModal" style="display: block !important; position: fixed !important; z-index: 9999 !important; left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; background-color: rgba(0,0,0,0.8) !important; backdrop-filter: blur(5px) !important;">
+                    <div style="position: relative !important; margin: 2% auto !important; width: 95% !important; max-width: 1200px !important; max-height: 90vh !important; background: white !important; border-radius: 12px !important; box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important; overflow: hidden !important;">
+                        <div style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 20px 30px !important; background: #f8fafc !important; border-bottom: 1px solid #e2e8f0 !important;">
+                            <h2 style="margin: 0 !important; font-size: 20px !important; font-weight: 600 !important; color: #1e293b !important;">Бюджет проекта "${projectName}"</h2>
+                            <button onclick="closeBudgetModal()" style="background: none !important; border: none !important; font-size: 24px !important; cursor: pointer !important; color: #64748b !important; padding: 5px !important; border-radius: 6px !important; transition: all 0.2s !important;">&times;</button>
+                        </div>
+                        <div style="padding: 30px !important; max-height: calc(90vh - 100px) !important; overflow-y: auto !important;">
+                            <div style="overflow-x: auto !important; margin-bottom: 20px !important;">
+                                <table style="width: 100% !important; border-collapse: collapse !important; font-size: 14px !important; background: white !important; border: 1px solid #e5e7eb !important; border-radius: 8px !important; overflow: hidden !important;">
+                                    <thead>
+                                        <tr style="background: #f8fafc !important;">
+                                            <th style="padding: 12px !important; text-align: left !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 200px !important;">Наименование</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 120px !important;">Дата начала</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 120px !important;">Дата окончания</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Бюджет всего</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">План финансирования</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Оплата, всего</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Остаток по проекту</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">План на текущий год</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Оплата за текущий год</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Остаток на текущий год</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 80px !important;">1 кв</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 80px !important;">2 кв</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 80px !important;">3 кв</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 80px !important;">4 кв</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 12px !important; font-weight: 600 !important; color: #1f2937 !important; border-bottom: 1px solid #e5e7eb !important;">Проектно-изыскательские работы</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-01-15" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-06-30" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="15000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="15000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="12000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="3000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="8000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="6000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 12px !important; font-weight: 600 !important; color: #1f2937 !important; border-bottom: 1px solid #e5e7eb !important;">Поставка оборудования</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-07-01" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-12-31" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="25000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="25000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="18000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="7000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="12000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="10000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="3000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="3000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="3000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="3000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 12px !important; font-weight: 600 !important; color: #1f2937 !important; border-bottom: 1px solid #e5e7eb !important;">Строительно-монтажные работы</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2025-01-01" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2025-12-31" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="35000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="35000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="25000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="10000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="20000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="15000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="5000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="5000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="5000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="5000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="5000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                        </tr>
+                                        <tr style="background: #f8fafc !important; font-weight: 600 !important;">
+                                            <td style="padding: 12px !important; color: #1f2937 !important; border-bottom: 2px solid #e5e7eb !important;">В С Е Г О</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">-</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">-</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">75,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">75,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">55,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">20,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">35,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">31,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">4,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">10,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">10,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">10,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">10,000,000</td>
+                                        </tr>
+                                        <tr style="background: #e0f2fe !important; font-weight: 700 !important;">
+                                            <td style="padding: 12px !important; color: #0c4a6e !important; border-bottom: 2px solid #0ea5e9 !important;">Итого по ПИП</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">-</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">-</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">75,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">75,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">55,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">20,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">35,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">31,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">4,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">10,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">10,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">10,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #0ea5e9 !important; text-align: center !important; color: #0c4a6e !important;">10,000,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div style="margin-top: 20px; text-align: center;">
+                                <button onclick="saveBudgetData('${projectName}')" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">💾 Сохранить</button>
+                                <button onclick="loadBudgetData('${projectName}')" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">📁 Загрузить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        // Функция закрытия модального окна бюджета
+        function closeBudgetModal() {
+            const modal = document.getElementById('budgetModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Функция сохранения данных бюджета
+        function saveBudgetData(projectName) {
+            const inputs = document.querySelectorAll('#budgetModal input');
+            const data = {};
+            
+            inputs.forEach((input, index) => {
+                data[`field_${index}`] = input.value;
+            });
+            
+            localStorage.setItem(`budgetData_${projectName}`, JSON.stringify(data));
+            alert('Данные бюджета сохранены!');
+        }
+
+        // Функция загрузки данных бюджета
+        function loadBudgetData(projectName) {
+            const savedData = localStorage.getItem(`budgetData_${projectName}`);
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                const inputs = document.querySelectorAll('#budgetModal input');
+                
+                inputs.forEach((input, index) => {
+                    if (data[`field_${index}`]) {
+                        input.value = data[`field_${index}`];
+                    }
+                });
+                
+                alert('Данные бюджета загружены!');
+            } else {
+                alert('Сохраненных данных не найдено!');
+            }
+        }
+
         // Функция обновления статистики
         function updateStats(status) {
             const projectCards = document.querySelectorAll('.project-card');
@@ -1407,13 +1580,15 @@
                         <div>Срок: ${projectData.duration} мес.</div>
                         ${projectData.createdAt ? `<div style="font-size: 12px; color: #999;">Создан: ${new Date(projectData.createdAt).toLocaleDateString()}</div>` : ''}
                     </div>
-                    <div class="status-controls" style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 12px; color: #666;">Статус:</span>
-                        <select class="status-select" onchange="changeProjectStatus(${projectData.id || 'temp'}, this.value)" style="padding: 4px 8px; border: 1px solid #e5e5e7; border-radius: 4px; background: white; color: #333; font-size: 12px; min-width: 100px;">
-                            <option value="planning" ${projectData.status === 'planning' ? 'selected' : ''}>Планирование</option>
-                            <option value="active" ${projectData.status === 'active' ? 'selected' : ''}>В работе</option>
-                            <option value="completed" ${projectData.status === 'completed' ? 'selected' : ''}>Завершено</option>
-                        </select>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="status-controls" style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 12px; color: #666;">Статус:</span>
+                            <select class="status-select" onchange="changeProjectStatus(${projectData.id || 'temp'}, this.value)" style="padding: 4px 8px; border: 1px solid #e5e5e7; border-radius: 4px; background: white; color: #333; font-size: 12px; min-width: 100px;">
+                                <option value="planning" ${projectData.status === 'planning' ? 'selected' : ''}>Планирование</option>
+                                <option value="active" ${projectData.status === 'active' ? 'selected' : ''}>В работе</option>
+                                <option value="completed" ${projectData.status === 'completed' ? 'selected' : ''}>Завершено</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1752,7 +1927,10 @@
                 <span class="menu-icon">💬</span>
                 Совещания
             </a>
-
+            <a href="messenger.html" class="menu-item">
+                <span class="menu-icon">📱</span>
+                Мессенджер
+            </a>
 
             <div class="ai-assistant">
                 <div class="ai-icon">🤖</div>
@@ -1814,7 +1992,7 @@
 
             <div class="content-body">
                 <div class="projects-grid">
-                    <div class="project-card" data-status="active" onclick="window.location.href='project-zhk-progress.html'">
+                    <div class="project-card" data-status="active" onclick="if (!event.target.closest('.budget-btn')) window.location.href='project-zhk-progress.html'">
                         <div style="display: flex; align-items: center; margin-bottom: 16px;">
                             <div class="project-dot green" style="margin-right: 12px;"></div>
                             <h3>ЖК Прогресс</h3>
@@ -1831,7 +2009,9 @@
                         </div>
                         <div class="project-footer">
                             <div class="project-deadline">Срок: 15.12.2024</div>
-                            <div class="project-status status-active">В работе</div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="project-status status-active">В работе</div>
+                            </div>
                         </div>
                     </div>
 
@@ -1852,11 +2032,13 @@
                         </div>
                         <div class="project-footer">
                             <div class="project-deadline">Срок: 20.03.2025</div>
-                            <div class="project-status status-active">В работе</div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="project-status status-active">В работе</div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="project-card" data-status="completed" onclick="if (!event.target.closest('.archive-project-btn')) window.location.href='project-detail.html'">
+                    <div class="project-card" data-status="completed" onclick="window.location.href='project-detail.html'">
                         <div style="display: flex; align-items: center; margin-bottom: 16px;">
                             <div class="project-dot blue" style="margin-right: 12px;"></div>
                             <h3>Солнечная Электростанция</h3>
@@ -1873,7 +2055,9 @@
                         </div>
                         <div class="project-footer">
                             <div class="project-deadline">Срок: 15.01.2025</div>
-                            <div class="project-status status-completed">Завершен</div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="project-status status-completed">Завершен</div>
+                            </div>
                         </div>
                     </div>
 
@@ -1894,7 +2078,9 @@
                         </div>
                         <div class="project-footer">
                             <div class="project-deadline">Срок: 10.06.2025</div>
-                            <div class="project-status status-planning">Планирование</div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="project-status status-planning">Планирование</div>
+                            </div>
                         </div>
                     </div>
                 </div>

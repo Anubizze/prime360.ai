@@ -13,12 +13,6 @@
     <script src="js/data-manager.js"></script>
     <!-- User Profile Script -->
     <script src="js/user-profile.js"></script>
-    <!-- Search System -->
-    <link rel="stylesheet" href="css/search-system.css">
-    <script src="js/search-system.js"></script>
-    <!-- Mobile Responsive -->
-    <link rel="stylesheet" href="css/mobile-responsive.css">
-    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
     <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
@@ -37,9 +31,7 @@
                 Главное
             </a>
             <a href="projects.html" class="menu-item">
-                <span class="menu-icon">
-                    <img src="img/svg/insightschart.svg" alt="Аналитика" width="20" height="20">
-                </span>
+                <span class="menu-icon">📊</span>
                 Проекты
             </a>
             <a href="#" class="menu-item" onclick="toggleAIChat(); return false;">
@@ -54,21 +46,25 @@
                 <span class="menu-icon">💬</span>
                 Совещания
             </a>
+            <a href="messenger.html" class="menu-item">
+                <span class="menu-icon">📱</span>
+                Мессенджер
+            </a>
 
         </div>
 
         <div class="main-content">
             <div class="header">
-                <button class="burger-menu" onclick="toggleMobileMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <div class="header-left">
+                    <button class="burger-menu" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
                 <div class="search-container">
                     <input type="text" id="global-search" class="search-input" placeholder="Поиск">
-                    <span class="search-icon">
-                        <img src="img/svg/eye.svg" alt="Поиск" width="16" height="16">
-                    </span>
+                    <span class="search-icon">🔍</span>
                 </div>
                 <div class="user-profile">
                     <div class="user-info">
@@ -90,21 +86,15 @@
                 <!-- Временно закомментировано
                 <div class="filters">
                     <button class="filter-button" id="dateFilterBtn" onclick="openDateFilter()">
-                        <span>
-                            <img src="img/svg/insightschart.svg" alt="Дата" width="16" height="16">
-                        </span>
+                        <span>📅</span>
                         <span id="selectedDate">Сегодня</span>
                     </button>
                     <button class="filter-button" id="projectFilterBtn" onclick="openProjectsFilter()">
-                        <span>
-                            <img src="img/svg/insightschart.svg" alt="Проекты" width="16" height="16">
-                        </span>
+                        <span>📊</span>
                         <span id="selectedProject">Все проекты</span>
                     </button>
                     <button class="filter-button" id="advancedFilterBtn" onclick="openAdvancedFilters()">
-                        <span>
-                            <img src="img/svg/eye.svg" alt="Фильтры" width="16" height="16">
-                        </span>
+                        <span>🔍</span>
                         Фильтры
                         <span class="filter-badge" id="filterBadge" style="display: none;">0</span>
                     </button>
@@ -129,9 +119,7 @@
                 <!-- Quick Actions Banner -->
                 <div class="quick-actions-banner">
                     <div class="banner-content">
-                        <div class="banner-icon">
-                            <img src="img/svg/rocket.svg" alt="Ракета" width="24" height="24">
-                        </div>
+                        <div class="banner-icon">🚀</div>
                         <div class="banner-text">
                             <h4>Добро пожаловать в PRIME360.AI</h4>
                             <p>Управляйте проектами эффективно с помощью AI</p>
@@ -143,9 +131,7 @@
                             Новый проект
                         </button>
                         <button class="action-btn secondary" onclick="openAnalyticsPresentation()">
-                            <span class="btn-icon">
-                                <img src="img/svg/insightschart.svg" alt="Аналитика" width="18" height="18">
-                            </span>
+                            <span class="btn-icon">📊</span>
                             Аналитика данных
                         </button>
                     </div>
@@ -154,9 +140,7 @@
                 <div class="stats-grid">
                     <div class="stat-card clickable" onclick="openProjectsTasksModal()">
                         <div class="stat-header">
-                            <span class="stat-icon">
-                                <img src="img/svg/insightschart.svg" alt="Задачи" width="20" height="20">
-                            </span>
+                            <span class="stat-icon">📋</span>
                             <h3>Активные проекты</h3>
                         </div>
                         <div class="stat-value">4</div>
@@ -180,30 +164,15 @@
                         <button class="card-action-btn">Подробнее →</button>
                     </div>
                     
-                    <div class="stat-card orange clickable" onclick="navigateTo('projects.html')">
+                    <div class="stat-card orange clickable" onclick="navigateTo('finances.html')">
                         <div class="stat-header">
-                            <span class="stat-icon">✅</span>
-                            <h3>Задачи</h3>
-                        </div>
-                        <div class="stat-value">28</div>
-                        <div class="stat-description">5 просрочено</div>
-                        <div class="stat-progress">
-                            <div class="progress-bar orange" style="width: 82%;"></div>
-                        </div>
-                        <button class="card-action-btn">Подробнее →</button>
-                    </div>
-                    
-                    <div class="stat-card red clickable" onclick="navigateTo('finances.html')">
-                        <div class="stat-header">
-                            <span class="stat-icon">
-                                <img src="img/svg/flash.svg" alt="Финансы" width="20" height="20">
-                            </span>
-                            <h3>Бюджет</h3>
+                            <span class="stat-icon">💰</span>
+                            <h3>Финансовый учет</h3>
                         </div>
                         <div class="stat-value">₸2.4M</div>
-                        <div class="stat-description">85% использовано</div>
+                        <div class="stat-description">Общий бюджет</div>
                         <div class="stat-progress">
-                            <div class="progress-bar red" style="width: 85%;"></div>
+                            <div class="progress-bar orange" style="width: 85%;"></div>
                         </div>
                         <button class="card-action-btn">Подробнее →</button>
                     </div>
@@ -324,13 +293,13 @@
                         Привет! Я AI-ассистент PRIME360. Чем могу помочь?
                         <div class="ai-suggestions">
                             <button class="suggestion-btn" onclick="sendSuggestion('Показать активные задачи')">
-                                <img src="img/svg/insightschart.svg" alt="Задачи" width="16" height="16" style="vertical-align: middle; margin-right: 8px;"> Показать активные задачи
+                                📋 Показать активные задачи
                             </button>
                             <button class="suggestion-btn" onclick="sendSuggestion('Статус проектов')">
-                                <img src="img/svg/insightschart.svg" alt="Статус" width="16" height="16" style="vertical-align: middle; margin-right: 8px;"> Статус проектов
+                                📊 Статус проектов
                             </button>
                             <button class="suggestion-btn" onclick="sendSuggestion('Финансовый отчет')">
-                                <img src="img/svg/flash.svg" alt="Финансы" width="16" height="16" style="vertical-align: middle; margin-right: 8px;"> Финансовый отчет
+                                💰 Финансовый отчет
                             </button>
                             </div>
                     </div>
@@ -361,9 +330,7 @@
         <div class="modal-content filter-modal-content">
             <div class="modal-header">
                 <h2>
-                    <span class="modal-icon">
-                        <img src="img/svg/insightschart.svg" alt="Дата" width="20" height="20">
-                    </span>
+                    <span class="modal-icon">📅</span>
                     Выбрать период
                 </h2>
                 <button class="close-modal" onclick="closeDateFilterModal()">&times;</button>
@@ -371,37 +338,27 @@
             <div class="modal-body filter-modal-body">
                 <div class="filter-options">
                     <button class="filter-option-btn active" data-date="today" onclick="selectDateFilter('today', 'Сегодня')">
-                        <span class="option-icon">
-                            <img src="img/svg/insightschart.svg" alt="Дата" width="16" height="16">
-                        </span>
+                        <span class="option-icon">📅</span>
                         <span class="option-text">Сегодня</span>
                         <span class="option-check">✓</span>
                     </button>
                     <button class="filter-option-btn" data-date="yesterday" onclick="selectDateFilter('yesterday', 'Вчера')">
-                        <span class="option-icon">
-                            <img src="img/svg/insightschart.svg" alt="Дата" width="16" height="16">
-                        </span>
+                        <span class="option-icon">📅</span>
                         <span class="option-text">Вчера</span>
                         <span class="option-check">✓</span>
                     </button>
                     <button class="filter-option-btn" data-date="week" onclick="selectDateFilter('week', 'Эта неделя')">
-                        <span class="option-icon">
-                            <img src="img/svg/insightschart.svg" alt="Дата" width="16" height="16">
-                        </span>
+                        <span class="option-icon">📅</span>
                         <span class="option-text">Эта неделя</span>
                         <span class="option-check">✓</span>
                     </button>
                     <button class="filter-option-btn" data-date="month" onclick="selectDateFilter('month', 'Этот месяц')">
-                        <span class="option-icon">
-                            <img src="img/svg/insightschart.svg" alt="Дата" width="16" height="16">
-                        </span>
+                        <span class="option-icon">📅</span>
                         <span class="option-text">Этот месяц</span>
                         <span class="option-check">✓</span>
                     </button>
                     <button class="filter-option-btn" data-date="custom" onclick="selectDateFilter('custom', 'Произвольный период')">
-                        <span class="option-icon">
-                            <img src="img/svg/insightschart.svg" alt="Дата" width="16" height="16">
-                        </span>
+                        <span class="option-icon">📅</span>
                         <span class="option-text">Произвольный период</span>
                         <span class="option-check">✓</span>
                     </button>
@@ -415,9 +372,7 @@
         <div class="modal-content filter-modal-content">
             <div class="modal-header">
                 <h2>
-                    <span class="modal-icon">
-                        <img src="img/svg/insightschart.svg" alt="Проекты" width="20" height="20">
-                    </span>
+                    <span class="modal-icon">📊</span>
                     Выбрать проект
                 </h2>
                 <button class="close-modal" onclick="closeProjectsFilterModal()">&times;</button>
@@ -425,9 +380,7 @@
             <div class="modal-body filter-modal-body">
                 <div class="filter-options">
                     <button class="filter-option-btn active" data-project="all" onclick="selectProjectFilter('all', 'Все проекты')">
-                        <span class="option-icon">
-                            <img src="img/svg/insightschart.svg" alt="Проект" width="16" height="16">
-                        </span>
+                        <span class="option-icon">📊</span>
                         <span class="option-text">Все проекты</span>
                         <span class="option-check">✓</span>
                     </button>
@@ -461,9 +414,7 @@
         <div class="modal-content advanced-filter-modal-content">
             <div class="modal-header">
                 <h2>
-                    <span class="modal-icon">
-                        <img src="img/svg/eye.svg" alt="Фильтры" width="20" height="20">
-                    </span>
+                    <span class="modal-icon">🔍</span>
                     Расширенные фильтры
                 </h2>
                 <button class="close-modal" onclick="closeAdvancedFiltersModal()">&times;</button>
@@ -567,9 +518,7 @@
         <div class="modal-content tasks-modal-content">
             <div class="modal-header">
                 <h2>
-                    <span class="modal-icon">
-                        <img src="img/svg/insightschart.svg" alt="Задачи" width="20" height="20">
-                    </span>
+                    <span class="modal-icon">📋</span>
                     Все задачи активных проектов
                 </h2>
                 <button class="close-modal" onclick="closeProjectsTasksModal()">&times;</button>
@@ -608,9 +557,7 @@
         <div class="modal-content activity-modal-content">
             <div class="modal-header">
                 <h2 id="activityModalTitle">
-                    <span class="modal-icon" id="activityModalIcon">
-                        <img src="img/svg/insightschart.svg" alt="Активность" width="20" height="20">
-                    </span>
+                    <span class="modal-icon" id="activityModalIcon">📝</span>
                     <span id="activityModalTitleText">Детали активности</span>
                 </h2>
                 <button class="close-modal" onclick="closeActivityModal()">&times;</button>
@@ -635,9 +582,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>
-                    <span class="modal-icon">
-                        <img src="img/svg/rocket.svg" alt="Ракета" width="20" height="20">
-                    </span>
+                    <span class="modal-icon">🚀</span>
                     Создать новый проект
                 </h2>
                 <button class="close-modal" onclick="closeNewProjectModal()">&times;</button>
@@ -645,9 +590,7 @@
             <form id="newProjectForm" class="modal-body">
                 <div class="form-group">
                     <label for="projectName">
-                        <span class="label-icon">
-                            <img src="img/svg/insightschart.svg" alt="Название" width="16" height="16">
-                        </span>
+                        <span class="label-icon">📝</span>
                         Название проекта *
                     </label>
                     <input type="text" id="projectName" name="projectName" required 
@@ -656,9 +599,7 @@
 
                 <div class="form-group">
                     <label for="projectDescription">
-                        <span class="label-icon">
-                            <img src="img/svg/insightschart.svg" alt="Описание" width="16" height="16">
-                        </span>
+                        <span class="label-icon">📄</span>
                         Описание проекта
                     </label>
                     <textarea id="projectDescription" name="projectDescription" rows="4"
@@ -668,9 +609,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="projectBudget">
-                            <span class="label-icon">
-                                <img src="img/svg/flash.svg" alt="Бюджет" width="16" height="16">
-                            </span>
+                            <span class="label-icon">💰</span>
                             Бюджет (₸)
                         </label>
                         <input type="number" id="projectBudget" name="projectBudget" 
@@ -679,9 +618,7 @@
 
                     <div class="form-group">
                         <label for="projectStatus">
-                            <span class="label-icon">
-                                <img src="img/svg/insightschart.svg" alt="Статус" width="16" height="16">
-                            </span>
+                            <span class="label-icon">📊</span>
                             Статус
                         </label>
                         <select id="projectStatus" name="projectStatus">
@@ -696,9 +633,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="projectStartDate">
-                            <span class="label-icon">
-                                <img src="img/svg/insightschart.svg" alt="Дата" width="16" height="16">
-                            </span>
+                            <span class="label-icon">📅</span>
                             Дата начала
                         </label>
                         <input type="date" id="projectStartDate" name="projectStartDate">
@@ -715,9 +650,7 @@
 
                 <div class="form-group">
                     <label for="projectManager">
-                        <span class="label-icon">
-                            <img src="img/svg/hubot.svg" alt="Менеджер" width="16" height="16">
-                        </span>
+                        <span class="label-icon">👤</span>
                         Менеджер проекта
                     </label>
                     <select id="projectManager" name="projectManager">
@@ -915,7 +848,7 @@
                         </div>
                     `,
                     actionText: 'Открыть задачу',
-                    actionLink: 'tasks.html?taskId=' + task.id
+                    actionLink: 'projects.html?taskId=' + task.id
                 };
             } else if (type === 'meeting') {
                 const meeting = DataManager.meetings[0];
@@ -1136,7 +1069,7 @@
                         </div>
                     `,
                     actionText: 'Открыть проект',
-                    actionLink: 'tasks.html'
+                    actionLink: 'projects.html'
                 };
             }
             
@@ -2734,58 +2667,8 @@
                     
                     <!-- Slides Container -->
                     <div class="slides-container">
-                        <!-- Slide 1: Общий обзор -->
+                        <!-- Slide 1: Детальная статистика -->
                         <div class="analytics-slide active">
-                            <div class="slide-header">
-                                <h3>📈 Общий обзор системы</h3>
-                                <p class="slide-subtitle">Ключевые показатели эффективности</p>
-                            </div>
-                            
-                            <div class="analytics-grid">
-                                <div class="analytics-card blue">
-                                    <div class="analytics-card-icon">📋</div>
-                                    <div class="analytics-card-value" id="slide1-projects">15</div>
-                                    <div class="analytics-card-label">Активных проектов</div>
-                                    <div class="analytics-card-trend">
-                                        <span class="trend-arrow">↗</span>
-                                        <span class="trend-value">+12%</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="analytics-card green">
-                                    <div class="analytics-card-icon">💬</div>
-                                    <div class="analytics-card-value" id="slide1-meetings">8</div>
-                                    <div class="analytics-card-label">Совещаний сегодня</div>
-                                    <div class="analytics-card-trend">
-                                        <span class="trend-arrow">↗</span>
-                                        <span class="trend-value">+5%</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="analytics-card orange">
-                                    <div class="analytics-card-icon">✅</div>
-                                    <div class="analytics-card-value" id="slide1-tasks">42</div>
-                                    <div class="analytics-card-label">Задач в работе</div>
-                                    <div class="analytics-card-trend">
-                                        <span class="trend-arrow">↘</span>
-                                        <span class="trend-value">-8%</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="analytics-card purple">
-                                    <div class="analytics-card-icon">💰</div>
-                                    <div class="analytics-card-value" id="slide1-budget">125M ₸</div>
-                                    <div class="analytics-card-label">Общий бюджет</div>
-                                    <div class="analytics-card-trend">
-                                        <span class="trend-arrow">↗</span>
-                                        <span class="trend-value">+18%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 2: Детальная статистика -->
-                        <div class="analytics-slide">
                             <div class="slide-header">
                                 <h3>📊 Детальная статистика</h3>
                                 <p class="slide-subtitle">Углубленный анализ показателей</p>
@@ -2795,12 +2678,12 @@
                                 <div class="detail-block">
                                     <div class="detail-block-header">
                                         <span class="detail-icon">📋</span>
-                                        <span class="detail-title">Проекты</span>
+                                        <span class="detail-title">Срок реализации проектов</span>
                                     </div>
                                     <div class="detail-stats">
                                         <div class="detail-stat-item">
                                             <span class="stat-label">Всего активных:</span>
-                                            <span class="stat-value" id="slide2-projects">15</span>
+                                            <span class="stat-value" id="slide2-projects">4</span>
                                         </div>
                                         <div class="detail-stat-item">
                                             <span class="stat-label">Завершено в срок:</span>
@@ -2808,35 +2691,35 @@
                                         </div>
                                         <div class="detail-stat-item">
                                             <span class="stat-label">Средний прогресс:</span>
-                                            <span class="stat-value">67%</span>
+                                            <span class="stat-value">78%</span>
                                         </div>
                                     </div>
                                     <div class="mini-progress-bar">
-                                        <div class="mini-progress-fill" style="width: 67%"></div>
+                                        <div class="mini-progress-fill" style="width: 78%"></div>
                                     </div>
                                 </div>
                                 
                                 <div class="detail-block">
                                     <div class="detail-block-header">
-                                        <span class="detail-icon">💬</span>
-                                        <span class="detail-title">Совещания</span>
+                                        <span class="detail-icon">💰</span>
+                                        <span class="detail-title">Бюджет</span>
                                     </div>
                                     <div class="detail-stats">
                                         <div class="detail-stat-item">
-                                            <span class="stat-label">Сегодня:</span>
-                                            <span class="stat-value" id="slide2-meetings">8</span>
+                                            <span class="stat-label">Общий бюджет:</span>
+                                            <span class="stat-value" id="slide2-budget">₸2.4M</span>
                                         </div>
                                         <div class="detail-stat-item">
-                                            <span class="stat-label">На этой неделе:</span>
-                                            <span class="stat-value">24</span>
+                                            <span class="stat-label">Использовано:</span>
+                                            <span class="stat-value orange">85%</span>
                                         </div>
                                         <div class="detail-stat-item">
-                                            <span class="stat-label">Эффективность:</span>
-                                            <span class="stat-value green">88%</span>
+                                            <span class="stat-label">Остаток:</span>
+                                            <span class="stat-value green">₸360K</span>
                                         </div>
                                     </div>
                                     <div class="mini-progress-bar">
-                                        <div class="mini-progress-fill green" style="width: 88%"></div>
+                                        <div class="mini-progress-fill orange" style="width: 85%"></div>
                                     </div>
                                 </div>
                                 
@@ -2848,78 +2731,25 @@
                                     <div class="detail-stats">
                                         <div class="detail-stat-item">
                                             <span class="stat-label">В работе:</span>
-                                            <span class="stat-value" id="slide2-tasks">42</span>
+                                            <span class="stat-value" id="slide2-tasks">28</span>
                                         </div>
                                         <div class="detail-stat-item">
                                             <span class="stat-label">Выполнено за неделю:</span>
-                                            <span class="stat-value green">38</span>
+                                            <span class="stat-value green">24</span>
                                         </div>
                                         <div class="detail-stat-item">
                                             <span class="stat-label">Просрочено:</span>
-                                            <span class="stat-value red">3</span>
+                                            <span class="stat-value red">5</span>
                                         </div>
+                                    </div>
+                                    <div class="mini-progress-bar">
+                                        <div class="mini-progress-fill green" style="width: 82%"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Slide 3: Графики и тренды -->
-                        <div class="analytics-slide">
-                            <div class="slide-header">
-                                <h3>📈 Тренды и прогнозы</h3>
-                                <p class="slide-subtitle">Анализ динамики работы</p>
-                            </div>
-                            
-                            <div class="trends-container">
-                                <div class="trend-card">
-                                    <div class="trend-card-header">
-                                        <span>📊 Производительность</span>
-                                        <span class="trend-badge up">↗ +15%</span>
-                                    </div>
-                                    <div class="trend-chart">
-                                        <div class="bar-chart">
-                                            <div class="bar" style="height: 40%"><span>Пн</span></div>
-                                            <div class="bar" style="height: 55%"><span>Вт</span></div>
-                                            <div class="bar" style="height: 65%"><span>Ср</span></div>
-                                            <div class="bar" style="height: 75%"><span>Чт</span></div>
-                                            <div class="bar" style="height: 85%"><span>Пт</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="trend-card">
-                                    <div class="trend-card-header">
-                                        <span>💡 Ключевые метрики</span>
-                                        <span class="trend-badge neutral">→ Стабильно</span>
-                                    </div>
-                                    <div class="metrics-list">
-                                        <div class="metric-item">
-                                            <span class="metric-name">Качество выполнения</span>
-                                            <span class="metric-bar">
-                                                <span class="metric-bar-fill green" style="width: 94%"></span>
-                                            </span>
-                                            <span class="metric-value">94%</span>
-                                        </div>
-                                        <div class="metric-item">
-                                            <span class="metric-name">Соблюдение сроков</span>
-                                            <span class="metric-bar">
-                                                <span class="metric-bar-fill blue" style="width: 87%"></span>
-                                            </span>
-                                            <span class="metric-value">87%</span>
-                                        </div>
-                                        <div class="metric-item">
-                                            <span class="metric-name">Использование бюджета</span>
-                                            <span class="metric-bar">
-                                                <span class="metric-bar-fill orange" style="width: 73%"></span>
-                                            </span>
-                                            <span class="metric-value">73%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 4: Выводы и рекомендации -->
+                        <!-- Slide 2: Выводы и рекомендации -->
                         <div class="analytics-slide">
                             <div class="slide-header">
                                 <h3>💡 Выводы и рекомендации</h3>
@@ -2975,14 +2805,337 @@
                 <div class="slide-indicators">
                     <span class="dot active" onclick="goToSlide(0)"></span>
                     <span class="dot" onclick="goToSlide(1)"></span>
-                    <span class="dot" onclick="goToSlide(2)"></span>
-                    <span class="dot" onclick="goToSlide(3)"></span>
                 </div>
                 
-                <div class="slide-counter" id="slideCounter">1 / 4</div>
+                <div class="slide-counter" id="slideCounter">1 / 2</div>
             </div>
         </div>
     </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-modal-content">
+            <div class="search-modal-header">
+                <div class="search-modal-input-container">
+                    <span class="search-modal-icon">🔍</span>
+                    <input type="text" id="searchModalInput" class="search-modal-input" placeholder="Поиск проектов, задач, документов..." autofocus>
+                    <button class="search-modal-close" onclick="closeSearchModal()">&times;</button>
+                </div>
+            </div>
+            <div class="search-modal-body">
+                <div class="search-suggestions">
+                    <!-- Результаты поиска генерируются динамически -->
+                </div>
+                <div class="search-no-results" id="searchNoResults" style="display: none;">
+                    <div class="search-no-results-icon">🔍</div>
+                    <div class="search-no-results-text">Ничего не найдено</div>
+                    <div class="search-no-results-subtitle">Попробуйте изменить запрос</div>
+                </div>
+            </div>
+            <div class="search-modal-footer">
+                <div class="search-hint">
+                    <span class="search-hint-key">↵</span> Выбрать первый результат
+                </div>
+                <div class="search-hint">
+                    <span class="search-hint-key">ESC</span> Закрыть
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive search data
+        const searchDatabase = {
+            pages: [
+                { title: 'Главная', subtitle: 'Обзор и статистика', icon: '🏠', url: 'index.html', keywords: ['главная', 'дашборд', 'dashboard', 'статистика', 'обзор', 'home'] },
+                { title: 'Проекты', subtitle: 'Управление проектами', icon: '📊', url: 'projects.html', keywords: ['проекты', 'задачи', 'tasks', 'projects', 'управление'] },
+                { title: 'Библиотека', subtitle: 'Документы и материалы', icon: '📚', url: 'documents.html', keywords: ['библиотека', 'документы', 'library', 'files', 'файлы'] },
+                { title: 'Совещания', subtitle: 'Календарь и история', icon: '💬', url: 'meetings.html', keywords: ['совещания', 'meetings', 'встречи', 'календарь'] },
+                { title: 'Аналитика', subtitle: 'Отчёты и графики', icon: '📈', url: '#', action: 'openAnalyticsPresentation', keywords: ['аналитика', 'analytics', 'отчёты', 'графики', 'статистика'] }
+            ],
+            
+            projects: [
+                { title: 'ЖК Прогресс', subtitle: 'Жилой комплекс • 78% завершено', icon: '🏗️', url: 'projects.html', keywords: ['жк', 'прогресс', 'progress', 'жилой', 'комплекс', 'строительство'] },
+                { title: 'Астана Plaza', subtitle: 'Коммерческий центр • 45% завершено', icon: '🏢', url: 'projects.html', keywords: ['астана', 'plaza', 'коммерческий', 'центр', 'плаза'] },
+                { title: 'Клиент А', subtitle: 'Экспертиза проекта', icon: '📋', url: 'projects.html', keywords: ['клиент', 'а', 'экспертиза', 'проект'] },
+                { title: 'Клиент Б', subtitle: 'Консультация', icon: '💼', url: 'projects.html', keywords: ['клиент', 'б', 'консультация'] }
+            ],
+            
+            documentFolders: [
+                { title: 'Нормативные документы РК', subtitle: 'Законы, постановления, кодексы', icon: '📋', url: 'documents.html', keywords: ['нормативные', 'документы', 'законы', 'рк', 'казахстан', 'постановления', 'кодексы'] },
+                { title: 'КВЭ - Электроснабжение', subtitle: 'Правила по КВЭ с изм. на 26.02.2023', icon: '⚡', url: 'documents.html', keywords: ['квэ', 'электричество', 'электроснабжение', 'правила'] },
+                { title: 'Строительство', subtitle: 'СН РК, СНиП, ГОСТ, регламенты', icon: '🏗️', url: 'documents.html', keywords: ['строительство', 'снип', 'сн рк', 'гост', 'регламенты', 'технические', 'нормы'] },
+                { title: 'Экология', subtitle: 'Экологический кодекс и инструкции', icon: '🌿', url: 'documents.html', keywords: ['экология', 'environmental', 'эко', 'кодекс', 'оценка'] },
+                { title: 'Управление проектами', subtitle: 'PMBOK 6, методологии, обучение', icon: '📚', url: 'documents.html', keywords: ['управление', 'проектами', 'pmbok', 'методология', 'обучение', 'pm', 'project management'] }
+            ],
+            
+            specificDocuments: [
+                { title: 'PMBOK 6 (Руководство)', subtitle: 'Руководство к Своду знаний по управлению проектами', icon: '📖', url: 'documents.html', keywords: ['pmbok', 'руководство', 'управление', 'проектами', 'свод знаний'] },
+                { title: 'Правила по КВЭ', subtitle: 'с изменениями на 26.02.2023', icon: '⚡', url: 'documents.html', keywords: ['квэ', 'правила', 'электричество'] },
+                { title: 'СН РК 1.02-03-2022', subtitle: 'Строительные нормы РК', icon: '🏗️', url: 'documents.html', keywords: ['сн рк', 'строительные', 'нормы'] },
+                { title: 'Экологический кодекс РК', subtitle: 'с изменениями на 07.03.2023', icon: '🌿', url: 'documents.html', keywords: ['экологический', 'кодекс', 'эк рк'] },
+                { title: 'ЗРК Об архитектуре', subtitle: 'Закон о архитектурной и строительной деятельности', icon: '📋', url: 'documents.html', keywords: ['закон', 'архитектура', 'строительство', 'зрк'] },
+                { title: 'НДЦС РК 8.01-08-2022', subtitle: 'Порядок определения сложности', icon: '📄', url: 'documents.html', keywords: ['ндцс', 'порядок', 'определения', 'сложность'] },
+                { title: 'Microsoft Project 2016', subtitle: 'Управление проектами с MS Project', icon: '💻', url: 'documents.html', keywords: ['microsoft', 'project', 'мс проджект', 'обучение'] }
+            ],
+            
+            meetings: [
+                { title: 'Утреннее совещание', subtitle: 'Обсуждение планов на неделю', icon: '☀️', url: 'meetings.html', keywords: ['утреннее', 'совещание', 'планы', 'неделя'] },
+                { title: 'Обсуждение проекта Астана Plaza', subtitle: 'Проект "Астана Plaza"', icon: '🏢', url: 'meetings.html', keywords: ['астана', 'plaza', 'обсуждение', 'проект'] },
+                { title: 'Планирование спринта', subtitle: 'Sprint Planning', icon: '📅', url: 'meetings.html', keywords: ['планирование', 'спринт', 'sprint', 'planning'] },
+                { title: 'Встреча с клиентом', subtitle: 'Презентация прогресса', icon: '👥', url: 'meetings.html', keywords: ['встреча', 'клиент', 'презентация', 'прогресс'] },
+                { title: 'Ретроспектива', subtitle: 'Обсуждение итогов спринта', icon: '🔄', url: 'meetings.html', keywords: ['ретроспектива', 'retrospective', 'итоги', 'спринт'] },
+                { title: 'Демо презентация', subtitle: 'Демонстрация новых функций', icon: '🎯', url: 'meetings.html', keywords: ['демо', 'demo', 'презентация', 'функции'] },
+                { title: 'Протокольные задачи', subtitle: 'Форма контроля исполнения задач', icon: '📝', url: 'meetings.html', action: 'openProtocolModal', keywords: ['протокольные', 'задачи', 'контроль', 'исполнение'] }
+            ],
+            
+            activities: [
+                { title: 'Завершена задача по ЖК Прогресс', subtitle: 'Последние активности', icon: '✅', url: 'index.html', keywords: ['задача', 'завершена', 'жк', 'прогресс', 'активность'] },
+                { title: 'Новое совещание', subtitle: 'Запланировано совещание', icon: '📅', url: 'meetings.html', keywords: ['совещание', 'новое', 'запланировано'] },
+                { title: 'Обновлен документ', subtitle: 'Изменения в проекте', icon: '📄', url: 'documents.html', keywords: ['документ', 'обновлен', 'изменения'] },
+                { title: 'Платеж подтвержден', subtitle: 'Финансовая операция', icon: '💰', url: 'finances.html', keywords: ['платеж', 'оплата', 'финансы'] }
+            ],
+            
+            statistics: [
+                { title: 'Статистика проектов', subtitle: '4 активных проекта', icon: '📊', url: 'index.html', keywords: ['статистика', 'проекты', 'количество'] },
+                { title: 'Совещания - 12', subtitle: '3 совещания сегодня', icon: '💬', url: 'meetings.html', keywords: ['совещания', 'количество', 'сегодня'] },
+                { title: 'Задачи - 28', subtitle: '5 задач просрочено', icon: '✅', url: 'projects.html', keywords: ['задачи', 'количество', 'просрочено'] },
+                { title: 'Бюджет - ₸2.4M', subtitle: '85% использовано', icon: '💰', url: 'finances.html', keywords: ['бюджет', 'финансы', 'деньги', 'тенге'] },
+                { title: 'График прогресса проектов', subtitle: 'Динамика выполнения за 6 месяцев', icon: '📈', url: 'index.html', keywords: ['график', 'прогресс', 'динамика', 'chart'] }
+            ],
+            
+            actions: [
+                { title: 'Создать новый проект', subtitle: 'Добавить проект в систему', icon: '➕', url: '#', action: 'createNewProject', keywords: ['создать', 'новый', 'проект', 'добавить'] },
+                { title: 'Добавить задачу', subtitle: 'Создать новую задачу', icon: '✅', url: 'projects.html', keywords: ['задача', 'task', 'создать', 'добавить'] },
+                { title: 'Добавить совещание', subtitle: 'Запланировать встречу', icon: '📅', url: 'meetings.html', keywords: ['совещание', 'добавить', 'встреча', 'запланировать'] },
+                { title: 'Назначить ответственного', subtitle: 'Распределить задачи', icon: '👤', url: 'projects.html', keywords: ['назначить', 'ответственный', 'распределить'] },
+                { title: 'Экспорт в Excel', subtitle: 'Выгрузить данные', icon: '📥', url: 'meetings.html', keywords: ['экспорт', 'excel', 'выгрузка', 'данные'] }
+            ],
+            
+            features: [
+                { title: 'AI-Ассистент', subtitle: 'Умный помощник для работы', icon: '🤖', url: '#', action: 'toggleAIChat', keywords: ['ai', 'ии', 'ассистент', 'помощник', 'чат', 'искусственный интеллект'] },
+                { title: 'Уведомления', subtitle: 'Просмотр уведомлений', icon: '🔔', url: '#', keywords: ['уведомления', 'notifications', 'alerts', 'оповещения'] },
+                { title: 'Настройки', subtitle: 'Параметры системы', icon: '⚙️', url: '#', keywords: ['настройки', 'settings', 'параметры', 'конфигурация'] },
+                { title: 'Профиль пользователя', subtitle: 'Личные данные и настройки', icon: '👤', url: '#', keywords: ['профиль', 'profile', 'пользователь', 'аккаунт', 'account'] },
+                { title: 'Выйти из системы', subtitle: 'Завершить сеанс', icon: '🚪', url: '#', action: 'logout', keywords: ['выйти', 'logout', 'выход', 'завершить'] }
+            ]
+        };
+
+        // Search Modal Functions
+        function openSearchModal() {
+            const modal = document.getElementById('searchModal');
+            const input = document.getElementById('searchModalInput');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('show');
+                input.focus();
+            }, 10);
+            renderSearchResults(''); // Show all initially
+        }
+
+        function closeSearchModal() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('searchModalInput').value = '';
+            }, 300);
+        }
+
+        // Smart search function
+        function performSearch(query) {
+            if (!query) return { pages: [], projects: [], documents: [], tasks: [], features: [] };
+            
+            const results = {
+                pages: [],
+                projects: [],
+                documents: [],
+                tasks: [],
+                features: []
+            };
+            
+            const queryLower = query.toLowerCase();
+            
+            // Search through all categories
+            Object.keys(searchDatabase).forEach(category => {
+                searchDatabase[category].forEach(item => {
+                    let score = 0;
+                    const titleLower = item.title.toLowerCase();
+                    const subtitleLower = item.subtitle.toLowerCase();
+                    const keywords = item.keywords || [];
+                    
+                    // Exact title match - highest priority
+                    if (titleLower === queryLower) score += 100;
+                    // Title starts with query
+                    else if (titleLower.startsWith(queryLower)) score += 50;
+                    // Title contains query
+                    else if (titleLower.includes(queryLower)) score += 30;
+                    
+                    // Subtitle match
+                    if (subtitleLower.includes(queryLower)) score += 20;
+                    
+                    // Keyword match
+                    keywords.forEach(keyword => {
+                        if (keyword.toLowerCase().includes(queryLower)) score += 15;
+                        if (keyword.toLowerCase() === queryLower) score += 25;
+                    });
+                    
+                    if (score > 0) {
+                        results[category].push({ ...item, score });
+                    }
+                });
+                
+                // Sort by score
+                results[category].sort((a, b) => b.score - a.score);
+            });
+            
+            return results;
+        }
+
+        // Render search results
+        function renderSearchResults(query) {
+            const suggestionsContainer = document.querySelector('.search-suggestions');
+            const noResults = document.getElementById('searchNoResults');
+            
+            if (!query.trim()) {
+                // Show default categories
+                suggestionsContainer.innerHTML = `
+                    <div class="search-category">
+                        <h4>Быстрый доступ</h4>
+                        <div class="search-items">
+                            ${searchDatabase.pages.map(item => createSearchItem(item)).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="search-category">
+                        <h4>Проекты</h4>
+                        <div class="search-items">
+                            ${searchDatabase.projects.map(item => createSearchItem(item)).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="search-category">
+                        <h4>Недавние совещания</h4>
+                        <div class="search-items">
+                            ${searchDatabase.meetings.slice(0, 4).map(item => createSearchItem(item)).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="search-category">
+                        <h4>Папки документов</h4>
+                        <div class="search-items">
+                            ${searchDatabase.documentFolders.map(item => createSearchItem(item)).join('')}
+                        </div>
+                    </div>
+                `;
+                noResults.style.display = 'none';
+                return;
+            }
+            
+            const results = performSearch(query);
+            const hasResults = Object.values(results).some(arr => arr.length > 0);
+            
+            if (!hasResults) {
+                suggestionsContainer.innerHTML = '';
+                noResults.style.display = 'flex';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            let html = '';
+            
+            const categoryNames = {
+                pages: 'Страницы',
+                projects: 'Проекты',
+                documentFolders: 'Папки документов',
+                specificDocuments: 'Документы',
+                meetings: 'Совещания',
+                activities: 'Последние активности',
+                statistics: 'Статистика',
+                actions: 'Действия',
+                features: 'Функции'
+            };
+            
+            Object.keys(results).forEach(category => {
+                if (results[category].length > 0) {
+                    html += `
+                        <div class="search-category">
+                            <h4>${categoryNames[category]} <span class="category-count">(${results[category].length})</span></h4>
+                            <div class="search-items">
+                                ${results[category].map(item => createSearchItem(item, query)).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            suggestionsContainer.innerHTML = html;
+        }
+
+        // Create search item HTML
+        function createSearchItem(item, query = '') {
+            const highlightedTitle = query ? highlightText(item.title, query) : item.title;
+            const highlightedSubtitle = query ? highlightText(item.subtitle, query) : item.subtitle;
+            
+            const action = item.action ? 
+                `onclick="${item.action}(); closeSearchModal();"` : 
+                `onclick="window.location.href='${item.url}'"`;
+            
+            return `
+                <div class="search-item" ${action}>
+                    <span class="search-item-icon">${item.icon}</span>
+                    <div class="search-item-content">
+                        <div class="search-item-title">${highlightedTitle}</div>
+                        <div class="search-item-subtitle">${highlightedSubtitle}</div>
+                    </div>
+                    ${item.score ? `<div class="search-item-badge">Совпадение ${Math.min(100, Math.round(item.score))}%</div>` : ''}
+                </div>
+            `;
+        }
+
+        // Highlight matching text
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        // Open modal on search input click
+        document.getElementById('global-search').addEventListener('click', function(e) {
+            e.preventDefault();
+            openSearchModal();
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSearchModal();
+            }
+        });
+
+        // Close modal on backdrop click
+        document.getElementById('searchModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSearchModal();
+            }
+        });
+
+        // Search functionality
+        document.getElementById('searchModalInput').addEventListener('input', function(e) {
+            const query = e.target.value.trim();
+            renderSearchResults(query);
+        });
+
+        // Handle Enter key to navigate to first result
+        document.getElementById('searchModalInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const firstItem = document.querySelector('.search-item');
+                if (firstItem) {
+                    firstItem.click();
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>

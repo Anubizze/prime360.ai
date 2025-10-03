@@ -7,13 +7,9 @@
     <link rel="icon" type="image/png" href="img/icon prime360.png">
     <link rel="apple-touch-icon" href="img/icon prime360.png">
     <link rel="stylesheet" href="css/meetings.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/search-system.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/user-profile.js"></script>
-    <script src="js/search-system.js"></script>
-    <!-- Mobile Responsive -->
-    <link rel="stylesheet" href="css/mobile-responsive.css">
-    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
     <div class="container">
@@ -33,7 +29,7 @@
                 <span class="menu-icon">📊</span>
                 Проекты
             </a>
-            <a href="#" class="menu-item" onclick="toggleAIChat(); return false;">
+            <a href="index.html" class="menu-item">
                 <span class="menu-icon">🤖</span>
                 AI-ассистент
             </a>
@@ -44,6 +40,10 @@
             <a href="meetings.html" class="menu-item active">
                 <span class="menu-icon">💬</span>
                 Совещания
+            </a>
+            <a href="messenger.html" class="menu-item">
+                <span class="menu-icon">📱</span>
+                Мессенджер
             </a>
 
         </div>
@@ -138,9 +138,17 @@
                 <div class="protocol-table-header">
                     <h3 id="selectedProjectName">Проект: </h3>
                     <div class="protocol-actions">
+                        <button class="btn-secondary" onclick="openProtocolChartsModal()">
+                            <span>📊</span>
+                            Графики
+                        </button>
                         <button class="btn-secondary" onclick="exportToExcel()">
                             <span>📥</span>
                             Экспорт в Excel
+                        </button>
+                        <button class="btn-whatsapp" onclick="sendProtocolToWhatsApp()">
+                            <span>💬</span>
+                            Отправить
                         </button>
                         <button class="btn-primary" onclick="saveProtocolTasks()">
                             <span>💾</span>
@@ -307,10 +315,17 @@
                 <div class="form-group">
                     <label>
                         <span class="label-icon">👥</span>
-                        Количество участников
+                        Участники
                     </label>
-                    <input type="number" id="meetingParticipants" class="form-input" min="1" value="1" required>
-                            </div>
+                    <button type="button" class="invite-participants-btn" onclick="openParticipantsModal()">
+                        <span>➕</span>
+                        Пригласить участника
+                    </button>
+                    <div class="selected-participants" id="selectedParticipantsList">
+                        <p class="no-participants-text">Участники не выбраны</p>
+                    </div>
+                    <input type="hidden" id="meetingParticipants" value="">
+                </div>
 
                 <div class="form-group">
                     <label>
@@ -345,18 +360,18 @@
             // Default sample meetings for demo
             return {
                 '2025-10-01': [
-                    { time: '10:00', title: 'Утреннее совещание', participants: 5, description: 'Обсуждение планов на неделю' },
-                    { time: '14:00', title: 'Обсуждение проекта', participants: 3, description: 'Проект "Астана Plaza"' }
+                    { time: '10:00', title: 'Утреннее совещание', participants: 5, description: 'Обсуждение планов на неделю', conferenceLink: 'https://us05web.zoom.us/j/1234567890' },
+                    { time: '14:00', title: 'Обсуждение проекта', participants: 3, description: 'Проект "Астана Plaza"', conferenceLink: 'https://us05web.zoom.us/j/1234567891' }
                 ],
                 '2025-10-05': [
-                    { time: '11:00', title: 'Планирование спринта', participants: 8, description: 'Sprint Planning' }
+                    { time: '11:00', title: 'Планирование спринта', participants: 8, description: 'Sprint Planning', conferenceLink: 'https://us05web.zoom.us/j/1234567892' }
                 ],
                 '2025-10-10': [
-                    { time: '09:00', title: 'Встреча с клиентом', participants: 4, description: 'Презентация прогресса' },
-                    { time: '15:00', title: 'Ретроспектива', participants: 6, description: 'Обсуждение итогов спринта' }
+                    { time: '09:00', title: 'Встреча с клиентом', participants: 4, description: 'Презентация прогресса', conferenceLink: 'https://meet.google.com/abc-defg-hij' },
+                    { time: '15:00', title: 'Ретроспектива', participants: 6, description: 'Обсуждение итогов спринта', conferenceLink: 'https://us05web.zoom.us/j/1234567893' }
                 ],
                 '2025-10-15': [
-                    { time: '13:00', title: 'Демо презентация', participants: 10, description: 'Демонстрация новых функций' }
+                    { time: '13:00', title: 'Демо презентация', participants: 10, description: 'Демонстрация новых функций', conferenceLink: 'https://teams.microsoft.com/l/meetup-join/sample' }
                 ]
             };
         }
@@ -462,6 +477,9 @@
                         <div class="meeting-item-header">
                             <div class="meeting-time">🕐 ${meeting.time}</div>
                             <div class="meeting-actions">
+                                <button class="meeting-action-btn conference-btn" onclick="startConference('${dateStr}', ${index})" title="Начать конференцию">
+                                    🎥
+                                </button>
                                 <button class="meeting-action-btn edit-btn" onclick="editMeeting('${dateStr}', ${index})" title="Редактировать">
                                     ✏️
                                 </button>
@@ -807,6 +825,8 @@
             const addMeetingModal = document.getElementById('addMeetingModal');
             const protocolModal = document.getElementById('protocolModal');
             const protocolTableModal = document.getElementById('protocolTableModal');
+            const participantsModal = document.getElementById('participantsModal');
+            const protocolChartsModal = document.getElementById('protocolChartsModal');
             
             if (event.target === addMeetingModal) {
                 closeAddMeetingModal();
@@ -817,182 +837,479 @@
             if (event.target === protocolTableModal) {
                 closeProtocolTableModal();
             }
-        }
-
-        // AI Chat Functions
-        let isChatOpen = false;
-        let isMinimized = false;
-
-        function toggleAIChat() {
-            const chatWindow = document.getElementById('aiChatWindow');
-            const floatButton = document.querySelector('.ai-float-button');
-            
-            if (isChatOpen) {
-                closeAIChat();
-            } else {
-                chatWindow.classList.add('show');
-                floatButton.style.display = 'none';
-                isChatOpen = true;
-                isMinimized = false;
+            if (event.target === participantsModal) {
+                closeParticipantsModal();
+            }
+            if (event.target === protocolChartsModal) {
+                closeProtocolChartsModal();
             }
         }
 
-        function closeAIChat() {
-            const chatWindow = document.getElementById('aiChatWindow');
-            const floatButton = document.querySelector('.ai-float-button');
-            
-            chatWindow.classList.remove('show');
-            chatWindow.classList.remove('minimized');
+        // Participants Modal Functions
+        let selectedParticipants = [];
+        
+        const availableUsers = [
+            { id: 1, name: 'Айгун Ахметова', position: 'Администратор', avatar: 'АА' },
+            { id: 2, name: 'Нурлан Абдуллаев', position: 'Project Manager', avatar: 'НА' },
+            { id: 3, name: 'Алия Смирнова', position: 'Разработчик', avatar: 'АС' },
+            { id: 4, name: 'Дмитрий Иванов', position: 'Дизайнер', avatar: 'ДИ' },
+            { id: 5, name: 'Мария Петрова', position: 'Аналитик', avatar: 'МП' },
+            { id: 6, name: 'Асхат Касымов', position: 'DevOps', avatar: 'АК' },
+            { id: 7, name: 'Сауле Нурмагамбетова', position: 'QA Engineer', avatar: 'СН' },
+            { id: 8, name: 'Елена Кузнецова', position: 'Frontend Developer', avatar: 'ЕК' }
+        ];
+        
+        function openParticipantsModal() {
+            const participantsModal = document.getElementById('participantsModal');
+            participantsModal.style.display = 'flex';
             setTimeout(() => {
-                floatButton.style.display = 'flex';
+                const content = participantsModal.querySelector('.modal-content');
+                content.classList.add('show');
+            }, 10);
+            renderParticipantsList();
+        }
+        
+        function closeParticipantsModal() {
+            const participantsModal = document.getElementById('participantsModal');
+            const content = participantsModal.querySelector('.modal-content');
+            content.classList.remove('show');
+            setTimeout(() => {
+                participantsModal.style.display = 'none';
             }, 300);
-            isChatOpen = false;
-            isMinimized = false;
         }
-
-        function minimizeAIChat() {
-            const chatWindow = document.getElementById('aiChatWindow');
-            chatWindow.classList.toggle('minimized');
-            isMinimized = !isMinimized;
-        }
-
-        function sendAIMessage() {
-            const input = document.getElementById('aiChatInput');
-            const message = input.value.trim();
+        
+        function renderParticipantsList() {
+            const tableBody = document.getElementById('participantsTableBody');
+            const countDisplay = document.getElementById('selectedCountDisplay');
             
-            if (!message) return;
-
-            // Добавляем сообщение пользователя
-            addMessageToChat(message, 'user');
-            input.value = '';
-
-            // Имитируем ответ AI
-            setTimeout(() => {
-                const aiResponse = getAIResponse(message);
-                addMessageToChat(aiResponse, 'ai');
-            }, 1000);
-        }
-
-        function sendSuggestion(suggestion) {
-            const input = document.getElementById('aiChatInput');
-            input.value = suggestion;
-            sendAIMessage();
-        }
-
-        function handleAIEnter(event) {
-            if (event.key === 'Enter') {
-                sendAIMessage();
+            tableBody.innerHTML = availableUsers.map((user, index) => {
+                const isSelected = selectedParticipants.some(p => p.id === user.id);
+                return `
+                    <tr class="${isSelected ? 'row-selected' : ''}">
+                        <td class="text-center">${index + 1}</td>
+                        <td>
+                            <div class="participant-cell">
+                                <div class="participant-avatar-small">${user.avatar}</div>
+                                <span>${user.name}</span>
+                            </div>
+                        </td>
+                        <td>${user.position}</td>
+                        <td>
+                            <span class="status-badge ${isSelected ? 'status-invited' : 'status-not-invited'}">
+                                ${isSelected ? '✓ Приглашен' : 'Не приглашен'}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <button class="table-action-btn ${isSelected ? 'btn-remove' : 'btn-invite'}" 
+                                    onclick="toggleParticipant(${user.id})">
+                                ${isSelected ? 'Отменить' : 'Пригласить'}
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <button class="send-invite-btn" 
+                                    onclick="sendInvitation(${user.id}, '${user.name}')"
+                                    title="Отправить приглашение участнику">
+                                📧 Отправить
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            if (countDisplay) {
+                countDisplay.textContent = selectedParticipants.length;
             }
         }
-
-        function addMessageToChat(message, sender) {
-            const chatBody = document.getElementById('aiChatBody');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `ai-message-container ${sender}`;
+        
+        function filterParticipants() {
+            const searchInput = document.getElementById('searchParticipantsInput');
+            const filter = searchInput.value.toLowerCase();
+            const tableBody = document.getElementById('participantsTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
             
-            if (sender === 'user') {
-                messageDiv.innerHTML = `
-                    <div class="ai-message user-message">
-                        <div class="ai-message-text">${message}</div>
-                    </div>
-                `;
-            } else {
-                messageDiv.innerHTML = `
-                    <div class="ai-avatar">🤖</div>
-                    <div class="ai-message">
-                        <div class="ai-message-text">${message}</div>
-                    </div>
-                `;
-            }
-            
-            chatBody.appendChild(messageDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
-
-        function getAIResponse(message) {
-            const responses = {
-                'показать предстоящие совещания': 'Предстоящие совещания:\n• 15.01.2025 - Планирование проекта "ЖК Прогресс"\n• 16.01.2025 - Обсуждение бюджета\n• 17.01.2025 - Техническое совещание',
-                'создать новое совещание': 'Для создания совещания:\n1. Нажмите кнопку "Создать совещание"\n2. Заполните тему и описание\n3. Выберите дату и время\n4. Добавьте участников\n5. Нажмите "Сохранить"',
-                'протокол совещания': 'Протокол совещания включает:\n• Тему и дату совещания\n• Список участников\n• Обсуждаемые вопросы\n• Принятые решения\n• План действий',
-                'привет': 'Привет! Я AI-ассистент PRIME360. Чем могу помочь с совещаниями?',
-                'помощь': 'Я могу помочь с:\n• Планированием совещаний\n• Созданием протоколов\n• Управлением участниками\n• Напоминаниями о встречах'
-            };
-            
-            const lowerMessage = message.toLowerCase();
-            for (const [key, response] of Object.entries(responses)) {
-                if (lowerMessage.includes(key)) {
-                    return response;
+            Array.from(rows).forEach(row => {
+                const name = row.cells[1].textContent.toLowerCase();
+                const position = row.cells[2].textContent.toLowerCase();
+                
+                if (name.includes(filter) || position.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
                 }
+            });
+        }
+        
+        function toggleParticipant(userId) {
+            const user = availableUsers.find(u => u.id === userId);
+            const index = selectedParticipants.findIndex(p => p.id === userId);
+            
+            if (index > -1) {
+                selectedParticipants.splice(index, 1);
+            } else {
+                selectedParticipants.push(user);
             }
             
-            return 'Извините, я не понял ваш вопрос. Попробуйте спросить о совещаниях или протоколах.';
+            renderParticipantsList();
+            updateSelectedParticipantsDisplay();
+        }
+        
+        function updateSelectedParticipantsDisplay() {
+            const listElement = document.getElementById('selectedParticipantsList');
+            const hiddenInput = document.getElementById('meetingParticipants');
+            
+            if (selectedParticipants.length === 0) {
+                listElement.innerHTML = '<p class="no-participants-text">Участники не выбраны</p>';
+                hiddenInput.value = '';
+            } else {
+                listElement.innerHTML = selectedParticipants.map(user => `
+                    <div class="selected-participant-chip">
+                        <span class="chip-avatar">${user.avatar}</span>
+                        <span class="chip-name">${user.name}</span>
+                        <button class="chip-remove" onclick="removeParticipant(${user.id})">×</button>
+                    </div>
+                `).join('');
+                hiddenInput.value = JSON.stringify(selectedParticipants.map(p => p.id));
+            }
+        }
+        
+        function removeParticipant(userId) {
+            const index = selectedParticipants.findIndex(p => p.id === userId);
+            if (index > -1) {
+                selectedParticipants.splice(index, 1);
+                updateSelectedParticipantsDisplay();
+                renderParticipantsList();
+            }
+        }
+        
+        function confirmParticipantsSelection() {
+            closeParticipantsModal();
+        }
+        
+        function sendInvitation(userId, userName) {
+            // Получаем данные совещания из формы
+            const meetingTitle = document.getElementById('meetingTitle').value || 'Совещание';
+            const meetingDate = document.getElementById('meetingDate').value || 'Дата не указана';
+            const meetingTime = document.getElementById('meetingTime').value || 'Время не указано';
+            const meetingDescription = document.getElementById('meetingDescription').value || '';
+            
+            // Форматируем дату
+            const formattedDate = meetingDate ? new Date(meetingDate).toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            }) : 'Дата не указана';
+            
+            // Формируем сообщение для WhatsApp
+            let message = `🔔 *Приглашение на совещание*\n\n`;
+            message += `Здравствуйте, ${userName}!\n\n`;
+            message += `Приглашаем Вас на совещание:\n\n`;
+            message += `📋 *Тема:* ${meetingTitle}\n`;
+            message += `📅 *Дата:* ${formattedDate}\n`;
+            message += `🕐 *Время:* ${meetingTime}\n`;
+            
+            if (meetingDescription) {
+                message += `\n📝 *Описание:*\n${meetingDescription}\n`;
+            }
+            
+            message += `\n━━━━━━━━━━━━━━━━\n`;
+            message += `С уважением,\n`;
+            message += `🤖 PRIME360.AI`;
+            
+            // Кодируем сообщение для URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Открываем WhatsApp
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Показываем уведомление
+            showSuccessNotification(`Приглашение отправлено в WhatsApp для ${userName}`);
+        }
+        
+        function sendProtocolToWhatsApp() {
+            const projectName = document.getElementById('selectedProjectName').textContent;
+            const table = document.getElementById('protocolTable');
+            const rows = table.querySelectorAll('tbody tr');
+            
+            // Формируем текст сообщения
+            let message = `📋 *${projectName}*\n`;
+            message += `📝 Протокольные задачи\n`;
+            message += `━━━━━━━━━━━━━━━━\n\n`;
+            
+            let taskNumber = 1;
+            rows.forEach(row => {
+                const cells = row.cells;
+                const taskName = cells[1].querySelector('input').value || 'Не указано';
+                const responsible = cells[5].querySelector('select').value || 'Не назначен';
+                const status = cells[6].querySelector('select').value || '-';
+                const planDate = cells[3].querySelector('input').value || '-';
+                
+                message += `*${taskNumber}. ${taskName}*\n`;
+                message += `👤 Ответственный: ${responsible}\n`;
+                message += `📅 План: ${planDate}\n`;
+                message += `📊 Статус: ${status}\n`;
+                message += `\n`;
+                taskNumber++;
+            });
+            
+            message += `\n━━━━━━━━━━━━━━━━\n`;
+            message += `🤖 Сгенерировано: PRIME360.AI\n`;
+            message += `📅 Дата: ${new Date().toLocaleDateString('ru-RU')}`;
+            
+            // Кодируем сообщение для URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Открываем WhatsApp
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Показываем уведомление
+            showSuccessNotification('Протокол отправлен в WhatsApp');
+        }
+        
+        function startConference(dateStr, index) {
+            const meeting = meetings[dateStr][index];
+            
+            // Проверяем наличие ссылки на конференцию
+            if (meeting.conferenceLink) {
+                // Открываем ссылку в новой вкладке
+                window.open(meeting.conferenceLink, '_blank');
+                showSuccessNotification(`Открыта конференция: ${meeting.title}`);
+            } else {
+                // Если ссылки нет, генерируем новую (пример для Zoom)
+                const meetingId = Math.floor(1000000000 + Math.random() * 9000000000);
+                const zoomLink = `https://us05web.zoom.us/j/${meetingId}`;
+                
+                // Сохраняем ссылку в совещание
+                meeting.conferenceLink = zoomLink;
+                saveMeetings();
+                
+                // Открываем ссылку
+                window.open(zoomLink, '_blank');
+                showSuccessNotification(`Создана новая конференция для: ${meeting.title}`);
+            }
+            
+            console.log('Начало конференции:', meeting.title, 'Ссылка:', meeting.conferenceLink);
+        }
+        
+        // Protocol Charts Modal Functions
+        function openProtocolChartsModal() {
+            const modal = document.getElementById('protocolChartsModal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                const content = modal.querySelector('.modal-content');
+                content.classList.add('show');
+                initProtocolCharts();
+            }, 10);
+        }
+        
+        function closeProtocolChartsModal() {
+            const modal = document.getElementById('protocolChartsModal');
+            const content = modal.querySelector('.modal-content');
+            content.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        
+        function initProtocolCharts() {
+            // График статуса задач
+            const statusCtx = document.getElementById('statusChart');
+            if (statusCtx && !statusCtx.chart) {
+                statusCtx.chart = new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Выполнено', 'В работе', 'Просрочено', 'Не начато'],
+                        datasets: [{
+                            data: [45, 30, 8, 17],
+                            backgroundColor: [
+                                '#10b981',
+                                '#3b82f6',
+                                '#ef4444',
+                                '#94a3b8'
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 15,
+                                    font: { size: 13, weight: '600' }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // График выполнения по времени
+            const timelineCtx = document.getElementById('timelineChart');
+            if (timelineCtx && !timelineCtx.chart) {
+                timelineCtx.chart = new Chart(timelineCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+                        datasets: [{
+                            label: 'Выполнено',
+                            data: [12, 19, 15, 22, 18, 25],
+                            backgroundColor: '#10b981',
+                            borderRadius: 6
+                        }, {
+                            label: 'Просрочено',
+                            data: [3, 2, 4, 1, 3, 2],
+                            backgroundColor: '#ef4444',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    padding: 15,
+                                    font: { size: 13, weight: '600' }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { font: { size: 12 } }
+                            },
+                            x: {
+                                ticks: { font: { size: 12 } }
+                            }
+                        }
+                    }
+                });
+            }
         }
     </script>
 
-    <!-- Floating AI Assistant Button -->
-    <button class="ai-float-button" onclick="toggleAIChat()" title="AI Ассистент">
-        <span class="ai-float-icon">🤖</span>
-        <span class="ai-pulse"></span>
-    </button>
-
-    <!-- AI Chat Window -->
-    <div id="aiChatWindow" class="ai-chat-window">
-        <div class="ai-chat-header">
-            <div class="ai-chat-title">
-                <span class="ai-chat-icon">🤖</span>
-                <div>
-                    <div class="ai-chat-name">AI Ассистент PRIME360</div>
-                    <div class="ai-chat-status">
-                        <span class="status-dot online"></span>
-                        В сети
+    <!-- Participants Modal -->
+    <div id="participantsModal" class="modal">
+        <div class="modal-content participants-modal-content">
+            <div class="modal-header">
+                <h2>
+                    <span class="modal-icon">👥</span>
+                    Список участников совещания
+                </h2>
+                <button onclick="closeParticipantsModal()" class="close-modal">&times;</button>
+            </div>
+            
+            <div class="modal-body participants-modal-body">
+                <div class="participants-table-header">
+                    <div class="participants-search">
+                        <input type="text" id="searchParticipantsInput" placeholder="🔍 Поиск по имени или должности..." class="search-participants-input" oninput="filterParticipants()">
                     </div>
                 </div>
+                
+                <div class="table-container">
+                    <table class="participants-table" id="participantsTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">№</th>
+                                <th style="width: 220px;">ФИО</th>
+                                <th style="width: 180px;">Должность</th>
+                                <th style="width: 130px;">Статус</th>
+                                <th style="width: 110px;">Действие</th>
+                                <th style="width: 100px;">Отправить</th>
+                            </tr>
+                        </thead>
+                        <tbody id="participantsTableBody">
+                            <!-- Participants will be rendered here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="ai-chat-actions">
-                <button class="ai-action-btn" onclick="minimizeAIChat()" title="Свернуть">−</button>
-                <button class="ai-action-btn" onclick="closeAIChat()" title="Закрыть">×</button>
+            
+            <div class="modal-footer">
+                <div class="selected-count-info">
+                    Выбрано участников: <strong id="selectedCountDisplay">0</strong>
+                </div>
+                <div class="footer-buttons">
+                    <button class="btn-secondary" onclick="closeParticipantsModal()">Отмена</button>
+                    <button class="btn-primary" onclick="confirmParticipantsSelection()">
+                        <span>✓</span>
+                        Готово
+                    </button>
+                </div>
             </div>
         </div>
-        
-        <div class="ai-chat-body" id="aiChatBody">
-            <div class="ai-welcome-message">
-                <div class="ai-avatar">🤖</div>
-                <div class="ai-message">
-                    <div class="ai-message-text">
-                        Привет! Я AI-ассистент PRIME360. Чем могу помочь с совещаниями?
-                        <div class="ai-suggestions">
-                            <button class="suggestion-btn" onclick="sendSuggestion('Показать предстоящие совещания')">
-                                📅 Показать предстоящие совещания
-                            </button>
-                            <button class="suggestion-btn" onclick="sendSuggestion('Создать новое совещание')">
-                                ➕ Создать новое совещание
-                            </button>
-                            <button class="suggestion-btn" onclick="sendSuggestion('Протокол совещания')">
-                                📝 Протокол совещания
-                            </button>
+    </div>
+
+    <!-- Protocol Charts Modal -->
+    <div id="protocolChartsModal" class="modal">
+        <div class="modal-content protocol-charts-modal-content">
+            <div class="modal-header">
+                <h2>
+                    <span class="modal-icon">📊</span>
+                    Аналитика протокольных задач
+                </h2>
+                <button onclick="closeProtocolChartsModal()" class="close-modal">&times;</button>
+            </div>
+            
+            <div class="modal-body charts-modal-body">
+                <!-- Statistics Cards -->
+                <div class="charts-stats-grid">
+                    <div class="chart-stat-card green">
+                        <div class="stat-card-icon">✅</div>
+                        <div class="stat-card-value">45</div>
+                        <div class="stat-card-label">Выполнено</div>
+                    </div>
+                    <div class="chart-stat-card blue">
+                        <div class="stat-card-icon">⏳</div>
+                        <div class="stat-card-value">30</div>
+                        <div class="stat-card-label">В работе</div>
+                    </div>
+                    <div class="chart-stat-card red">
+                        <div class="stat-card-icon">⚠️</div>
+                        <div class="stat-card-value">8</div>
+                        <div class="stat-card-label">Просрочено</div>
+                    </div>
+                    <div class="chart-stat-card gray">
+                        <div class="stat-card-icon">📋</div>
+                        <div class="stat-card-value">17</div>
+                        <div class="stat-card-label">Не начато</div>
+                    </div>
+                </div>
+                
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <div class="chart-block">
+                        <h3 class="chart-block-title">📊 Статус задач</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-block">
+                        <h3 class="chart-block-title">📈 Динамика выполнения</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="timelineChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="ai-chat-footer">
-            <div class="ai-input-container">
-                <button class="ai-attach-btn" title="Прикрепить файл">📎</button>
-                <input type="text" 
-                       id="aiChatInput" 
-                       class="ai-input" 
-                       placeholder="Введите сообщение..." 
-                       onkeypress="handleAIEnter(event)">
-                <button class="ai-send-btn" onclick="sendAIMessage()" title="Отправить">
-                    <span class="send-icon">📤</span>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeProtocolChartsModal()">Закрыть</button>
+                <button class="btn-primary" onclick="exportToExcel()">
+                    <span>📥</span>
+                    Экспорт в Excel
                 </button>
-            </div>
-            <div class="ai-footer-info">
-                <span class="ai-footer-text">AI может делать ошибки. Проверяйте важную информацию.</span>
             </div>
         </div>
     </div>
+
 </body>
 </html>
 

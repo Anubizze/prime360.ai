@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME360.AI - Мессенджер</title>
+    <link rel="icon" type="image/png" href="img/icon prime360.png">
+    <link rel="apple-touch-icon" href="img/icon prime360.png">
+    <link rel="stylesheet" href="css/messenger.css">
+    <script src="js/user-profile.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="img/icon prime360.png" alt="PRIME360.AI" width="32" height="32">
+                </div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Главное
+            </a>
+            <a href="projects.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                Проекты
+            </a>
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🤖</span>
+                AI-ассистент
+            </a>
+            <a href="documents.html" class="menu-item">
+                <span class="menu-icon">📚</span>
+                Библиотека
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+            <a href="messenger.html" class="menu-item active">
+                <span class="menu-icon">📱</span>
+                Мессенджер
+            </a>
+
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" id="global-search" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Айгун Ахметова</div>
+                        <div class="user-role" id="userRole">Админ</div>
+                    </div>
+                    <div class="user-avatar" id="userAvatar">А</div>
+                    <button onclick="logout()" class="logout-button">Выйти</button>
+                </div>
+            </div>
+
+            <!-- Messenger Page Content -->
+            <div class="content-body">
+                <div class="development-container">
+                    <div class="development-icon">🚧</div>
+                    <h1 class="development-title">Мессенджер</h1>
+                    <div class="development-subtitle">Страница находится в разработке</div>
+                    
+                    <div class="development-description">
+                        <p>Мы работаем над созданием встроенного мессенджера для команды PRIME360.AI</p>
+                        <p>Скоро здесь появятся:</p>
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <div class="feature-title">Личные чаты</div>
+                            <div class="feature-desc">Общайтесь один на один с коллегами</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">👥</div>
+                            <div class="feature-title">Групповые чаты</div>
+                            <div class="feature-desc">Создавайте группы для проектов</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">📎</div>
+                            <div class="feature-title">Файлы и документы</div>
+                            <div class="feature-desc">Делитесь файлами напрямую</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔔</div>
+                            <div class="feature-title">Уведомления</div>
+                            <div class="feature-desc">Не пропускайте важные сообщения</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🎥</div>
+                            <div class="feature-title">Видеозвонки</div>
+                            <div class="feature-desc">Звоните прямо из чата</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <div class="feature-title">Поиск</div>
+                            <div class="feature-desc">Находите нужные сообщения быстро</div>
+                        </div>
+                    </div>
+                    
+                    <div class="development-footer">
+                        <div class="progress-info">
+                            <div class="progress-label">Прогресс разработки:</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%">
+                                    <span class="progress-text">35%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Notify button functionality
+        document.querySelector('.notify-button')?.addEventListener('click', function() {
+            showNotification('Вы будете уведомлены о запуске мессенджера!');
+            this.disabled = true;
+            this.innerHTML = '<span>✓</span> Вы подписаны на уведомления';
+            this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        });
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'success-notification';
+            notification.innerHTML = `
+                <span class="success-icon">✓</span>
+                ${message}
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+

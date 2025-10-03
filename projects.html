@@ -1196,6 +1196,11 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Функция показа уведомления для устава проекта
+        function showCharterAlert(projectName) {
+            alert(`Подтвердите действие\n\nОткрытие раздела: Устав проекта "${projectName}"\n\nЗдесь будет добавлен PDF файл в будущем.`);
+        }
+
         // Функция обновления статистики
         function updateStats(status) {
             const projectCards = document.querySelectorAll('.project-card');
@@ -1415,8 +1420,7 @@
             
             // Добавляем обработчик клика для перехода к детальной странице
             card.onclick = function(e) {
-                if (!e.target.classList.contains('word-download-btn') && 
-                    !e.target.classList.contains('delete-project-btn') && 
+                if (!e.target.classList.contains('delete-project-btn') && 
                     !e.target.classList.contains('status-select') &&
                     !e.target.closest('.status-controls')) {
                     // Создаем временную страницу проекта
@@ -1483,48 +1487,6 @@
             }
         }
 
-        // Функция добавления проекта в архив
-        function addToArchive(projectId, event) {
-            event.stopPropagation(); // Предотвращаем клик по карточке
-            
-            if (confirm('Добавить этот проект в архив?')) {
-                try {
-                    // Получаем проекты из localStorage
-                    const projects = loadProjectsFromStorage();
-                    const projectIndex = projects.findIndex(p => p.id === projectId);
-                    
-                    if (projectIndex !== -1) {
-                        // Меняем статус на "archived" (архивированный)
-                        projects[projectIndex].status = 'archived';
-                        projects[projectIndex].archivedAt = new Date().toISOString();
-                        localStorage.setItem('savedProjects', JSON.stringify(projects));
-                        
-                        // Обновляем отображение карточки
-                        const projectCard = document.querySelector(`[data-status="completed"]`);
-                        if (projectCard) {
-                            projectCard.style.opacity = '0.6';
-                            projectCard.style.pointerEvents = 'none';
-                            
-                            // Меняем кнопку на "В архиве"
-                            const archiveBtn = projectCard.querySelector('.archive-project-btn');
-                            if (archiveBtn) {
-                                archiveBtn.textContent = '✅ В архиве';
-                                archiveBtn.style.background = '#16a34a';
-                                archiveBtn.onclick = null;
-                            }
-                        }
-                        
-                        // Обновляем статистику
-                        updateStats('active');
-                        
-                        alert('Проект добавлен в архив!');
-                    }
-                } catch (error) {
-                    console.error('Ошибка при добавлении в архив:', error);
-                    alert('Ошибка при добавлении в архив. Попробуйте еще раз.');
-                }
-            }
-        }
 
         // Функция удаления проекта
         function deleteProject(projectId) {
@@ -1778,10 +1740,6 @@
                 </span>
                 Проекты
             </a>
-            <a href="archive.html" class="menu-item">
-                <span class="menu-icon">📦</span>
-                Архив
-            </a>
             <a href="#" class="menu-item" onclick="toggleAIChat(); return false;">
                 <span class="menu-icon">🤖</span>
                 AI-ассистент
@@ -1915,12 +1873,7 @@
                         </div>
                         <div class="project-footer">
                             <div class="project-deadline">Срок: 15.01.2025</div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div class="project-status status-completed">Завершен</div>
-                                <button class="archive-project-btn" onclick="addToArchive('solar-station', event)" style="padding: 4px 8px; background: #70B8B8; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer; transition: all 0.2s ease;">
-                                    📦 В архив
-                                </button>
-                            </div>
+                            <div class="project-status status-completed">Завершен</div>
                         </div>
                     </div>
 

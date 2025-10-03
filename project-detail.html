@@ -52,30 +52,14 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             max-width: 600px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        
-        .project-blocks-details.show {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .project-blocks-details .project-block {
-            opacity: 0;
-            transform: translateY(20px) scale(0.9);
-            transition: all 0.4s ease;
-        }
-        
-        .project-blocks-details.show .project-block {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
-        
-        .project-blocks-details.show .project-block:nth-child(1) { transition-delay: 0.1s; }
-        .project-blocks-details.show .project-block:nth-child(2) { transition-delay: 0.2s; }
-        .project-blocks-details.show .project-block:nth-child(3) { transition-delay: 0.3s; }
         
         .details-section {
             display: flex;
@@ -807,10 +791,6 @@
                 <span class="menu-icon">📁</span>
                 Проекты
             </a>
-            <a href="archive.html" class="menu-item">
-                <span class="menu-icon">📦</span>
-                Архив
-            </a>
             <a href="#" class="menu-item" onclick="toggleAIChat(); return false;">
                 <span class="menu-icon">🤖</span>
                 AI-ассистент
@@ -914,14 +894,14 @@
                     <div class="blocks-main">
                         <div class="project-blocks">
                             <!-- Устав -->
-                            <div class="project-block charter-card" onclick="openPdfModal()">
+                            <div class="project-block charter-card" onclick="showCharterAlert('Солнечная Электростанция')">
                                 <h3>Устав</h3>
                                 <p>Основные документы проекта</p>
                                 <div class="block-arrow">→</div>
                             </div>
 
                             <!-- График проекта -->
-                            <div class="project-block charter-card" onclick="openSchedulePdfModal()">
+                            <div class="project-block charter-card" onclick="openTestModal()">
                                 <h3>График проекта (план/факт)</h3>
                                 <p>Временные рамки и этапы</p>
                                 <div class="block-arrow">→</div>
@@ -935,8 +915,8 @@
                             </div>
                         </div>
 
-                        <!-- Детальные блоки (скрыты по умолчанию) -->
-                        <div id="detailsBlocks" class="project-blocks-details" style="display: none;">
+                        <!-- Детальные блоки (всегда видны) -->
+                        <div id="detailsBlocks" class="project-blocks-details">
                             <!-- Основное и вспомогательное оборудование -->
                             <div class="project-block charter-card" onclick="openEquipmentPdfModal()">
                                 <h3>Основное и вспомогательное оборудование</h3>
@@ -945,7 +925,7 @@
                             </div>
 
                             <!-- Строительно-монтажные работы -->
-                            <div class="project-block" onclick="openModal('constructionModal')">
+                            <div class="project-block" onclick="alert('Открытие раздела: Строительно-монтажные работы\\n\\nЗдесь будет добавлен PDF файл в будущем.')">
                                 <h3>Строительно-монтажные работы</h3>
                                 <p>Выполнение строительных работ</p>
                                 <div class="block-arrow">→</div>
@@ -960,12 +940,6 @@
                         </div>
                     </div>
                     
-                    <!-- Кнопка Подробнее -->
-                    <div class="details-section">
-                        <button class="details-button" onclick="openDetailsModal()">
-                            Подробнее
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1016,52 +990,6 @@
         </div>
     </div>
 
-    <!-- График проекта -->
-    <div id="scheduleModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">График проекта (план/факт)</h2>
-                <span class="close" onclick="closeModal('scheduleModal')">&times;</span>
-            </div>
-            <div class="modal-section">
-                <h4>Основные этапы</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Этап</th>
-                            <th>План</th>
-                            <th>Факт</th>
-                            <th>Отклонение</th>
-                            <th>Статус</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Проектирование</td>
-                            <td>01.02.2024 - 01.04.2024</td>
-                            <td>01.02.2024 - 15.04.2024</td>
-                            <td>+15 дней</td>
-                            <td><span class="status-badge status-pending">Завершен с задержкой</span></td>
-                        </tr>
-                        <tr>
-                            <td>Закупка оборудования</td>
-                            <td>01.04.2024 - 01.06.2024</td>
-                            <td>15.04.2024 - 15.06.2024</td>
-                            <td>+15 дней</td>
-                            <td><span class="status-badge status-approved">Завершен</span></td>
-                        </tr>
-                        <tr>
-                            <td>Строительные работы</td>
-                            <td>01.06.2024 - 01.10.2024</td>
-                            <td>15.06.2024 - в процессе</td>
-                            <td>+15 дней</td>
-                            <td><span class="status-badge status-in-progress">В работе</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
     <!-- Бюджет проекта -->
     <div id="budgetModal" class="modal">
@@ -1171,82 +1099,6 @@
         </div>
     </div>
 
-    <!-- Строительно-монтажные работы -->
-    <div id="constructionModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Строительно-монтажные работы</h2>
-                <span class="close" onclick="closeModal('constructionModal')">&times;</span>
-            </div>
-            <div class="modal-section">
-                <h4>График с отклонениями</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Вид работ</th>
-                            <th>Плановый срок</th>
-                            <th>Фактический срок</th>
-                            <th>Отклонение</th>
-                            <th>Причина задержки</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Подготовка площадки</td>
-                            <td>01.06 - 15.06.2024</td>
-                            <td>01.06 - 20.06.2024</td>
-                            <td>+5 дней</td>
-                            <td>Неблагоприятные погодные условия</td>
-                        </tr>
-                        <tr>
-                            <td>Устройство фундаментов</td>
-                            <td>16.06 - 30.06.2024</td>
-                            <td>21.06 - 05.07.2024</td>
-                            <td>+5 дней</td>
-                            <td>Задержка поставки материалов</td>
-                        </tr>
-                        <tr>
-                            <td>Монтаж конструкций</td>
-                            <td>01.07 - 15.07.2024</td>
-                            <td>06.07 - в процессе</td>
-                            <td>+5 дней</td>
-                            <td>Каскадная задержка</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-section">
-                <h4>Таблица финансовый отчет</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Период</th>
-                            <th>Запланировано</th>
-                            <th>Выполнено</th>
-                            <th>Перерасход</th>
-                            <th>Экономия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Июнь 2024</td>
-                            <td>₸ 200,000</td>
-                            <td>₸ 220,000</td>
-                            <td>₸ 20,000</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Июль 2024</td>
-                            <td>₸ 300,000</td>
-                            <td>₸ 280,000</td>
-                            <td>-</td>
-                            <td>₸ 20,000</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
     <!-- Проектно-изыскательские работы -->
     <div id="designModal" class="modal">
@@ -1303,36 +1155,14 @@
 
         // Design Section Functions
         function openDesignSection(section) {
-            if (section === 'Проектная документация') {
-                openDesignPdfModal();
-            } else if (section === 'Исходно-разрешительная документация для экспертизы') {
-                openDesignPermitPdfModal();
-            } else {
-                alert(`Открытие раздела: ${section}\n\nЗдесь будет добавлен PDF файл в будущем.`);
-            }
+            alert(`Открытие раздела: ${section}\n\nЗдесь будет добавлен PDF файл в будущем.`);
         }
 
-        // Design PDF Modal Functions
-        function openDesignPdfModal() {
-            document.getElementById('designPdfModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
+        // Charter Alert Function
+        function showCharterAlert(projectName) {
+            alert(`Подтвердите действие\n\nОткрытие раздела: Устав проекта "${projectName}"\n\nЗдесь будет добавлен PDF файл в будущем.`);
         }
 
-        function closeDesignPdfModal() {
-            document.getElementById('designPdfModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Design Permit PDF Modal Functions
-        function openDesignPermitPdfModal() {
-            document.getElementById('designPermitPdfModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeDesignPermitPdfModal() {
-            document.getElementById('designPermitPdfModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
 
         // Закрытие модального окна при клике вне его
         window.onclick = function(event) {
@@ -1370,16 +1200,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Schedule PDF Modal Functions
-        function openSchedulePdfModal() {
-            document.getElementById('schedulePdfModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSchedulePdfModal() {
-            document.getElementById('schedulePdfModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
 
         // Budget PDF Modal Functions
         function openBudgetPdfModal() {
@@ -1404,32 +1224,6 @@
         }
 
         // Details Modal Functions
-        function openDetailsModal() {
-            const detailsBlocks = document.getElementById('detailsBlocks');
-            const button = document.querySelector('.details-button');
-            
-            if (detailsBlocks.classList.contains('show')) {
-                // Скрываем с анимацией
-                detailsBlocks.classList.remove('show');
-                button.textContent = 'Подробнее';
-                button.style.background = 'linear-gradient(135deg, #70B8B8 0%, #5a9a9a 100%)';
-                
-                // Скрываем после завершения анимации
-                setTimeout(() => {
-                    detailsBlocks.style.display = 'none';
-                }, 500);
-            } else {
-                // Показываем с анимацией
-                detailsBlocks.style.display = 'grid';
-                button.textContent = 'Скрыть';
-                button.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-                
-                // Запускаем анимацию после небольшой задержки
-                setTimeout(() => {
-                    detailsBlocks.classList.add('show');
-                }, 10);
-            }
-        }
 
         // Presentation Modal Functions
         function openPresentationModal() {
@@ -1550,6 +1344,499 @@
             
             return 'Извините, я не понял ваш вопрос. Попробуйте спросить об информации о проекте или документах.';
         }
+        
+        // Функции для интерактивной таблицы графика проекта
+        function openTestModal() {
+            // Удаляем старое модальное окно если есть
+            const existingModal = document.getElementById('dynamicModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Создаем модальное окно прямо в JavaScript
+            const modalHTML = `
+                <div id="dynamicModal" style="display: block; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);">
+                    <div style="background-color: white; margin: 5% auto; padding: 20px; border-radius: 10px; width: 90%; max-width: 1200px; color: black; max-height: 80vh; overflow-y: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h2 style="color: #007bff; font-size: 24px; margin: 0;">📊 График проекта Солнечная Электростанция (план/факт)</h2>
+                            <button onclick="closeDynamicModal()" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 5px; font-size: 16px; cursor: pointer;">✕ Закрыть</button>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                            <h3 style="color: #28a745; font-size: 18px; margin: 0 0 10px 0;">Реализация проектов ВИЭ</h3>
+                            <p style="color: #6c757d; margin: 0; font-size: 14px;">Солнечная электростанция 22,6 МВт на АО «Варваринское»</p>
+                        </div>
+                        
+                        <table style="width: 100%; border-collapse: collapse; border: 2px solid #007bff; font-size: 14px;">
+                            <thead>
+                                <tr style="background: #007bff;">
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">№</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: left;">Название задачи</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">Базовое начало</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">Базовое окончание</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">Начало</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">Окон-е</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">% завершения</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">Ресурсы</th>
+                                    <th style="border: 2px solid #0056b3; padding: 12px; color: white; text-align: center;">Причина отклонения</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ПРОЕКТ 1: Солнечная электростанция 22,6 МВт -->
+                                <tr style="background: #007bff;">
+                                    <td colspan="9" style="border: 2px solid #0056b3; padding: 15px; font-weight: bold; color: white; font-size: 16px;">1. Солнечная электростанция 22,6 МВт на АО «Варваринское», ЛЭП 10 кВ, модернизация ПС 110/10 кВ «Варваринская»</td>
+                                </tr>
+                                <!-- Блок 1: Проектно-изыскательские работы -->
+                                <tr style="background: #ffc107;">
+                                    <td colspan="9" style="border: 2px solid #e0a800; padding: 10px; font-weight: bold; color: #212529;">Блок 1 Проектно-изыскательские работы (ПИР)</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Получение ИРД по подключению к сети</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">ПИР, изыскания, экспертизы</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Маркетинг и контрактация проведения проектно-изыскательских работ</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2.2</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Проведение изысканий, разработка и согласование комплекта документации РП</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2.3</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Разработка и согласование комплекта документации РП, получение экологического разрешения</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2.4</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Дорожная карта мероприятий по передаче земельных участков от АОВ в ASE</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2.5</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Передача прав на рабочий проект и ИИ с АОВ на SPV ТОО "Altyn Solar Energy"</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2.6</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Проведение Комплексной вневедомственной экспертизы (КВЭ)</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">1.1.2.7</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Уведомление о начале строительства в ГАСК (разрешение на строительство)</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 2: Маркетинг и поставка оборудования -->
+                                <tr style="background: #17a2b8;">
+                                    <td colspan="9" style="border: 2px solid #138496; padding: 10px; font-weight: bold; color: white;">Блок 2 Маркетинг и поставка оборудования (МТО)</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Маркетинг оборудования СЭС</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.2</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Передача исходных данных на основное оборудование от поставщиков проектировщику</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 3: Строительно-монтажные работы -->
+                                <tr style="background: #6f42c1;">
+                                    <td colspan="9" style="border: 2px solid #5a32a3; padding: 10px; font-weight: bold; color: white;">Блок 3 Строительно-монтажные работы СМР</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Маркетинг и контрактация комплекса СМР</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.2</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Выполнение СМР</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 4: Пусконаладочные работы -->
+                                <tr style="background: #28a745;">
+                                    <td colspan="9" style="border: 2px solid #1e7e34; padding: 10px; font-weight: bold; color: white;">Блок 4 Пусконаладочные работы (ПНР)</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">4.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Пусконаладочные работы</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 5: Ввод в эксплуатацию -->
+                                <tr style="background: #dc3545;">
+                                    <td colspan="9" style="border: 2px solid #bd2130; padding: 10px; font-weight: bold; color: white;">Блок 5 Ввод в эксплуатацию</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">5.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Ввод в эксплуатацию</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- ПРОЕКТ 2: ГПЭС 40 МВт -->
+                                <tr style="background: #007bff;">
+                                    <td colspan="9" style="border: 2px solid #0056b3; padding: 15px; font-weight: bold; color: white; font-size: 16px;">2. ГПЭС 40 МВт на АО «Варваринское», ЛЭП 10 кВ, модернизация ПС 110/10 кВ «Варваринская»</td>
+                                </tr>
+                                <!-- Блок 1: Проектно-изыскательские работы -->
+                                <tr style="background: #ffc107;">
+                                    <td colspan="9" style="border: 2px solid #e0a800; padding: 10px; font-weight: bold; color: #212529;">Блок 1 Проектно-изыскательские работы (ПИР)</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.1.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Получение ИРД по подключению к сети</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.1.3</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">ПИР, изыскания, экспертизы</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 2: Маркетинг и поставка оборудования -->
+                                <tr style="background: #17a2b8;">
+                                    <td colspan="9" style="border: 2px solid #138496; padding: 10px; font-weight: bold; color: white;">Блок 2 Маркетинг и поставка оборудования (МТО)</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.2.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Маркетинг оборудования ГПЭС</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 3: Строительно-монтажные работы -->
+                                <tr style="background: #6f42c1;">
+                                    <td colspan="9" style="border: 2px solid #5a32a3; padding: 10px; font-weight: bold; color: white;">Блок 3 Строительно-монтажные работы СМР</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.3.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Предквалификация подрядчиков</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 4: Пусконаладочные работы -->
+                                <tr style="background: #28a745;">
+                                    <td colspan="9" style="border: 2px solid #1e7e34; padding: 10px; font-weight: bold; color: white;">Блок 4 Пусконаладочные работы (ПНР)</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.4.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Пусконаладочные работы</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- Блок 5: Ввод в эксплуатацию -->
+                                <tr style="background: #dc3545;">
+                                    <td colspan="9" style="border: 2px solid #bd2130; padding: 10px; font-weight: bold; color: white;">Блок 5 Ввод в эксплуатацию</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">2.5.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Ввод в эксплуатацию</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                
+                                <!-- ПРОЕКТ 3: АГРС -->
+                                <tr style="background: #007bff;">
+                                    <td colspan="9" style="border: 2px solid #0056b3; padding: 15px; font-weight: bold; color: white; font-size: 16px;">3. Автоматизированная газораспределительная станция (АГРС) производительностью до 9680м³*ч и газопроводы на АО «Варваринское»</td>
+                                </tr>
+                                <!-- Блок 1: Проектно-изыскательские работы -->
+                                <tr style="background: #ffc107;">
+                                    <td colspan="9" style="border: 2px solid #e0a800; padding: 10px; font-weight: bold; color: #212529;">Проектно-изыскательские работы (ПИР) АГРС</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.1</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Получение ИРД по подключению к сети</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.2</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Земельный отвод и кадастр</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.3</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">ПИР, изыскания, экспертизы</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.4</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Разработка и согласование комплекта документации РП</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.5</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Экологическая оценка и получение разрешения</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.6</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Дорожная карта мероприятий по передаче земельных участков от АОВ в АГРС Варваринское</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.7</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Передача прав на рабочий проект и ИИ с АОВ на SPV ТОО "АГРС Варваринское"</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.8</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Проведение Комплексной вневедомственной экспертизы (КВЭ)</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 2px solid #6c757d; padding: 8px; text-align: center;">3.1.9</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;">Уведомление о начале строительства в ГАСК (разрешение на строительство)</td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="date" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="number" min="0" max="100" placeholder="%" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Ресурс" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                    <td style="border: 2px solid #6c757d; padding: 8px;"><input type="text" placeholder="Причина" style="width: 100%; border: 1px solid #ccc; padding: 4px;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button onclick="saveTableData()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">💾 Сохранить</button>
+                            <button onclick="loadTableData()" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">📁 Загрузить</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Добавляем новое модальное окно
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+        
+        function closeDynamicModal() {
+            const modal = document.getElementById('dynamicModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+        
+        // Функции для работы с таблицей
+        function saveTableData() {
+            const modal = document.getElementById('dynamicModal');
+            if (!modal) return;
+            
+            const inputs = modal.querySelectorAll('input');
+            const data = {};
+            
+            inputs.forEach((input, index) => {
+                data[`field_${index}`] = input.value;
+            });
+            
+            localStorage.setItem('solarStationScheduleData', JSON.stringify(data));
+            alert('✅ Данные сохранены в локальном хранилище!');
+        }
+        
+        function loadTableData() {
+            const modal = document.getElementById('dynamicModal');
+            if (!modal) return;
+            
+            const savedData = localStorage.getItem('solarStationScheduleData');
+            if (!savedData) {
+                alert('❌ Нет сохраненных данных для загрузки!');
+                return;
+            }
+            
+            const data = JSON.parse(savedData);
+            const inputs = modal.querySelectorAll('input');
+            
+            inputs.forEach((input, index) => {
+                if (data[`field_${index}`]) {
+                    input.value = data[`field_${index}`];
+                }
+            });
+            
+            alert('✅ Данные загружены из локального хранилища!');
+        }
     </script>
 
     <!-- PDF Modal -->
@@ -1565,18 +1852,6 @@
         </div>
     </div>
 
-    <!-- Schedule PDF Modal -->
-    <div id="schedulePdfModal" class="pdf-modal schedule-pdf-modal">
-        <div class="pdf-modal-content">
-            <div class="pdf-modal-header">
-                <h2 class="pdf-modal-title">График проекта Солнечная Электростанция (план/факт)</h2>
-                <button class="pdf-modal-close" onclick="closeSchedulePdfModal()">&times;</button>
-            </div>
-            <div class="pdf-modal-body">
-                <iframe class="pdf-iframe" src="docs/grafik-s-otkloneniyami.pdf" type="application/pdf"></iframe>
-            </div>
-        </div>
-    </div>
 
     <!-- Budget PDF Modal -->
     <div id="budgetPdfModal" class="pdf-modal budget-pdf-modal">
@@ -1604,31 +1879,6 @@
         </div>
     </div>
 
-    <!-- Design PDF Modal -->
-    <div id="designPdfModal" class="design-pdf-modal">
-        <div class="design-pdf-modal-content">
-            <div class="design-pdf-modal-header">
-                <h2 class="design-pdf-modal-title">Проектная документация Солнечная Электростанция</h2>
-                <button class="design-pdf-modal-close" onclick="closeDesignPdfModal()">&times;</button>
-            </div>
-            <div class="design-pdf-modal-body">
-                <iframe class="design-pdf-iframe" src="docs/nablydateli-proektirovaniya-GPAS.pdf" type="application/pdf"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- Design Permit PDF Modal -->
-    <div id="designPermitPdfModal" class="design-pdf-modal design-permit-pdf-modal">
-        <div class="design-pdf-modal-content">
-            <div class="design-pdf-modal-header">
-                <h2 class="design-pdf-modal-title">Исходно-разрешительная документация для экспертизы Солнечная Электростанция</h2>
-                <button class="design-pdf-modal-close" onclick="closeDesignPermitPdfModal()">&times;</button>
-            </div>
-            <div class="design-pdf-modal-body">
-                <iframe class="design-pdf-iframe" src="docs/peresen-IRD-dlya-KVA-GPAS_23.06.25.pdf" type="application/pdf"></iframe>
-            </div>
-        </div>
-    </div>
 
     <!-- Presentation Modal -->
     <div id="presentationModal" class="presentation-modal">

@@ -5,7 +5,6 @@ class SearchSystem {
             navigation: [
                 { id: 'main', name: 'Главная', type: 'navigation', url: 'index.html', description: 'Основная страница системы' },
                 { id: 'projects', name: 'Проекты', type: 'navigation', url: 'projects.html', description: 'Управление проектами' },
-                { id: 'archive', name: 'Архив', type: 'navigation', url: 'archive.html', description: 'Архивные проекты' },
                 { id: 'documents', name: 'Библиотека', type: 'navigation', url: 'documents.html', description: 'Документооборот' },
                 { id: 'meetings', name: 'Совещания', type: 'navigation', url: 'meetings.html', description: 'Планирование встреч' },
                 { id: 'finances', name: 'Финансы', type: 'navigation', url: 'finances.html', description: 'Финансовое планирование' },

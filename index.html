@@ -13,9 +13,12 @@
     <script src="js/data-manager.js"></script>
     <!-- User Profile Script -->
     <script src="js/user-profile.js"></script>
+    <!-- Mobile Responsive -->
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
     
     <div class="container">
         <div class="sidebar" id="sidebar">
@@ -55,13 +58,7 @@
 
         <div class="main-content">
             <div class="header">
-                <div class="header-left">
-                    <button class="burger-menu" onclick="toggleMobileMenu()">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+                <div></div>
                 <div class="search-container">
                     <input type="text" id="global-search" class="search-input" placeholder="Поиск">
                     <span class="search-icon">🔍</span>
@@ -2616,37 +2613,12 @@
             showSlide(currentSlide);
         }
 
-        // Mobile Menu Functions
-        function toggleMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobileOverlay');
-            const burger = document.querySelector('.burger-menu');
-            
-            sidebar.classList.toggle('mobile-active');
-            overlay.classList.toggle('active');
-            burger.classList.toggle('active');
-        }
-        
-        function closeMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobileOverlay');
-            const burger = document.querySelector('.burger-menu');
-            
-            sidebar.classList.remove('mobile-active');
-            overlay.classList.remove('active');
-            burger.classList.remove('active');
-        }
-
-        // Auto-close menu on menu item click (mobile)
+        // Инициализация мобильного меню
         document.addEventListener('DOMContentLoaded', function() {
-            const menuItems = document.querySelectorAll('.menu-item, .project-item');
-            menuItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        closeMobileMenu();
-                    }
-                });
-            });
+            // Убеждаемся, что мобильное меню инициализировано
+            if (typeof mobileMenu === 'undefined') {
+                mobileMenu = new MobileMenu();
+            }
         });
     </script>
 

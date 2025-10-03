@@ -7,8 +7,13 @@
     <link rel="icon" type="image/png" href="img/icon prime360.png">
     <link rel="apple-touch-icon" href="img/icon prime360.png">
     <link rel="stylesheet" href="css/finances.css">
+    <!-- Mobile Responsive -->
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
     <div class="container">
         <div class="sidebar">
             <div class="logo">
@@ -248,6 +253,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Инициализация мобильного меню
+        document.addEventListener('DOMContentLoaded', function() {
+            // Убеждаемся, что мобильное меню инициализировано
+            if (typeof mobileMenu === 'undefined') {
+                mobileMenu = new MobileMenu();
+            }
+        });
+    </script>
 </body>
 </html>
 

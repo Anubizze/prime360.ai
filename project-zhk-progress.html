@@ -992,6 +992,8 @@
     </style>
 </head>
 <body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
     <!-- График проекта - Модальное окно -->
     <div id="testModal" class="modal" style="display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);">
         <div style="background-color: white; margin: 5% auto; padding: 20px; border-radius: 10px; width: 90%; max-width: 1200px; color: black; max-height: 80vh; overflow-y: auto;">
@@ -1221,7 +1223,7 @@
                             </div>
 
                             <!-- Бюджет проекта -->
-                            <div class="project-block charter-card" onclick="openBudgetPdfModal()">
+                            <div class="project-block charter-card" onclick="openBudgetModal()">
                                 <h3>Бюджет проекта</h3>
                                 <p>Финансовое планирование</p>
                                 <div class="block-arrow">→</div>
@@ -1231,7 +1233,7 @@
                         <!-- Детальные блоки (всегда видны) -->
                         <div id="detailsBlocks" class="project-blocks-details">
                             <!-- Основное и вспомогательное оборудование -->
-                            <div class="project-block charter-card" onclick="openEquipmentPdfModal()">
+                            <div class="project-block charter-card" onclick="openEquipmentModal()">
                                 <h3>Основное и вспомогательное оборудование</h3>
                                 <p>Техническое оснащение</p>
                                 <div class="block-arrow">→</div>
@@ -1523,6 +1525,245 @@
         function closeEquipmentPdfModal() {
             document.getElementById('equipmentPdfModal').style.display = 'none';
             document.body.style.overflow = 'auto';
+        }
+
+        // Budget Modal Functions
+        function openBudgetModal() {
+            // Удаляем существующее модальное окно, если есть
+            const existingModal = document.getElementById('budgetModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            const modalHTML = `
+                <div id="budgetModal" style="display: block !important; position: fixed !important; z-index: 9999 !important; left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; background-color: rgba(0,0,0,0.8) !important; backdrop-filter: blur(5px) !important;">
+                    <div style="position: relative !important; margin: 2% auto !important; width: 95% !important; max-width: 1200px !important; max-height: 90vh !important; background: white !important; border-radius: 12px !important; box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important; overflow: hidden !important;">
+                        <div style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 20px 30px !important; background: #f8fafc !important; border-bottom: 1px solid #e2e8f0 !important;">
+                            <h2 style="margin: 0 !important; font-size: 20px !important; font-weight: 600 !important; color: #1e293b !important;">Бюджет проекта "ЖК Прогресс"</h2>
+                            <button onclick="closeBudgetModal()" style="background: none !important; border: none !important; font-size: 24px !important; cursor: pointer !important; color: #64748b !important; padding: 5px !important; border-radius: 6px !important; transition: all 0.2s !important;">&times;</button>
+                        </div>
+                        <div style="padding: 30px !important; max-height: calc(90vh - 100px) !important; overflow-y: auto !important;">
+                            <div style="overflow-x: auto !important; margin-bottom: 20px !important;">
+                                <table style="width: 100% !important; border-collapse: collapse !important; font-size: 14px !important; background: white !important; border: 1px solid #e5e7eb !important; border-radius: 8px !important; overflow: hidden !important;">
+                                    <thead>
+                                        <tr style="background: #f8fafc !important;">
+                                            <th style="padding: 12px !important; text-align: left !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 200px !important;">Наименование</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 120px !important;">Дата начала</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 120px !important;">Дата окончания</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Бюджет всего</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">План финансирования</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Оплата, всего</th>
+                                            <th style="padding: 12px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Остаток по проекту</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 12px !important; font-weight: 600 !important; color: #1f2937 !important; border-bottom: 1px solid #e5e7eb !important;">Проектно-изыскательские работы</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-01-15" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-06-30" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="15000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="15000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="12000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="3000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 12px !important; font-weight: 600 !important; color: #1f2937 !important; border-bottom: 1px solid #e5e7eb !important;">Поставка оборудования</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-07-01" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-12-31" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="25000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="25000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="18000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="7000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 12px !important; font-weight: 600 !important; color: #1f2937 !important; border-bottom: 1px solid #e5e7eb !important;">Строительно-монтажные работы</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2025-01-01" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2025-12-31" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="35000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="35000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="25000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="10000000" style="width: 100% !important; padding: 6px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 12px !important; text-align: center !important;"></td>
+                                        </tr>
+                                        <tr style="background: #f8fafc !important; font-weight: 600 !important;">
+                                            <td style="padding: 12px !important; color: #1f2937 !important; border-bottom: 2px solid #e5e7eb !important;">В С Е Г О</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">-</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">-</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">75,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">75,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">55,000,000</td>
+                                            <td style="padding: 8px !important; border-bottom: 2px solid #e5e7eb !important; text-align: center !important; color: #374151 !important;">20,000,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div style="margin-top: 20px; text-align: center;">
+                                <button onclick="saveBudgetData('ЖК Прогресс')" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">💾 Сохранить</button>
+                                <button onclick="loadBudgetData('ЖК Прогресс')" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">📁 Загрузить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        // Equipment Modal Functions
+        function openEquipmentModal() {
+            // Удаляем существующее модальное окно, если есть
+            const existingModal = document.getElementById('equipmentModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            const modalHTML = `
+                <div id="equipmentModal" style="display: block !important; position: fixed !important; z-index: 9999 !important; left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; background-color: rgba(0,0,0,0.8) !important; backdrop-filter: blur(5px) !important;">
+                    <div style="position: relative !important; margin: 1% auto !important; width: 98% !important; max-width: 1400px !important; max-height: 95vh !important; background: white !important; border-radius: 12px !important; box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important; overflow: hidden !important;">
+                        <div style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 20px 30px !important; background: #f8fafc !important; border-bottom: 1px solid #e2e8f0 !important;">
+                            <h2 style="margin: 0 !important; font-size: 20px !important; font-weight: 600 !important; color: #1e293b !important;">Основное и вспомогательное оборудование - ЖК Прогресс</h2>
+                            <button onclick="closeEquipmentModal()" style="background: none !important; border: none !important; font-size: 24px !important; cursor: pointer !important; color: #64748b !important; padding: 5px !important; border-radius: 6px !important; transition: all 0.2s !important;">&times;</button>
+                        </div>
+                        <div style="padding: 20px !important; max-height: calc(95vh - 100px) !important; overflow-y: auto !important;">
+                            <div style="overflow-x: auto !important; margin-bottom: 20px !important;">
+                                <table style="width: 100% !important; border-collapse: collapse !important; font-size: 12px !important; background: white !important; border: 1px solid #e5e7eb !important; border-radius: 8px !important; overflow: hidden !important; min-width: 2000px !important;">
+                                    <thead>
+                                        <tr style="background: #f8fafc !important;">
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 60px !important;">№ п/п</th>
+                                            <th style="padding: 8px !important; text-align: left !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 200px !important;">Наименование оборудования</th>
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 80px !important;">Ед. изм.</th>
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Количество</th>
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 120px !important;">Цена за ед., ₸</th>
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 120px !important;">Сумма, ₸</th>
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Поставщик</th>
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Срок поставки</th>
+                                            <th style="padding: 8px !important; text-align: center !important; font-weight: 600 !important; color: #374151 !important; border-bottom: 2px solid #e5e7eb !important; min-width: 100px !important;">Статус</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;">1</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;">Кран башенный</td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;">шт</td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="15000000" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="30000000" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="text" value="ООО Стройтехника" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-03-15" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><select style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"><option value="ordered">Заказано</option><option value="delivered">Поставлено</option><option value="installed">Установлено</option></select></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;">2</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;">Бетономешалка</td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;">шт</td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="3" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="2500000" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="7500000" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="text" value="ООО Строймаш" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-02-20" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><select style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"><option value="delivered">Поставлено</option><option value="ordered">Заказано</option><option value="installed">Установлено</option></select></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;">3</td>
+                                            <td style="padding: 8px !important; border-bottom: 1px solid #e5e7eb !important;">Экскаватор</td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;">шт</td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="1" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="12000000" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="number" value="12000000" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important; text-align: center !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="text" value="ООО Спецтехника" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><input type="date" value="2024-01-30" style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"></td>
+                                            <td style="padding: 8px !important; text-align: center !important; border-bottom: 1px solid #e5e7eb !important;"><select style="width: 100% !important; padding: 4px !important; border: 1px solid #d1d5db !important; border-radius: 4px !important; font-size: 11px !important;"><option value="installed">Установлено</option><option value="ordered">Заказано</option><option value="delivered">Поставлено</option></select></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div style="margin-top: 20px; text-align: center;">
+                                <button onclick="saveEquipmentData('ЖК Прогресс')" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">💾 Сохранить</button>
+                                <button onclick="loadEquipmentData('ЖК Прогресс')" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; margin-right: 10px; cursor: pointer;">📁 Загрузить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        // Функции закрытия модальных окон
+        function closeBudgetModal() {
+            const modal = document.getElementById('budgetModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function closeEquipmentModal() {
+            const modal = document.getElementById('equipmentModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Функции сохранения и загрузки данных
+        function saveBudgetData(projectName) {
+            const inputs = document.querySelectorAll('#budgetModal input');
+            const data = {};
+            
+            inputs.forEach((input, index) => {
+                data[`field_${index}`] = input.value;
+            });
+            
+            localStorage.setItem(`budgetData_${projectName}`, JSON.stringify(data));
+            alert('Данные бюджета сохранены!');
+        }
+
+        function loadBudgetData(projectName) {
+            const savedData = localStorage.getItem(`budgetData_${projectName}`);
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                const inputs = document.querySelectorAll('#budgetModal input');
+                
+                inputs.forEach((input, index) => {
+                    if (data[`field_${index}`]) {
+                        input.value = data[`field_${index}`];
+                    }
+                });
+                
+                alert('Данные бюджета загружены!');
+            } else {
+                alert('Сохраненных данных не найдено!');
+            }
+        }
+
+        function saveEquipmentData(projectName) {
+            const inputs = document.querySelectorAll('#equipmentModal input, #equipmentModal select');
+            const data = {};
+            
+            inputs.forEach((input, index) => {
+                data[`field_${index}`] = input.value;
+            });
+            
+            localStorage.setItem(`equipmentData_${projectName}`, JSON.stringify(data));
+            alert('Данные оборудования сохранены!');
+        }
+
+        function loadEquipmentData(projectName) {
+            const savedData = localStorage.getItem(`equipmentData_${projectName}`);
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                const inputs = document.querySelectorAll('#equipmentModal input, #equipmentModal select');
+                
+                inputs.forEach((input, index) => {
+                    if (data[`field_${index}`]) {
+                        input.value = data[`field_${index}`];
+                    }
+                });
+                
+                alert('Данные оборудования загружены!');
+            } else {
+                alert('Сохраненных данных не найдено!');
+            }
         }
 
         // Design Modal Functions
@@ -2739,6 +2980,11 @@
         // Run test when page loads
         document.addEventListener('DOMContentLoaded', function() {
             testModals();
+            
+            // Инициализация мобильного меню
+            if (typeof mobileMenu === 'undefined') {
+                mobileMenu = new MobileMenu();
+            }
         });
     </script>
 

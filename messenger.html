@@ -8,8 +8,13 @@
     <link rel="apple-touch-icon" href="img/icon prime360.png">
     <link rel="stylesheet" href="css/messenger.css">
     <script src="js/user-profile.js"></script>
+    <!-- Mobile Responsive -->
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
     <div class="container">
         <div class="sidebar">
             <div class="logo">
@@ -129,6 +134,14 @@
     </div>
 
     <script>
+        // Инициализация мобильного меню
+        document.addEventListener('DOMContentLoaded', function() {
+            // Убеждаемся, что мобильное меню инициализировано
+            if (typeof mobileMenu === 'undefined') {
+                mobileMenu = new MobileMenu();
+            }
+        });
+        
         // Notify button functionality
         document.querySelector('.notify-button')?.addEventListener('click', function() {
             showNotification('Вы будете уведомлены о запуске мессенджера!');

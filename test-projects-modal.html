@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест модального окна - Проекты</title>
+    <link rel="icon" type="image/png" href="img/icon prime360.png">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
+    <style>
+        .test-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 9999;
+        }
+        
+        .test-controls {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+        
+        .test-button {
+            background: #70B8B8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 2px;
+        }
+        
+        .test-button:hover {
+            background: #5a9a9a;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <div>Тест модального окна "Новый проект"</div>
+        <div>Modal: <span id="modalStatus">Не найдено</span></div>
+        <div>Button: <span id="buttonStatus">Не найдено</span></div>
+    </div>
+    
+    <div class="test-controls">
+        <button class="test-button" onclick="checkElements()">Check Elements</button>
+        <button class="test-button" onclick="testOpenModal()">Test Open Modal</button>
+        <button class="test-button" onclick="testCloseModal()">Test Close Modal</button>
+        <button class="test-button" onclick="testCreateProject()">Test Create Project</button>
+    </div>
+    
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="img/icon prime360.png" alt="PRIME360.AI" width="32" height="32">
+                </div>
+                <div class="logo-text">PRIME360.AI</div>
+            </div>
+            
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Главное
+            </a>
+            <a href="projects.html" class="menu-item active">
+                <span class="menu-icon">📊</span>
+                Проекты
+            </a>
+            <a href="meetings.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                Совещания
+            </a>
+            <a href="messenger.html" class="menu-item">
+                <span class="menu-icon">📱</span>
+                Мессенджер
+            </a>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div></div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Поиск">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <div class="user-name">Айгун Ахметова</div>
+                        <div class="user-role">PM / Админ</div>
+                    </div>
+                    <div class="user-avatar">А</div>
+                </div>
+            </div>
+
+            <div class="content-header">
+                <div class="content-title">
+                    <div class="title-left">
+                        <div class="title-text">Проекты - Тест модального окна</div>
+                    </div>
+                    <button class="invite-button" onclick="openNewProjectModal()">
+                        <span>+</span>
+                        Новый проект
+                    </button>
+                </div>
+            </div>
+            
+            <div class="content-body">
+                <div class="projects-grid">
+                    <div class="project-card" data-status="active">
+                        <div class="project-header">
+                            <h3>Тестовый проект</h3>
+                            <div class="project-status active">В работе</div>
+                        </div>
+                        <p>Описание тестового проекта</p>
+                        <div class="project-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                            <span>75%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal для создания нового проекта -->
+    <div id="newProjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Создать новый проект</h2>
+                <button class="close" onclick="closeNewProjectModal()">&times;</button>
+            </div>
+            <form id="newProjectForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="projectName">Название проекта *</label>
+                        <input type="text" id="projectName" name="projectName" class="form-input" placeholder="Введите название проекта" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="projectDescription">Описание проекта *</label>
+                        <textarea id="projectDescription" name="projectDescription" class="form-textarea" placeholder="Опишите проект" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="projectStatus">Статус проекта</label>
+                            <select id="projectStatus" name="projectStatus" class="form-select">
+                                <option value="planning">Планирование</option>
+                                <option value="active">В работе</option>
+                                <option value="completed">Завершено</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="projectProgress">Прогресс (%) *</label>
+                            <input type="number" id="projectProgress" name="projectProgress" class="form-input" min="0" max="100" placeholder="0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="projectBudget">Бюджет (M ₸) *</label>
+                            <input type="number" id="projectBudget" name="projectBudget" class="form-input" min="0" step="0.1" placeholder="1.0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="projectDuration">Срок (месяцы)</label>
+                            <input type="number" id="projectDuration" name="projectDuration" class="form-input" min="1" placeholder="12">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="projectColor">Цвет проекта</label>
+                        <select id="projectColor" name="projectColor" class="form-select">
+                            <option value="green">Зеленый</option>
+                            <option value="orange">Оранжевый</option>
+                            <option value="blue">Синий</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeNewProjectModal()">Отмена</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewProject()">Создать проект</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Проверяем элементы
+        function checkElements() {
+            const modal = document.getElementById('newProjectModal');
+            const button = document.querySelector('.invite-button');
+            
+            document.getElementById('modalStatus').textContent = modal ? 'Найдено' : 'Не найдено';
+            document.getElementById('buttonStatus').textContent = button ? 'Найдено' : 'Не найдено';
+            
+            console.log('Modal:', modal);
+            console.log('Button:', button);
+            console.log('Modal display:', modal ? modal.style.display : 'N/A');
+            console.log('Modal classList:', modal ? modal.classList : 'N/A');
+        }
+        
+        // Тест открытия модального окна
+        function testOpenModal() {
+            console.log('Открываем модальное окно...');
+            openNewProjectModal();
+        }
+        
+        // Тест закрытия модального окна
+        function testCloseModal() {
+            console.log('Закрываем модальное окно...');
+            closeNewProjectModal();
+        }
+        
+        // Тест создания проекта
+        function testCreateProject() {
+            console.log('Тестируем создание проекта...');
+            // Заполняем форму тестовыми данными
+            document.getElementById('projectName').value = 'Тестовый проект';
+            document.getElementById('projectDescription').value = 'Описание тестового проекта';
+            document.getElementById('projectProgress').value = '50';
+            document.getElementById('projectBudget').value = '1.5';
+            document.getElementById('projectDuration').value = '6';
+            
+            createNewProject();
+        }
+        
+        // Функции модального окна
+        function openNewProjectModal() {
+            console.log('openNewProjectModal вызвана');
+            const modal = document.getElementById('newProjectModal');
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Плавное появление модального окна
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modal.classList.add('show');
+                }, 10);
+                
+                console.log('Модальное окно открыто');
+            } else {
+                console.error('Модальное окно не найдено!');
+            }
+        }
+
+        function closeNewProjectModal() {
+            console.log('closeNewProjectModal вызвана');
+            const modal = document.getElementById('newProjectModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.classList.remove('show');
+                
+                // Закрываем с анимацией
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
+                
+                console.log('Модальное окно закрыто');
+            }
+        }
+
+        function createNewProject() {
+            console.log('createNewProject вызвана');
+            const form = document.getElementById('newProjectForm');
+            const formData = new FormData(form);
+            
+            // Получаем данные из формы
+            const projectName = formData.get('projectName');
+            const projectDescription = formData.get('projectDescription');
+            const projectStatus = formData.get('projectStatus');
+            const projectProgress = formData.get('projectProgress');
+            const projectBudget = formData.get('projectBudget');
+            const projectDuration = formData.get('projectDuration');
+            const projectColor = formData.get('projectColor');
+            
+            console.log('Данные формы:', {
+                projectName,
+                projectDescription,
+                projectStatus,
+                projectProgress,
+                projectBudget,
+                projectDuration,
+                projectColor
+            });
+            
+            // Валидация
+            if (!projectName || !projectDescription || !projectProgress || !projectBudget) {
+                alert('Пожалуйста, заполните все обязательные поля');
+                return;
+            }
+            
+            // Создаем объект проекта
+            const projectData = {
+                id: Date.now(),
+                name: projectName,
+                description: projectDescription,
+                status: projectStatus,
+                progress: parseInt(projectProgress),
+                budget: parseFloat(projectBudget),
+                duration: parseInt(projectDuration) || 12,
+                color: projectColor,
+                createdAt: new Date().toISOString()
+            };
+            
+            console.log('Данные проекта:', projectData);
+            
+            // Закрываем модальное окно
+            closeNewProjectModal();
+            
+            // Показываем уведомление
+            alert('Проект успешно создан!');
+        }
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            checkElements();
+            
+            if (typeof mobileMenu === 'undefined') {
+                mobileMenu = new MobileMenu();
+            }
+        });
+    </script>
+</body>
+</html>

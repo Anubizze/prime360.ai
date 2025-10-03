@@ -1471,6 +1471,184 @@
         }
 
 
+        // Резервная функция для создания модального окна динамически
+        function createDynamicModal() {
+            console.log('Создаем модальное окно динамически');
+            
+            // Удаляем существующее модальное окно, если есть
+            const existingModal = document.getElementById('newProjectModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            const modalHTML = `
+                <div id="newProjectModal" style="
+                    display: flex !important;
+                    position: fixed !important;
+                    z-index: 10000 !important;
+                    left: 0 !important;
+                    top: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    background-color: rgba(0, 0, 0, 0.6) !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                ">
+                    <div style="
+                        background: white !important;
+                        border-radius: 12px !important;
+                        width: 90% !important;
+                        max-width: 600px !important;
+                        max-height: 90vh !important;
+                        overflow-y: auto !important;
+                        box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important;
+                    ">
+                        <div style="
+                            display: flex !important;
+                            justify-content: space-between !important;
+                            align-items: center !important;
+                            padding: 20px 30px !important;
+                            border-bottom: 1px solid #e5e7eb !important;
+                        ">
+                            <h2 style="margin: 0 !important; font-size: 20px !important; font-weight: 600 !important;">Создать новый проект</h2>
+                            <button onclick="closeNewProjectModal()" style="
+                                background: none !important;
+                                border: none !important;
+                                font-size: 24px !important;
+                                cursor: pointer !important;
+                                color: #666 !important;
+                            ">&times;</button>
+                        </div>
+                        <form id="newProjectForm" style="padding: 20px 30px !important;">
+                            <div style="margin-bottom: 20px !important;">
+                                <label style="display: block !important; margin-bottom: 8px !important; font-weight: 600 !important;">Название проекта *</label>
+                                <input type="text" id="projectName" name="projectName" required style="
+                                    width: 100% !important;
+                                    padding: 12px !important;
+                                    border: 1px solid #d1d5db !important;
+                                    border-radius: 6px !important;
+                                    font-size: 14px !important;
+                                    box-sizing: border-box !important;
+                                " placeholder="Введите название проекта">
+                            </div>
+                            
+                            <div style="margin-bottom: 20px !important;">
+                                <label style="display: block !important; margin-bottom: 8px !important; font-weight: 600 !important;">Описание проекта *</label>
+                                <textarea id="projectDescription" name="projectDescription" required style="
+                                    width: 100% !important;
+                                    padding: 12px !important;
+                                    border: 1px solid #d1d5db !important;
+                                    border-radius: 6px !important;
+                                    font-size: 14px !important;
+                                    height: 100px !important;
+                                    resize: vertical !important;
+                                    box-sizing: border-box !important;
+                                " placeholder="Опишите проект"></textarea>
+                            </div>
+                            
+                            <div style="display: flex !important; gap: 15px !important; margin-bottom: 20px !important;">
+                                <div style="flex: 1 !important;">
+                                    <label style="display: block !important; margin-bottom: 8px !important; font-weight: 600 !important;">Статус проекта</label>
+                                    <select id="projectStatus" name="projectStatus" style="
+                                        width: 100% !important;
+                                        padding: 12px !important;
+                                        border: 1px solid #d1d5db !important;
+                                        border-radius: 6px !important;
+                                        font-size: 14px !important;
+                                        box-sizing: border-box !important;
+                                    ">
+                                        <option value="planning">Планирование</option>
+                                        <option value="active">В работе</option>
+                                        <option value="completed">Завершено</option>
+                                    </select>
+                                </div>
+                                
+                                <div style="flex: 1 !important;">
+                                    <label style="display: block !important; margin-bottom: 8px !important; font-weight: 600 !important;">Прогресс (%) *</label>
+                                    <input type="number" id="projectProgress" name="projectProgress" min="0" max="100" required style="
+                                        width: 100% !important;
+                                        padding: 12px !important;
+                                        border: 1px solid #d1d5db !important;
+                                        border-radius: 6px !important;
+                                        font-size: 14px !important;
+                                        box-sizing: border-box !important;
+                                    " placeholder="0">
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex !important; gap: 15px !important; margin-bottom: 20px !important;">
+                                <div style="flex: 1 !important;">
+                                    <label style="display: block !important; margin-bottom: 8px !important; font-weight: 600 !important;">Бюджет (M ₸) *</label>
+                                    <input type="number" id="projectBudget" name="projectBudget" min="0" step="0.1" required style="
+                                        width: 100% !important;
+                                        padding: 12px !important;
+                                        border: 1px solid #d1d5db !important;
+                                        border-radius: 6px !important;
+                                        font-size: 14px !important;
+                                        box-sizing: border-box !important;
+                                    " placeholder="1.0">
+                                </div>
+                                
+                                <div style="flex: 1 !important;">
+                                    <label style="display: block !important; margin-bottom: 8px !important; font-weight: 600 !important;">Срок (месяцы)</label>
+                                    <input type="number" id="projectDuration" name="projectDuration" min="1" style="
+                                        width: 100% !important;
+                                        padding: 12px !important;
+                                        border: 1px solid #d1d5db !important;
+                                        border-radius: 6px !important;
+                                        font-size: 14px !important;
+                                        box-sizing: border-box !important;
+                                    " placeholder="12">
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 30px !important;">
+                                <label style="display: block !important; margin-bottom: 8px !important; font-weight: 600 !important;">Цвет проекта</label>
+                                <select id="projectColor" name="projectColor" style="
+                                    width: 100% !important;
+                                    padding: 12px !important;
+                                    border: 1px solid #d1d5db !important;
+                                    border-radius: 6px !important;
+                                    font-size: 14px !important;
+                                    box-sizing: border-box !important;
+                                ">
+                                    <option value="green">Зеленый</option>
+                                    <option value="orange">Оранжевый</option>
+                                    <option value="blue">Синий</option>
+                                </select>
+                            </div>
+                            
+                            <div style="display: flex !important; justify-content: flex-end !important; gap: 10px !important;">
+                                <button type="button" onclick="closeNewProjectModal()" style="
+                                    background: #6b7280 !important;
+                                    color: white !important;
+                                    border: none !important;
+                                    padding: 12px 24px !important;
+                                    border-radius: 6px !important;
+                                    cursor: pointer !important;
+                                    font-size: 14px !important;
+                                ">Отмена</button>
+                                <button type="button" onclick="createNewProject()" style="
+                                    background: #70B8B8 !important;
+                                    color: white !important;
+                                    border: none !important;
+                                    padding: 12px 24px !important;
+                                    border-radius: 6px !important;
+                                    cursor: pointer !important;
+                                    font-size: 14px !important;
+                                ">Создать проект</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            console.log('Динамическое модальное окно создано');
+        }
+
         function createNewProject() {
             const form = document.getElementById('newProjectForm');
             const formData = new FormData(form);
@@ -1748,8 +1926,54 @@
 
         // Обновляем функции открытия/закрытия модального окна
         function openNewProjectModal() {
+            console.log('openNewProjectModal вызвана');
             const modal = document.getElementById('newProjectModal');
-            modal.style.display = 'block';
+            
+            if (!modal) {
+                console.error('Модальное окно newProjectModal не найдено!');
+                alert('Ошибка: Модальное окно не найдено!');
+                return;
+            }
+            
+            console.log('Модальное окно найдено:', modal);
+            console.log('Текущие стили модального окна:', {
+                display: modal.style.display,
+                visibility: modal.style.visibility,
+                opacity: modal.style.opacity,
+                zIndex: modal.style.zIndex,
+                position: modal.style.position
+            });
+            
+            // Принудительно устанавливаем стили
+            modal.style.display = 'flex';
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            modal.style.zIndex = '10000';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            
+            // Дополнительная проверка через 100ms
+            setTimeout(() => {
+                console.log('Проверка через 100ms:', {
+                    display: modal.style.display,
+                    visibility: modal.style.visibility,
+                    opacity: modal.style.opacity,
+                    zIndex: modal.style.zIndex,
+                    computedStyle: window.getComputedStyle(modal).display
+                });
+                
+                if (window.getComputedStyle(modal).display === 'none') {
+                    console.warn('Модальное окно все еще скрыто, используем резервную функцию');
+                    createDynamicModal();
+                }
+            }, 100);
+            
             preventBodyScroll();
             
             // Плавное появление модального окна
@@ -1763,16 +1987,36 @@
                     modalBody.style.overflowY = 'auto';
                     modalBody.style.maxHeight = 'calc(90vh - 140px)';
                     
-                    // Проверяем, нужна ли прокрутка
-                    if (modalBody.scrollHeight > modalBody.clientHeight) {
-                        modalBody.style.overflowY = 'scroll';
-                    }
+                // Проверяем, нужна ли прокрутка
+                if (modalBody.scrollHeight > modalBody.clientHeight) {
+                    modalBody.style.overflowY = 'scroll';
                 }
-            }, 10);
+                
+                console.log('Модальное окно открыто');
+            }
+        }, 10);
         }
 
         function closeNewProjectModal() {
+            console.log('closeNewProjectModal вызвана');
             const modal = document.getElementById('newProjectModal');
+            
+            if (!modal) {
+                console.warn('Модальное окно не найдено для закрытия');
+                return;
+            }
+            
+            console.log('Закрываем модальное окно');
+            
+            // Для динамически созданного модального окна просто удаляем его
+            if (modal.style.position === 'fixed' && modal.style.zIndex === '10000') {
+                modal.remove();
+                restoreBodyScroll();
+                console.log('Динамическое модальное окно удалено');
+                return;
+            }
+            
+            // Для обычного модального окна используем анимацию
             modal.style.opacity = '0';
             modal.classList.remove('show');
             
@@ -1781,7 +2025,11 @@
                 modal.style.display = 'none';
                 restoreBodyScroll();
                 // Очищаем форму
-                document.getElementById('newProjectForm').reset();
+                const form = document.getElementById('newProjectForm');
+                if (form) {
+                    form.reset();
+                }
+                console.log('Обычное модальное окно закрыто');
             }, 300);
         }
 
@@ -1967,7 +2215,7 @@
                     <div class="title-left">
                         <div class="title-text">Проекты</div>
                     </div>
-                    <button class="invite-button" onclick="openNewProjectModal()">
+                    <button class="invite-button" onclick="createDynamicModal()">
                         <span>+</span>
                         Новый проект
                     </button>

@@ -10,8 +10,13 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/user-profile.js"></script>
+    <!-- Mobile Responsive -->
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    <script src="js/mobile-menu.js"></script>
 </head>
 <body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
     <div class="container">
         <div class="sidebar">
             <div class="logo">
@@ -347,6 +352,14 @@
                         </div>
 
     <script>
+        // Инициализация мобильного меню
+        document.addEventListener('DOMContentLoaded', function() {
+            // Убеждаемся, что мобильное меню инициализировано
+            if (typeof mobileMenu === 'undefined') {
+                mobileMenu = new MobileMenu();
+            }
+        });
+        
         let currentDate = new Date();
         let selectedDateElement = null;
         let selectedDateForNewMeeting = null;

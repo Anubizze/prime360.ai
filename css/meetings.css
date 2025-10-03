@@ -21,6 +21,12 @@ body {
     border-right: 1px solid #e5e5e7;
     padding: 20px 0;
     overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
 }
 
 .logo {
@@ -173,6 +179,8 @@ body {
     flex: 1;
     background: white;
     overflow-y: auto;
+    margin-left: 280px;
+    width: calc(100% - 280px);
 }
 
 .header {
@@ -182,6 +190,8 @@ body {
     padding: 20px 40px;
     border-bottom: 1px solid #e5e5e7;
 }
+
+
 
 .search-container {
     flex: 1;
